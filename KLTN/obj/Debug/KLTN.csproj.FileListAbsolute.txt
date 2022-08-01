@@ -1,0 +1,17 @@
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.csprojAssemblyReference.cache
+D:\github\KLTN\KLTN\KLTN\obj\Debug\MainWindow.g.cs
+D:\github\KLTN\KLTN\KLTN\obj\Debug\Views\YardView.g.cs
+D:\github\KLTN\KLTN\KLTN\obj\Debug\App.g.cs
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN_MarkupCompile.cache
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN_MarkupCompile.lref
+D:\github\KLTN\KLTN\KLTN\bin\Debug\KLTN.exe.config
+D:\github\KLTN\KLTN\KLTN\bin\Debug\KLTN.exe
+D:\github\KLTN\KLTN\KLTN\bin\Debug\KLTN.pdb
+D:\github\KLTN\KLTN\KLTN\obj\Debug\MainWindow.baml
+D:\github\KLTN\KLTN\KLTN\obj\Debug\Views\YardView.baml
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.g.resources
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.Properties.Resources.resources
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.csproj.GenerateResource.cache
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.csproj.CoreCompileInputs.cache
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.exe
+D:\github\KLTN\KLTN\KLTN\obj\Debug\KLTN.pdb
