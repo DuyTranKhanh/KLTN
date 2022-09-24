@@ -10,31 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace KLTN.Views
 {
     /// <summary>
-    /// Interaction logic for YardView.xaml
+    /// Interaction logic for CRUD_DanhSachSan.xaml
     /// </summary>
-    public partial class YardView : Window
+    public partial class CRUD_DanhSachSan : Window
     {
-        public YardView()
+        public CRUD_DanhSachSan()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            CRUD_BangGia_San cRUD_BangGia_San = new CRUD_BangGia_San();
+            KhuVuc_SanBanh_View khuVuc_SanBanh_View = new KhuVuc_SanBanh_View();
             //Visibility = Visibility.Hidden;
-            cRUD_BangGia_San.ShowDialog();
+            khuVuc_SanBanh_View.ShowDialog();
         }
     }
 }

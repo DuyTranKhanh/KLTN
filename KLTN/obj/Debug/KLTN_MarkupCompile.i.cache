@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\github\KLTN\KLTN\KLTN\App.xaml
-21809677712
+6146566875
 
-12-977173589
+101051807768
 13152784993
-MainWindow.xaml;Views\YardView.xaml;
+MainWindow.xaml;Theme\Styles.xaml;Views\CRUD_BangGia_San.xaml;Views\CRUD_DanhSachSan.xaml;Views\CRUD_DanhSachh_LoaiSan.xaml;Views\YardView.xaml;
 
 True
 
