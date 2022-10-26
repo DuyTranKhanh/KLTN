@@ -40,9 +40,14 @@
                                 <ColumnDefinition Width="2*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <ComboBox Grid.Column="0" />
-                            <Button Grid.Column="1" Content="Add"
-                                    Click="Button_Click" />
+                            <TextBox
+                                Grid.Column="0"
+                                IsEnabled="{Binding IsEnableEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding TenLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button
+                                Grid.Column="1"
+                                Command="{Binding ClickAddCommand}"
+                                Content="Add" />
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="2">
@@ -53,11 +58,24 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="1" Content="Edit" />
-                        <Button Grid.Column="2" Content="Remove" />
-                        <Button Grid.Column="3" Content="Save" />
-                        <Button Grid.Column="4" Content="Exit"
-                                Click="Button_Click_1" />
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding ClickEditCommand}"
+                            Content="Edit" />
+                        <Button
+                            Grid.Column="2"
+                            Command="{Binding ClickRemoveCommand}"
+                            Content="Remove"
+                            IsEnabled="{Binding IsEnableRemove, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Grid.Column="3"
+                            Command="{Binding ClickSaveCommand}"
+                            Content="Save"
+                            IsEnabled="{Binding IsEnableSave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Grid.Column="4"
+                            Click="Button_Click_1"
+                            Content="Exit" />
                     </Grid>
                 </Grid>
             </Grid>
@@ -65,16 +83,16 @@
                 <Label Content="Danh sách loại sân:" />
             </Grid>
             <Grid Grid.Row="2" Background="AliceBlue">
-                <ListView ItemsSource="{Binding ListArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView ItemsSource="{Binding DanhSach_LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
                                 Width="50"
-                                DisplayMemberBinding="{Binding Index}"
+                                DisplayMemberBinding="{Binding Id_LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="" />
                             <GridViewColumn
                                 Width="350"
-                                DisplayMemberBinding="{Binding Index}"
+                                DisplayMemberBinding="{Binding Ten_LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Tên loại sân" />
                         </GridView>
                     </ListView.View>

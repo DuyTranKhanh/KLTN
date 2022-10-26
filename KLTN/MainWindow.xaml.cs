@@ -1,4 +1,5 @@
-﻿using KLTN.Views;
+﻿using KLTN.ViewModel;
+using KLTN.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,10 @@ namespace KLTN
         public MainWindow()
         {
             InitializeComponent();
+
+            MainViewModel vm = new MainViewModel();
+            DataContext = vm;
+
             Application.Current.MainWindow = new YardView();
 
             Application.Current.MainWindow.ShowDialog();

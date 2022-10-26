@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLTN.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,8 @@ namespace KLTN.Views
         public KhuVuc_SanBanh_View()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            LoaiSan_ViewModel vm = new LoaiSan_ViewModel();
+            DataContext = vm;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

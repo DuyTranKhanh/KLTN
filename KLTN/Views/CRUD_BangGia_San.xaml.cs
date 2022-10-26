@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using KLTN.ViewModel;
 
 namespace KLTN.Views
 {
@@ -22,6 +23,8 @@ namespace KLTN.Views
         public CRUD_BangGia_San()
         {
             InitializeComponent();
+            BangGia_ViewModel vm = new BangGia_ViewModel();
+            DataContext = vm;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

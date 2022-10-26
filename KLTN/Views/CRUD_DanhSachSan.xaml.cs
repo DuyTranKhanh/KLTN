@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLTN.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace KLTN.Views
         public CRUD_DanhSachSan()
         {
             InitializeComponent();
+            San_ViewModel vm = new San_ViewModel();
+            DataContext = vm;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

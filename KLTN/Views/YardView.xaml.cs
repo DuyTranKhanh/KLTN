@@ -36,5 +36,12 @@ namespace KLTN.Views
             //Visibility = Visibility.Hidden;
             cRUD_BangGia_San.ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            CRUD_DanhSachSan temp = new CRUD_DanhSachSan();
+            //Visibility = Visibility.Hidden;
+            temp.ShowDialog();
+        }
     }
 }

@@ -13,7 +13,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -38,6 +38,7 @@
                 <Button
                     Grid.Column="0"
                     Background="AliceBlue"
+                    Click="Button_Click_2"
                     Content="Danh sách sân"
                     FontSize="13"
                     Foreground="Red" />
