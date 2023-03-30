@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:KLTN.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Danh sách loại sân"
-    Width="400"
+    Width="600"
     Height="450"
     Background="AliceBlue"
     mc:Ignorable="d">
@@ -42,40 +42,55 @@
                             </Grid.ColumnDefinitions>
                             <TextBox
                                 Grid.Column="0"
-                                IsEnabled="{Binding IsEnableEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Text="{Binding TenLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button
                                 Grid.Column="1"
                                 Command="{Binding ClickAddCommand}"
-                                Content="Add" />
+                                Content="Add"
+                                IsEnabled="{Binding IsEnableAdd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </Grid>
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="3" Width="600">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
+
                         <Button
                             Grid.Column="1"
-                            Command="{Binding ClickEditCommand}"
-                            Content="Edit" />
+                            Command="{Binding ClickRemoveCommand}"
+                            Content="Enable/Disble"
+                            IsEnabled="{Binding IsEnableDisable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Column="2"
-                            Command="{Binding ClickRemoveCommand}"
-                            Content="Remove"
-                            IsEnabled="{Binding IsEnableRemove, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button
-                            Grid.Column="3"
                             Command="{Binding ClickSaveCommand}"
                             Content="Save"
                             IsEnabled="{Binding IsEnableSave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
-                            Grid.Column="4"
+                            Grid.Column="3"
                             Click="Button_Click_1"
                             Content="Exit" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Trạng thái:" />
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                Grid.Column="0"
+                                IsEnabled="False"
+                                Text="{Binding TenTrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

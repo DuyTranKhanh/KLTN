@@ -44,6 +44,35 @@ namespace KLTN.ViewModel
             }
 
         }
+
+        private string _TenTrangThai;
+        public string TenTrangThai
+        {
+            get => _TenTrangThai;
+            set
+            {
+                if(_TenTrangThai != value)
+                {
+                    _TenTrangThai = value;
+                    OnPropertyChanged(nameof(TenTrangThai));
+                }
+            }
+        }
+
+        private int _IdSelected;
+        public int IdSelected
+        {
+            get => _IdSelected;
+            set
+            {
+                if (_IdSelected != value)
+                {
+                    _IdSelected = value;
+                    OnPropertyChanged(nameof(IdSelected));
+                }
+            }
+        }
+
         private LoaiSan_Model _SelectedItem;
         public LoaiSan_Model SelectedItem
         {
@@ -53,23 +82,45 @@ namespace KLTN.ViewModel
                 if(_SelectedItem != value)
                 {
                     _SelectedItem = value;
-                    TenLoaiSan = value.Ten_LoaiSan;
-                    IsEnableRemove = true;
+                    if (value != null)
+                    {
+                        TenLoaiSan = value.Ten_LoaiSan;
+                        IdSelected = SelectedItem.Id_LoaiSan;
+                        if (TenLoaiSan == "...")
+                        {
+                            IsEnableAdd = true;
+                            TenTrangThai = "...";
+                            IsEnableDisable = false;
+
+
+                        }
+                        else
+                        {
+                            IsEnableAdd = false;
+                            IsEnableDisable = true;
+                            BoolToString();
+                        }
+                        IsEnableSave = false;
+                        IsEnableForTextbox = false;
+                    }
+
                     OnPropertyChanged(nameof(SelectedItem));
                 }
             }
         }
 
-        private bool _IsEnableEdit;
-        public bool IsEnableEdit
+        private bool _IsEnableForTextbox;
+
+
+        public bool IsEnableForTextbox
         {
-            get => _IsEnableEdit;
+            get => _IsEnableForTextbox;
             set
             {
-                if(_IsEnableEdit != value)
+                if (_IsEnableForTextbox != value)
                 {
-                    _IsEnableEdit = value;
-                    OnPropertyChanged(nameof(IsEnableEdit));
+                    _IsEnableForTextbox = value;
+                    OnPropertyChanged(nameof(IsEnableForTextbox));
                 }
             }
         }
@@ -88,16 +139,16 @@ namespace KLTN.ViewModel
             }
         }
 
-        private bool _IsEnableRemove;
-        public bool IsEnableRemove
+        private bool _IsEnableDisable;
+        public bool IsEnableDisable
         {
-            get => _IsEnableRemove;
+            get => _IsEnableDisable;
             set
             {
-                if (_IsEnableRemove != value)
+                if (_IsEnableDisable != value)
                 {
-                    _IsEnableRemove = value;
-                    OnPropertyChanged(nameof(IsEnableRemove));
+                    _IsEnableDisable = value;
+                    OnPropertyChanged(nameof(IsEnableDisable));
                 }
             }
         }
@@ -111,7 +162,7 @@ namespace KLTN.ViewModel
                 if (_IsEnableAdd != value)
                 {
                     _IsEnableAdd = value;
-                    OnPropertyChanged(nameof(_IsEnableAdd));
+                    OnPropertyChanged(nameof(IsEnableAdd));
                 }
             }
         }
@@ -119,7 +170,6 @@ namespace KLTN.ViewModel
 
         #region Command
         #region Fields
-        private ICommand _ClickEditCommand;
         private ICommand _ClickSaveCommand;
         private ICommand _ClickRemoveCommand;
         private ICommand _ClickAddCommand;
@@ -144,21 +194,9 @@ namespace KLTN.ViewModel
             {
                 if (_ClickRemoveCommand == null)
                 {
-                    _ClickRemoveCommand = new RelayCommand(Remove, CanExecute);
+                    _ClickRemoveCommand = new RelayCommand(EnableOrDisable, CanExecute);
                 }
                 return _ClickRemoveCommand;
-            }
-        }
-
-        public ICommand ClickEditCommand
-        {
-            get
-            {
-                if (_ClickEditCommand == null)
-                {
-                    _ClickEditCommand = new RelayCommand(Edit, CanExecute);
-                }
-                return _ClickEditCommand;
             }
         }
 
@@ -182,66 +220,121 @@ namespace KLTN.ViewModel
         /// </summary>
         public LoaiSan_ViewModel()
         {
-            string[] ListName = { "San 5", "San 7", "San 11" };
-            //Hard code
             DanhSach_LoaiSan.Clear();
-            for (int i = 0; i < 3; i++)
-            {
-                LoaiSan_Model temp = new LoaiSan_Model();
-                temp.Id_LoaiSan = i;
-                temp.Ten_LoaiSan = ListName[i];
-                DanhSach_LoaiSan.Add(temp);
+            DanhSach_LoaiSan = Yard_ViewModel.DataLoaiSan;
+            AddLastItem();
 
-            }
+            SelectedItem = DanhSach_LoaiSan[0];
+
         }
 
         #region Method
         public void Save()
         {
-            SelectedItem.Ten_LoaiSan = TenLoaiSan;
-
-            DanhSach_LoaiSan[SelectedItem.Id_LoaiSan].Ten_LoaiSan = SelectedItem.Ten_LoaiSan;
+            if (SelectedItem != null)
+            {
+                if (IsEnableAdd)
+                {
+                    DanhSach_LoaiSan.RemoveAt(DanhSach_LoaiSan.Count() - 1);
+                    LoaiSan_Model temp = new LoaiSan_Model();
+                    temp.Ten_LoaiSan = TenLoaiSan;
+                    temp.Status = TenTrangThai == "Disable" ? false : true;
+                    temp.Id_LoaiSan = DanhSach_LoaiSan.Last().Id_LoaiSan + 1;
+                    DanhSach_LoaiSan.Add(temp);
+                    SyncData();
+                    AddLastItem();
+                }
+                
+            }
         }
 
-        public void Edit()
+        public void BoolToString()
         {
-            IsEnableEdit = true;
-            IsEnableSave = true;
+            if (DanhSach_LoaiSan[SelectedItem.Id_LoaiSan].Status)
+            {
+                TenTrangThai = "Disable";
+            }
+            else
+            {
+                TenTrangThai = "Enable";
+            }
         }
+        public void SyncData()
+        {
+            ObservableCollection<LoaiSan_Model> l_List = new ObservableCollection<LoaiSan_Model>();
+            foreach (var item in DanhSach_LoaiSan)
+            {
+                if(item.Ten_LoaiSan != "...")
+                {
+                    LoaiSan_Model obj = new LoaiSan_Model();
+                    obj = item.Clone();
+                    l_List.Add(obj);
+                }
+            }
+            Yard_ViewModel.DataLoaiSan = l_List;
+        }
+
         public bool CanExecute()
         {
             return true;
         }
 
-        public void Remove()
+        public void EnableOrDisable()
         {
             //DanhSach_LoaiSan[SelectedItem.Id_LoaiSan].Ten_LoaiSan = "";
             foreach(var item in DanhSach_LoaiSan)
             {
                 if(item.Id_LoaiSan == SelectedItem.Id_LoaiSan)
                 {
-                    DanhSach_LoaiSan.Remove(item);
-                    Default();
+                    if(DanhSach_LoaiSan[SelectedItem.Id_LoaiSan].Status)
+                    {
+                        DanhSach_LoaiSan[SelectedItem.Id_LoaiSan].Status = false;
+                    }
+                    else
+                    {
+                        DanhSach_LoaiSan[SelectedItem.Id_LoaiSan].Status = true;
+                    }
+                    
                     break;
                 }
             }
+            ObservableCollection<LoaiSan_Model> l_List = new ObservableCollection<LoaiSan_Model>();
+            foreach (var item1 in DanhSach_LoaiSan)
+            {
+                if (item1.Ten_LoaiSan != "...")
+                {
+                    LoaiSan_Model obj = new LoaiSan_Model();
+                    obj = item1.Clone();
+                    l_List.Add(obj);
+                }
+            }
+            DanhSach_LoaiSan = l_List;
+            SyncData();
+            Default();
+            AddLastItem();
+            
         }
 
         public void Default()
         {
-            SelectedItem = DanhSach_LoaiSan[0];
+            SelectedItem = DanhSach_LoaiSan[IdSelected];
             TenLoaiSan = SelectedItem.Ten_LoaiSan;
 
         }
 
+        public void AddLastItem()
+        {
+            LoaiSan_Model temp = new LoaiSan_Model();
+            temp.Ten_LoaiSan = "...";
+            temp.Id_LoaiSan = DanhSach_LoaiSan.Last().Id_LoaiSan + 1;
+            DanhSach_LoaiSan.Add(temp);
+
+        }
         public void Add()
         {
-            IsEnableEdit = true;
-            LoaiSan_Model temp = new LoaiSan_Model();
-            temp.Ten_LoaiSan = TenLoaiSan;
-            temp.Id_LoaiSan = DanhSach_LoaiSan.Last().Id_LoaiSan + 1;
-
-            DanhSach_LoaiSan.Add(temp);
+            IsEnableForTextbox = true;
+            IsEnableSave = true;
+            TenTrangThai = "Disable";
         }
         #endregion
     }

@@ -14,13 +14,14 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -52,44 +53,133 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button
-                            Grid.Column="0"
-                            Background="AliceBlue"
-                            Content="Sân 5"
-                            FontSize="8"
-                            Foreground="RoyalBlue" />
-                        <Button
-                            Grid.Column="1"
-                            Background="AliceBlue"
-                            Content="Sân 7"
-                            FontSize="8"
-                            Foreground="RoyalBlue" />
-                        <Button
-                            Grid.Column="2"
-                            Background="AliceBlue"
-                            Content="Sân 11"
-                            FontSize="8"
-                            Foreground="RoyalBlue" />
-                    </Grid>
+                    <TabControl Height="250" SelectedIndex="{Binding SelectedIndexTabItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TabItem
+                            Width="100"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="5"
+                            Header="Sân 5">
+                            <ListView ItemsSource="{Binding San5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedObj, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Width="50"
+                                            DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="" />
+                                        <GridViewColumn
+                                            Width="70"
+                                            DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="Tên sân" />
+                                        <GridViewColumn
+                                            Width="120"
+                                            DisplayMemberBinding="{Binding TrangThaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="Trạng thái sân" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                        </TabItem>
+                        <TabItem
+                            Width="100"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="5"
+                            Header="Sân 7">
+                            <ItemsControl ItemsSource="{Binding San7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid
+                                            HorizontalAlignment="Left"
+                                            Columns="6"
+                                            IsItemsHost="True" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <ItemContainerTemplate>
+                                        <StackPanel>
+                                            <Button
+                                                Margin="10,0,0,0"
+                                                HorizontalAlignment="Stretch"
+                                                Content="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                        </StackPanel>
+                                    </ItemContainerTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </TabItem>
+                        <TabItem
+                            Width="100"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="5"
+                            Header="Sân 11">
+                            <ItemsControl ItemsSource="{Binding San11, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid
+                                            HorizontalAlignment="Left"
+                                            Columns="6"
+                                            IsItemsHost="True" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <ItemContainerTemplate>
+                                        <StackPanel>
+                                            <Button
+                                                Margin="10,0,0,0"
+                                                HorizontalAlignment="Stretch"
+                                                Content="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                        </StackPanel>
+                                    </ItemContainerTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </TabItem>
+                        <TabItem
+                            Width="100"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="5"
+                            Header="Sân khác">
+                            <ItemsControl ItemsSource="{Binding SanOther, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid
+                                            HorizontalAlignment="Left"
+                                            Columns="6"
+                                            IsItemsHost="True" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <ItemContainerTemplate>
+                                        <StackPanel>
+                                            <Button
+                                                Margin="10,0,0,0"
+                                                HorizontalAlignment="Stretch"
+                                                Content="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                        </StackPanel>
+                                    </ItemContainerTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </TabItem>
+                    </TabControl>
+
 
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Label Content="Sân AREA" />
-                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="3">
+                <!--  San 5  -->
 
             </Grid>
         </Grid>
@@ -103,14 +193,44 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Label
-                    HorizontalContentAlignment="Stretch"
-                    Background="BlanchedAlmond"
-                    Content="Thông tin sân"
-                    FontSize="15" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        HorizontalContentAlignment="Stretch"
+                        Background="BlanchedAlmond"
+                        Content="Thông tin sân:"
+                        FontSize="15" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalContentAlignment="Stretch"
+                        Background="AliceBlue"
+                        Content="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='ERR'}"
+                        FontSize="15" />
+                </Grid>
+
             </Grid>
             <Grid Grid.Row="1">
-                <Label Content="{Binding SelectYard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='Chưa chọn sân'}" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="1" Content="{Binding TrangThaiSuDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" />
+
+                </Grid>
+
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -166,23 +286,18 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Content="Giờ vào sân" />
-                <ComboBox
+                <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    Background="Blue"
-                    DisplayMemberPath="Key"
-                    ItemsSource="{Binding ListType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedValue="Value" />
+                    Text="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     Content="Số giờ thuê" />
                 <TextBox Grid.Row="2" Grid.Column="1" />
 
                 <Label
-                    Grid.Row="3"
+                    Grid.Row="2"
                     Grid.Column="0"
                     Content="Giờ ra" />
                 <TextBox Grid.Row="3" Grid.Column="1" />
@@ -190,10 +305,11 @@
                 <Button
                     Grid.Row="1"
                     Grid.Column="2"
+                    Command="{Binding BatDauSuDung}"
                     Content="Bắt đâu" />
 
                 <Button
-                    Grid.Row="3"
+                    Grid.Row="2"
                     Grid.Column="2"
                     Content="Kết thúc" />
 
@@ -223,7 +339,7 @@
                     <ComboBox
                         Grid.Row="1"
                         Grid.Column="0"
-                        ItemsSource="{Binding DanhSach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        ItemsSource="{Binding DanhSach1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
                         Grid.Row="0"
@@ -251,11 +367,11 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn
-                                    Width="30"
+                                    Width="40"
                                     DisplayMemberBinding="{Binding Index}"
                                     Header="STT" />
                                 <GridViewColumn
-                                    Width="100"
+                                    Width="500"
                                     DisplayMemberBinding="{Binding Index}"
                                     Header="Mặt hàng" />
                                 <GridViewColumn
@@ -263,11 +379,11 @@
                                     DisplayMemberBinding="{Binding Index}"
                                     Header="Đơn vị tính" />
                                 <GridViewColumn
-                                    Width="30"
+                                    Width="100"
                                     DisplayMemberBinding="{Binding Index}"
                                     Header="Giá" />
                                 <GridViewColumn
-                                    Width="80"
+                                    Width="100"
                                     DisplayMemberBinding="{Binding Index}"
                                     Header="T. Tiền" />
                             </GridView>
@@ -329,7 +445,7 @@
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />

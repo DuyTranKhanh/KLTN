@@ -26,13 +26,17 @@
                                 DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="" />
                             <GridViewColumn
-                                Width="120"
+                                Width="80"
                                 DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Tên sân" />
                             <GridViewColumn
-                                Width="120"
+                                Width="80"
                                 DisplayMemberBinding="{Binding LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Loại Sân" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Trạng thái" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -43,6 +47,7 @@
             <GroupBox Header="Thông tin sân">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
@@ -61,13 +66,14 @@
                         <ComboBox
                             Grid.Column=" 1"
                             DisplayMemberPath="Value"
+                            IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding LoaiSanCbb, FallbackValue='Lang_ERr'}"
                             SelectedValue="{Binding LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValuePath="Key" />
                         <Button
                             Grid.Column="2"
                             Click="Button_Click"
-                            Content="Edit Loại sân" />
+                            Content="Thêm Loại sân" />
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -76,11 +82,31 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="Tên Sân:" />
-                        <TextBox Grid.Column="1" Text="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            Grid.Column="1"
+                            IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Grid.Column="2"
+                            Command="{Binding Reload}"
+                            Content="Reload" />
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Trạng thái:" />
+                        <TextBox
+                            Grid.Column="1"
+                            IsEnabled="False"
+                            Text="{Binding TenTrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -90,27 +116,26 @@
                             Grid.Column="0"
                             Command="{Binding ClickAdd}"
                             Content="Thêm sân"
-                            IsEnabled="{Binding IsDis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding IsAdd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Grid.Column="2"
+                            Command="{Binding ClickSave}"
+                            Content="Save"
+                            IsEnabled="{Binding IsSave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Column="1"
-                            Command="{Binding ClickEdit}"
-                            Content="Edit"
-                            IsEnabled="{Binding IsEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Content="Sắp xếp" />
+                            Command="{Binding ClickDisable}"
+                            Content="Enable/Disable"
+                            IsEnabled="{Binding IsDisable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Column="3"
-                            Command="{Binding ClickDisable}"
-                            Content="Vô hiệu" />
-                        <Button Grid.Column="4" Content="Thoát" />
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Content="Bảng giá sân" />
+                            Grid.ColumnSpan="2"
+                            Click="Button_Click_1"
+                            Content="Bảng giá sân" />
+                        <Button
+                            Grid.Column="5"
+                            Click="Button_Click_2"
+                            Content="Thoát" />
                     </Grid>
                 </Grid>
             </GroupBox>

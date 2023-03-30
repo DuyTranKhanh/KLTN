@@ -1,17 +1,16 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace KLTN.Model
 {
     public class LoaiSan_Model
     {
         private int id_LoaiSan;
         private string ten_LoaiSan;
-        private bool _IsDisable;
+        private bool _Status;
 
-        public bool IsDisable
+        public bool Status
         {
-            get => _IsDisable;
-            set { _IsDisable = value; }
+            get => _Status;
+            set { _Status = value; }
         }
         public int Id_LoaiSan
         {
@@ -41,6 +40,7 @@ namespace KLTN.Model
             var obj = new LoaiSan_Model();
             obj.Id_LoaiSan = Id_LoaiSan;
             obj.Ten_LoaiSan = Ten_LoaiSan;
+            obj.Status = Status;
             return obj;
         }
 
@@ -48,6 +48,7 @@ namespace KLTN.Model
         {
             if (obj.Id_LoaiSan != Id_LoaiSan) return false;
             if (obj.Ten_LoaiSan != Ten_LoaiSan) return false;
+            if (obj.Status != Status) return false;
             return true;
         }
 

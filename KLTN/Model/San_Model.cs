@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace KLTN.Model
 {
     public class San_Model
     {
         private int id;
         private string tenSan;
-        private bool _IsActive;
+        private bool _Status;
+        private int _IdLoaiSan;
+
         public int Id
         {
             get => id;
@@ -21,12 +17,12 @@ namespace KLTN.Model
             }
         }
 
-        public bool IsActive
+        public bool Status
         {
-            get => _IsActive;
+            get => _Status;
             set
             {
-                _IsActive = value;
+                _Status = value;
             }
         }
         public string TenSan
@@ -38,35 +34,34 @@ namespace KLTN.Model
             }
         }
 
-        private string loaisan;
-        public string LoaiSan
+        public int IdLoaiSan
         {
             get
             {
-                return loaisan;
+                return _IdLoaiSan;
             }
             set
             {
-                loaisan = value;
+                _IdLoaiSan = value;
             }
         }
 
         public San_Model Clone()
         {
             var temp = new San_Model();
-            temp.LoaiSan = LoaiSan;
+            temp.IdLoaiSan = IdLoaiSan;
             temp.Id = Id;
             temp.TenSan = TenSan;
-            temp.IsActive = IsActive;
+            temp.Status = Status;
             return temp;
         }
 
         public bool Equals(San_Model obj)
         {
             if (obj.TenSan != TenSan) return false;
-            if (obj.LoaiSan != LoaiSan) return false;
+            if (obj.IdLoaiSan != IdLoaiSan) return false;
             if (obj.Id != Id) return false;
-            if (obj.IsActive != IsActive) return false;
+            if (obj.Status != Status) return false;
             return true;
 
         }

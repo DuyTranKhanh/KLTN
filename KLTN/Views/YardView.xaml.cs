@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KLTN.ViewModel;
 
 namespace KLTN.Views
 {
@@ -23,6 +24,8 @@ namespace KLTN.Views
         public YardView()
         {
             InitializeComponent();
+            Yard_ViewModel vm = new Yard_ViewModel();
+            DataContext = vm;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

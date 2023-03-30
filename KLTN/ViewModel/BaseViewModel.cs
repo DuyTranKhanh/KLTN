@@ -16,6 +16,15 @@ namespace KLTN.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+        public virtual void AddItemFunction()
+        {
+
+        }
+
+        public virtual void UpdateStatusOfItemFunction()
+        {
+
+        }
         #endregion
     }
 }

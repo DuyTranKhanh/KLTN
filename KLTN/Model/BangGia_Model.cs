@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KLTN.Model
 {
@@ -14,7 +10,13 @@ namespace KLTN.Model
         private int _TimeStart;
         private int _TimeEnd;
         private int _GiaTien;
+        private bool _Status;
 
+        public bool Status
+        {
+            get => _Status;
+            set { _Status = value; }
+        }
         public int Id
         {
             get => _Id;
@@ -58,6 +60,31 @@ namespace KLTN.Model
                 return _GiaTien;
             }
             set { _GiaTien = value; }
+        }
+
+        public bool Equal(BangGia_Model obj)
+        {
+            if (obj.Id != Id) return false;
+            if (obj.GiaTien != GiaTien) return false;
+            if (obj.TimeStart != TimeStart) return false;
+            if (obj.TimeEnd != TimeEnd) return false;
+            if (obj.TenLoaiSan != TenLoaiSan) return false;
+            if (obj.NgayApDung != NgayApDung) return false;
+            if (obj.Status != Status) return false;
+            return true;
+        }
+
+        public BangGia_Model Clone()
+        {
+            BangGia_Model temp = new BangGia_Model();
+            temp.Id = Id;
+            temp.GiaTien = GiaTien;
+            temp.TimeEnd = TimeEnd;
+            temp.TimeStart = TimeStart;
+            temp.TenLoaiSan = TenLoaiSan;
+            temp.NgayApDung = NgayApDung;
+            temp.Status = Status;
+            return temp;
         }
     }
 }
