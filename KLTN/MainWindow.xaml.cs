@@ -29,7 +29,8 @@ namespace KLTN
             MainViewModel vm = new MainViewModel();
             DataContext = vm;
 
-            Application.Current.MainWindow = new YardView();
+
+            Application.Current.MainWindow = new Login_View();
 
             Application.Current.MainWindow.ShowDialog();
 

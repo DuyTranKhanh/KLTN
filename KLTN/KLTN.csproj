@@ -77,24 +77,33 @@
     <Compile Include="Model\NuocUong_Model.cs" />
     <Compile Include="Model\San_Model.cs" />
     <Compile Include="Model\HoaDon_Model.cs" />
+    <Compile Include="ViewModel\AccountOfNhanVien_ViewModel.cs" />
     <Compile Include="ViewModel\BangGia_ViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Login_ViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Model\LoaiSan_Model.cs" />
     <Compile Include="ViewModel\LoaiSan_ViewModel.cs" />
+    <Compile Include="ViewModel\NavigationBar_ViewModel.cs" />
     <Compile Include="ViewModel\San_ViewModel.cs" />
     <Compile Include="ViewModel\Yard_ViewModel.cs" />
-    <Compile Include="Views\CRUD_BangGia_San.xaml.cs">
-      <DependentUpon>CRUD_BangGia_San.xaml</DependentUpon>
+    <Compile Include="Views\AccountEmployee_View.xaml.cs">
+      <DependentUpon>AccountEmployee_View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CRUD_DanhSachSan.xaml.cs">
-      <DependentUpon>CRUD_DanhSachSan.xaml</DependentUpon>
+    <Compile Include="Views\BangGia_View.xaml.cs">
+      <DependentUpon>BangGia_View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CRUD_DanhSachh_LoaiSan.xaml.cs">
-      <DependentUpon>CRUD_DanhSachh_LoaiSan.xaml</DependentUpon>
+    <Compile Include="Views\San_View.xaml.cs">
+      <DependentUpon>San_View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\YardView.xaml.cs">
-      <DependentUpon>YardView.xaml</DependentUpon>
+    <Compile Include="Views\LoaiSan_View.xaml.cs">
+      <DependentUpon>LoaiSan_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login_View.xaml.cs">
+      <DependentUpon>Login_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Yard_View.xaml.cs">
+      <DependentUpon>Yard_View.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -112,19 +121,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CRUD_BangGia_San.xaml">
+    <Page Include="Views\AccountEmployee_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CRUD_DanhSachSan.xaml">
+    <Page Include="Views\BangGia_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CRUD_DanhSachh_LoaiSan.xaml">
+    <Page Include="Views\San_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\YardView.xaml">
+    <Page Include="Views\LoaiSan_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Yard_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
