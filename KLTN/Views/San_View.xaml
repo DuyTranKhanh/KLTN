@@ -122,7 +122,7 @@
                                     Width="24"
                                     Height="23"
                                     HorizontalAlignment="Left"
-                                    Source="D:\github\KLTN\KLTN\KLTN\Theme\ImageResource/AddIcon.png" />
+                                    Source="/Theme\ImageResource/AddIcon.png" />
                             </Button>
                             <Button
                                 Grid.Row="1"
@@ -135,7 +135,7 @@
                                     Width="24"
                                     Height="23"
                                     HorizontalAlignment="Center"
-                                    Source="D:\github\KLTN\KLTN\KLTN\Theme\ImageResource/ReloadIcon.png" />
+                                    Source="/Theme\ImageResource/ReloadIcon.png" />
                             </Button>
                         </Grid>
 
