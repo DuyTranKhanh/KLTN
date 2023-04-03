@@ -272,6 +272,7 @@
                         VerticalAlignment="Center"
                         Background="Green"
                         Content="+"
+                        Click="Button_Click_3"
                         FontSize="10" />
                     <Button
                         Grid.Column="1"

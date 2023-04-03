@@ -5,185 +5,301 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:KLTN.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Bảng giá sân"
+    Title="Danh sách bảng giá sân"
     Width="800"
     Height="650"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="Thông tin bảng giá giờ:" />
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
-
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Loại sân" />
-            <Grid Grid.Row="0" Grid.Column="1">
+
+            <!--  Thông tin Item  -->
+            <GroupBox
+                Grid.Row="0"
+                Grid.Column="0"
+                Background="AliceBlue"
+                FontFamily="Arial"
+                FontSize="16"
+                Header="{Binding ThongTinLabel, FallbackValue='Lang-err'}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Content="{Binding IdLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Content="{Binding LoaiSanItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        DisplayMemberPath="Value"
+                        ItemsSource="{Binding DanhSach_LoaiSan, FallbackValue='Err'}"
+                        SelectedValue="{Binding SelectedLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Key" />
+
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Width="30"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            Click="Button_Click"
+                            FontSize="15">
+                            <Image
+                                Width="24"
+                                Height="23"
+                                HorizontalAlignment="Left"
+                                Source="D:\github\KLTN\KLTN\KLTN\Theme\ImageResource/AddIcon.png" />
+                        </Button>
+                        <Button
+                            Grid.Column="1"
+                            Width="30"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            FontSize="15">
+                            <Image
+                                Width="24"
+                                Height="23"
+                                HorizontalAlignment="Center"
+                                Source="D:\github\KLTN\KLTN\KLTN\Theme\ImageResource/ReloadIcon.png" />
+                        </Button>
+                    </Grid>
+
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Content="{Binding ThoiGianBatDauItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        DisplayMemberPath="Value"
+                        ItemsSource="{Binding DanhSach_ThoiGianBatDau, FallbackValue='Err'}"
+                        SelectedValue="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Key" />
+
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Content="{Binding ThoiGianKetThucItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <ComboBox
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        DisplayMemberPath="Value"
+                        ItemsSource="{Binding DanhSach_ThoiGianKetThuc, FallbackValue='Err'}"
+                        SelectedValue="{Binding ThoiGianKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Key" />
+
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Content="{Binding DonGiaItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding DonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Content="{Binding NgayApDungItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding NgayApDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </GroupBox>
+
+            <!--  Button CRUD  -->
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,5,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
-                <ComboBox
+                <Button
                     Grid.Column="0"
-                    DisplayMemberPath="Value"
-                    IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ItemsSource="{Binding LoaiSanCbb, FallbackValue='Err'}"
-                    SelectedValue="{Binding SelectedLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedValuePath="Key" />
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="LimeGreen"
+                    Command="{Binding AddCommand}"
+                    Content="{Binding AddLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
+
                 <Button
                     Grid.Column="1"
-                    Click="Button_Click"
-                    Content="+" />
-            </Grid>
-            <Label Grid.Row="1" Content="Trạng thái:" />
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="1"
-                IsEnabled="{Binding IsEnableDisable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Text="{Binding TenTrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-            <Label
-                Grid.Row="2"
-                Grid.Column="0"
-                Content="Thời gian bắt đầu" />
-            <!--<ComboBox Grid.Row="1"
-                      Grid.Column="1"
-                      ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
-            <TextBox
-                Grid.Row="2"
-                Grid.Column="1"
-                IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Text="{Binding TimeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-            <Label
-                Grid.Row="3"
-                Grid.Column="0"
-                Content="Thời gian kết thúc" />
-            <!--<ComboBox Grid.Row="2"
-                      Grid.Column="1"
-                      ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
-            <TextBox
-                Grid.Row="3"
-                Grid.Column="1"
-                IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Text="{Binding TimeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Label
-                Grid.Row="4"
-                Grid.Column="0"
-                Content="Đơn giá:" />
-            <TextBox
-                Grid.Row="4"
-                Grid.Column="1"
-                IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Text="{Binding GiaTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-            <Label
-                Grid.Row="5"
-                Grid.Column="0"
-                Content="Ngày áp dụng" />
-            <TextBox
-                Grid.Row="5"
-                Grid.Column="1"
-                IsEnabled="{Binding IsEnableForTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Text="{Binding NgayApDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="28*" />
-                    <ColumnDefinition Width="71*" />
-                    <ColumnDefinition Width="71*" />
-                    <ColumnDefinition Width="99*" />
-                    <ColumnDefinition Width="99*" />
-                    <ColumnDefinition Width="98*" />
-                </Grid.ColumnDefinitions>
-                <Button
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Command="{Binding ClickAddCommand}"
-                    Content="Thêm mới"
-                    IsEnabled="{Binding IsEnableToAdd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="DeepSkyBlue"
+                    Command="{Binding ModifyCommand}"
+                    Content="{Binding ModifyLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
 
                 <Button
                     Grid.Column="2"
-                    Command="{Binding ClickSaveCommand}"
-                    Content="Save"
-                    IsEnabled="{Binding IsEnableToSave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="DarkSlateBlue"
+                    Command="{Binding SaveCommand}"
+                    Content="{Binding SaveLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
+
                 <Button
                     Grid.Column="3"
-                    Command="{Binding ClickDisableCommand}"
-                    Content="Enable/ Disable"
-                    IsEnabled="{Binding IsEnableDisable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Grid.Column="4"
-                    Click="Button_Click_1"
-                    Content="Thoát" />
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="Red"
+                    Click="Button_Click_2"
+                    Command="{Binding ExitCommand}"
+                    Content="{Binding ExitLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
             </Grid>
         </Grid>
-        <Grid Grid.Row="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Bảng giá giờ:" />
-            <ListView
-                Grid.Row="1"
-                Grid.Column="1"
-                ItemsSource="{Binding DanhSach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn
-                            Width="30"
-                            DisplayMemberBinding="{Binding Id}"
-                            Header="" />
-                        <GridViewColumn
-                            Width="150"
-                            DisplayMemberBinding="{Binding NgayApDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Ngày áp dụng" />
-                        <GridViewColumn
-                            Width="110"
-                            DisplayMemberBinding="{Binding TenLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Loại sân" />
-                        <GridViewColumn
-                            Width="110"
-                            DisplayMemberBinding="{Binding TimeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Giờ bắt đầu" />
-                        <GridViewColumn
-                            Width="110"
-                            DisplayMemberBinding="{Binding TimeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Giờ kết thúc" />
-                        <GridViewColumn
-                            Width="150"
-                            DisplayMemberBinding="{Binding GiaTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Đơn giá" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
+        <GroupBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Background="AliceBlue"
+            FontFamily="Arial"
+            FontSize="16"
+            Header="{Binding DanhSachLabel, FallbackValue='Lang-err'}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ListView
+                    Grid.Row="1"
+                    FontSize="15"
+                    ItemsSource="{Binding DanhSach_BangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TenLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TrangThaiBangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding DonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding DonGiaItemLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="150"
+                                DisplayMemberBinding="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding ThoiGianBatDauItemLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="150"
+                                DisplayMemberBinding="{Binding ThoiGianKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding ThoiGianKetThucItemLabel, FallbackValue='Lang-err'}" />
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+
     </Grid>
 </Window>

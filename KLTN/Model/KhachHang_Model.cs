@@ -6,9 +6,9 @@ namespace KLTN.Model
         private int _IdKhachHang;
         private string _TenKhachHang;
         private int _Sdt;
-        private bool _Status;
+        private string _Status;
 
-        public bool Status
+        public string Status
         {
             get => _Status;
             set

@@ -16,25 +16,18 @@ using System.Windows.Shapes;
 namespace KLTN.Views
 {
     /// <summary>
-    /// Interaction logic for CRUD_DanhSachSan.xaml
+    /// Interaction logic for NuocUong_View.xaml
     /// </summary>
-    public partial class CRUD_DanhSachSan : Window
+    public partial class NuocUong_View : Window
     {
-        public CRUD_DanhSachSan()
+        public NuocUong_View()
         {
             InitializeComponent();
-            San_ViewModel vm = new San_ViewModel();
+            NuocUong_ViewModel vm = new NuocUong_ViewModel();
             DataContext = vm;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            KhuVuc_SanBanh_View khuVuc_SanBanh_View = new KhuVuc_SanBanh_View();
-            //Visibility = Visibility.Hidden;
-            khuVuc_SanBanh_View.ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

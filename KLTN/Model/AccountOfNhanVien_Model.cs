@@ -10,6 +10,16 @@ namespace KLTN.Model
         private string _Password;
         private string _HoVaTen;
         private bool _Status;
+        private bool _IsAdmin;
+
+        public bool IsAdmin
+        {
+            get => _IsAdmin;
+            set
+            {
+                _IsAdmin = value;
+            }
+        }
         public int Sdt
         {
             get => _Sdt;
@@ -73,6 +83,7 @@ namespace KLTN.Model
             temp.Password = Password;
             temp.Cmnd = Cmnd;
             temp.Account = Account;
+            temp.IsAdmin = IsAdmin;
             return temp;
         }
 
@@ -87,6 +98,7 @@ namespace KLTN.Model
                 HoVaTen = "Admin",
                 Sdt = 0123456,
                 Status = true,
+                IsAdmin = true
             };
             temp.Add(item);
             return temp;

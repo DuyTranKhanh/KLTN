@@ -51,5 +51,15 @@ namespace KLTN.ViewModel
 
 
         #endregion
+
+        #region Language
+        public string AddLabel => "Thêm mới";
+        public string ModifyLabel => "Enable/Disable";
+        public string SaveLabel => "Save";
+        public string ExitLabel => "Thoát";
+
+        public string EnableLabel => "Có thể sử dụng";
+        public string DisableLabel => "Không thể sử dụng";
+        #endregion
     }
 }

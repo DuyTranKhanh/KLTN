@@ -1,13 +1,13 @@
 ﻿<Window
-    x:Class="KLTN.Views.CRUD_DanhSachSan"
+    x:Class="KLTN.Views.NuocUong_View"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:KLTN.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Danh Sách sân"
-    Width="850"
-    Height="600"
+    Title="Danh sách sản phẩm"
+    Width="800"
+    Height="450"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
@@ -41,8 +41,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="10" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
 
@@ -72,88 +71,31 @@
                         HorizontalAlignment="Left"
                         Text="{Binding TenItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <Grid
+                    <Label
                         Grid.Row="2"
                         Grid.Column="0"
-                        Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Row="0"
-                            Grid.RowSpan="2"
-                            Grid.Column="0"
-                            Content="{Binding LoaiSanLabel, FallbackValue='Lang-err'}"
-                            FontSize="15" />
-                        <Grid
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Grid.ColumnSpan="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <ComboBox
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                Width="250"
-                                Height="25"
-                                HorizontalAlignment="Left"
-                                DisplayMemberPath="Value"
-                                FontSize="15"
-                                ItemsSource="{Binding DanhSachLoaiSanCbb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedValue="{Binding LoaiSanDuocChon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Button
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Width="30"
-                                Margin="0,5,0,0"
-                                HorizontalAlignment="Left"
-                                Click="Button_Click_1"
-                                FontSize="15">
-                                <Image
-                                    Width="24"
-                                    Height="23"
-                                    HorizontalAlignment="Left"
-                                    Source="D:\github\KLTN\KLTN\KLTN\Theme\ImageResource/AddIcon.png" />
-                            </Button>
-                            <Button
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Width="30"
-                                Margin="0,5,0,0"
-                                HorizontalAlignment="Left"
-                                FontSize="15">
-                                <Image
-                                    Width="24"
-                                    Height="23"
-                                    HorizontalAlignment="Center"
-                                    Source="D:\github\KLTN\KLTN\KLTN\Theme\ImageResource/ReloadIcon.png" />
-                            </Button>
-                        </Grid>
-
-
-                    </Grid>
-
-                    <Label
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
+                        Content="{Binding CotGiaTienLabel, FallbackValue='Lang-err'}"
                         FontSize="15" />
                     <TextBox
-                        Grid.Row="4"
+                        Grid.Row="2"
                         Grid.Column="1"
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
-                        Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding GiaTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </GroupBox>
 
@@ -208,7 +150,7 @@
                     Height="28"
                     Margin="10,0,0,0"
                     Background="Red"
-                    Click="Button_Click_2"
+                    Click="Button_Click"
                     Command="{Binding ExitCommand}"
                     Content="{Binding ExitLabel, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
@@ -228,29 +170,33 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <ListView
                     Grid.Row="1"
                     FontSize="15"
-                    ItemsSource="{Binding DanhSach_San, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding DanhSach_SanPham, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
-                                Width="60"
+                                Width="100"
                                 DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
-                                Width="80"
-                                DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Tên sân" />
-                            <GridViewColumn
-                                Width="80"
-                                DisplayMemberBinding="{Binding LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Loại Sân" />
+                                Width="120"
+                                DisplayMemberBinding="{Binding TenSanPhamItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TrangThaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Trạng thái" />
+                                DisplayMemberBinding="{Binding GiaTienItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding CotGiaTienLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="140"
+                                DisplayMemberBinding="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
                                     <Setter Property="Background" Value="LightBlue" />

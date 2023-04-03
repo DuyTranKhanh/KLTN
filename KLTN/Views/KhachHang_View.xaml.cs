@@ -1,5 +1,4 @@
 ﻿using KLTN.ViewModel;
-using KLTN.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,30 +11,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KLTN
+namespace KLTN.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for KhachHang_View.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class KhachHang_View : Window
     {
-        public MainWindow()
+        public KhachHang_View()
         {
-            InitializeComponent();
-
-            MainViewModel vm = new MainViewModel();
+            InitializeComponent(); 
+            KhachHang_ViewModel vm = new KhachHang_ViewModel();
             DataContext = vm;
+        }
 
-
-            Application.Current.MainWindow = new YardView();
-
-            Application.Current.MainWindow.ShowDialog();
-
-            Application.Current.Shutdown();
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -5,9 +5,344 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:KLTN.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="AccountEmployee_View"
+    Title="Danh sách tài khoản"
     Width="800"
-    Height="450"
+    Height="600"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid />
+    <Window.Resources>
+        <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="Lavender" />
+            <Setter Property="MinWidth" Value="40" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="OnChecking">
+                                <DoubleAnimationUsingKeyFrames
+                                    BeginTime="00:00:00"
+                                    Storyboard.TargetName="Thumb"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="22" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="OnUnchecking">
+                                <DoubleAnimationUsingKeyFrames
+                                    BeginTime="00:00:00"
+                                    Storyboard.TargetName="Thumb"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+
+                        <Grid MinWidth="{TemplateBinding MinWidth}">
+                            <Border
+                                x:Name="RangeBorder"
+                                Height="6.4"
+                                Margin="1,0,1,0"
+                                Background="Transparent"
+                                BorderBrush="Gray"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3" />
+
+                            <Ellipse
+                                x:Name="Thumb"
+                                Width="16"
+                                Height="16"
+                                HorizontalAlignment="Left"
+                                Fill="{TemplateBinding Background}"
+                                StrokeThickness="1">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform X="0" Y="0" />
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Grid>
+
+
+                        <ControlTemplate.Triggers>
+                            <!--  You can modify your own style changes here  -->
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Thumb" Property="Fill">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="RangeBorder" Property="BorderBrush" Value="DarkGray" />
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard x:Name="OnUnchecking_BeginStoryboard" Storyboard="{StaticResource OnUnchecking}" />
+                                </Trigger.ExitActions>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="OnChecking_BeginStoryboard" Storyboard="{StaticResource OnChecking}" />
+                                </Trigger.EnterActions>
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="Thumb" Property="Stroke" Value="LightGray" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Thông tin Item  -->
+            <GroupBox
+                Grid.Row="0"
+                Grid.Column="0"
+                Background="AliceBlue"
+                FontFamily="Arial"
+                FontSize="16"
+                Header="{Binding ThongTinLabel, FallbackValue='Lang-err'}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Content="{Binding HoVaTenItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding HoVaTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Content="{Binding TenTaiKhoanItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding TenTaiKhoan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Content="{Binding TenMatKhauItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding MatKhau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Content="{Binding SdtItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding SDT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Content="{Binding CmndItemLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding Cmnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <TextBox
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        Text="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Content="{Binding CotIsAdmin, FallbackValue='Lang-err'}"
+                        FontSize="15" />
+                    <CheckBox
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Width="40"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        IsChecked="{Binding IsAdmin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource CheckBoxStyle}" />
+
+                </Grid>
+            </GroupBox>
+
+            <!--  Button CRUD  -->
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,5,0,0"
+                Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="LimeGreen"
+                    Command="{Binding AddCommand}"
+                    Content="{Binding AddLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
+
+                <Button
+                    Grid.Column="1"
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="DeepSkyBlue"
+                    Command="{Binding ModifyCommand}"
+                    Content="{Binding ModifyLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
+
+                <Button
+                    Grid.Column="2"
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="DarkSlateBlue"
+                    Command="{Binding SaveCommand}"
+                    Content="{Binding SaveLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
+
+                <Button
+                    Grid.Column="3"
+                    Height="28"
+                    Margin="10,0,0,0"
+                    Background="Red"
+                    Click="Button_Click"
+                    Command="{Binding ExitCommand}"
+                    Content="{Binding ExitLabel, FallbackValue='Lang-err'}"
+                    FontFamily="Arial"
+                    FontSize="15"
+                    Foreground="GhostWhite" />
+            </Grid>
+        </Grid>
+        <GroupBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Background="AliceBlue"
+            FontFamily="Arial"
+            FontSize="16"
+            Header="{Binding DanhSachLabel, FallbackValue='Lang-err'}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListView
+                    Grid.Row="1"
+                    FontSize="15"
+                    ItemsSource="{Binding DanhSach_TaiKhoan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding CotTaiKhoanLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding HoVaTenItemLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding SdtItemLabel, FallbackValue='Lang-err'}" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TrangThaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
 </Window>

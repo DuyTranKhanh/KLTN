@@ -11,11 +11,9 @@ namespace KLTN.Model
         private string _GioKetThuc;
         private int _SoGiothue;
         private ObservableCollection< SoLuongNuocUongModel> _DanhSachNuocUong;
-        private ObservableCollection< SoLuongDichVuModel> _DanhSachDichVu;
         private int _TongTien;
         private int _TienKhachDua;
         private int _TienThoi;
-        private int _TrangThaiSan;
         private string _Ngay;
         private string _GhiChu;
         private AccountOfNhanVien_Model _NhanVien;
@@ -125,28 +123,6 @@ namespace KLTN.Model
             set { _TienThoi = value; }
         }
 
-        public int TrangThaiSan
-        {
-            get => _TrangThaiSan;
-            set { _TrangThaiSan = value; }
-        }
-
-        public ObservableCollection<SoLuongDichVuModel> DanhSachDichVu
-        {
-            get
-            {
-                if(_DanhSachDichVu == null)
-                {
-                    _DanhSachDichVu = new ObservableCollection<SoLuongDichVuModel>();
-                }
-                return _DanhSachDichVu;
-            }
-            set
-            {
-                _DanhSachDichVu = value;
-            }
-        }
-
         public ObservableCollection<SoLuongNuocUongModel> DanhSachNuocUong
         {
             get
@@ -167,7 +143,6 @@ namespace KLTN.Model
         public HoaDon_Model Clone()
         {
             HoaDon_Model temp = new HoaDon_Model();
-            temp.TrangThaiSan = TrangThaiSan;
             temp.GioKetThuc = GioKetThuc;
             temp.GioVaoSan = GioVaoSan;
             temp.KhachHang = KhachHang.Clone();
@@ -185,10 +160,44 @@ namespace KLTN.Model
             {
                 temp.DanhSachNuocUong.Add(itemNuocUong);
             }
-            foreach(var itemDichVu in DanhSachDichVu)
+            return temp;
+        }
+    }
+
+    public class HoatDongHienTaiModel
+    {
+
+        private int _TrangThaiSan;
+        public int TrangThaiSan
+        {
+            get => _TrangThaiSan;
+            set { _TrangThaiSan = value; }
+        }
+
+        private HoaDon_Model _HoatDongCuaSan;
+        public HoaDon_Model HoatDongCuaSan
+        {
+            get
             {
-                temp.DanhSachDichVu.Add(itemDichVu);
+                if(_HoatDongCuaSan == null)
+                {
+                    _HoatDongCuaSan = new HoaDon_Model();
+                }
+                return _HoatDongCuaSan;
             }
+            set
+            {
+                if(_HoatDongCuaSan != value)
+                {
+                    _HoatDongCuaSan = value;
+                }
+            }
+        }
+        public HoatDongHienTaiModel Clone()
+        {
+            HoatDongHienTaiModel temp = new HoatDongHienTaiModel();
+            temp.TrangThaiSan = TrangThaiSan;
+            temp.HoatDongCuaSan = HoatDongCuaSan.Clone();
             return temp;
         }
     }

@@ -46,5 +46,11 @@ namespace KLTN.Views
             //Visibility = Visibility.Hidden;
             temp.ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            KhachHang_View temp = new KhachHang_View();
+            temp.ShowDialog();
+        }
     }
 }
