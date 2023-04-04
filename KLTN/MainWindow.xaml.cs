@@ -30,7 +30,7 @@ namespace KLTN
             DataContext = vm;
 
 
-            Application.Current.MainWindow = new YardView();
+            Application.Current.MainWindow = new AccountEmployee_View();
 
             Application.Current.MainWindow.ShowDialog();
 

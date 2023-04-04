@@ -6,7 +6,7 @@ namespace KLTN.Model
     {
         private int _IdNuocUong;
         private string _TenMatHang;
-        private int _GiaTien;
+        private double _GiaTien;
         private bool _Status;
 
         public bool Status
@@ -20,7 +20,7 @@ namespace KLTN.Model
             set { _IdNuocUong = value; }
         }
 
-        public int GiaTien
+        public double GiaTien
         {
             get => _GiaTien;
             set { _GiaTien = value; }

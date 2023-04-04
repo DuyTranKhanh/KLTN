@@ -19,5 +19,17 @@ namespace KLTN.Views
         {
             this.Close();
         }
+
+        private void ShowHide_Click(object sender, RoutedEventArgs e)
+        {
+            if(ShowHide.Content == FindResource("EyeOff"))
+            {
+                ShowHide.Content = FindResource("EyeShow");
+            }
+            else
+            {
+                ShowHide.Content = FindResource("EyeOff");
+            }
+        }
     }
 }
