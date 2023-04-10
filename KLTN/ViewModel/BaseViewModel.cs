@@ -12,6 +12,7 @@ namespace KLTN.ViewModel
         private bool _IsButtonModifyEnable;
         private bool _IsButtonSaveEnable;
         private bool _IsButtonExitEnable = true;
+        private bool _IsTextboxEnable;
         #endregion Fields for Enable of button
 
         #region Properties for Enable of button
@@ -63,6 +64,19 @@ namespace KLTN.ViewModel
                 {
                     _IsButtonExitEnable = value;
                     OnPropertyChanged(nameof(IsButtonExitEnable));
+                }
+            }
+        }
+
+        public bool IsTextboxEnable
+        {
+            get => _IsTextboxEnable;
+            set
+            {
+                if (_IsTextboxEnable != value)
+                {
+                    _IsTextboxEnable = value;
+                    OnPropertyChanged(nameof(IsTextboxEnable));
                 }
             }
         }
@@ -215,6 +229,10 @@ namespace KLTN.ViewModel
         #region Constant
         public const string _HoatDong = "Hoạt động";
         public const string _KhongHoatDong = "Không hoạt động";
+        public const string _San5 = "Sân 5";
+        public const string _San7 = "Sân 7";
+        public const string _San11 = "Sân 11";
+        public const string _SanOther = "Sân khác";
         #endregion Constant
     }
     public class BaseObjectSingle : BaseViewModel

@@ -10,6 +10,7 @@
     Width="850"
     Height="600"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -30,6 +31,7 @@
             <GroupBox
                 Grid.Row="0"
                 Grid.Column="0"
+                Grid.ColumnSpan="2"
                 Background="AliceBlue"
                 FontFamily="Arial"
                 FontSize="16"
@@ -57,6 +59,7 @@
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
@@ -70,6 +73,7 @@
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Text="{Binding TenItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Grid
@@ -92,7 +96,7 @@
                             Grid.Column="1"
                             Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -108,8 +112,10 @@
                                 HorizontalAlignment="Left"
                                 DisplayMemberPath="Value"
                                 FontSize="15"
-                                ItemsSource="{Binding DanhSachLoaiSanCbb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedValue="{Binding LoaiSanDuocChon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding DanhSach_LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedValue="{Binding TenLoaiSanItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedValuePath="Value" />
 
                             <Button
                                 Grid.Row="1"
@@ -139,6 +145,7 @@
                                 Width="30"
                                 Margin="0,5,0,0"
                                 HorizontalAlignment="Left"
+                                Command="{Binding ReloadCommand}"
                                 FontSize="15"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon
@@ -163,7 +170,8 @@
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
-                        Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </GroupBox>
 
@@ -200,7 +208,8 @@
                     Content="{Binding ModifyLabel, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
                     FontSize="15"
-                    Foreground="GhostWhite" />
+                    Foreground="GhostWhite"
+                    IsEnabled="{Binding IsButtonModifyEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     Grid.Column="2"
@@ -211,7 +220,8 @@
                     Content="{Binding SaveLabel, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
                     FontSize="15"
-                    Foreground="GhostWhite" />
+                    Foreground="GhostWhite"
+                    IsEnabled="{Binding IsButtonSaveEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     Grid.Column="3"
@@ -251,16 +261,16 @@
                                 Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="80"
-                                DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Tên sân" />
+                                DisplayMemberBinding="{Binding TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="80"
-                                DisplayMemberBinding="{Binding LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Loại Sân" />
+                                DisplayMemberBinding="{Binding TenLoaiSanObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding LoaiSanLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TrangThaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Trạng thái" />
+                                DisplayMemberBinding="{Binding TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
                                     <Setter Property="Background" Value="LightBlue" />

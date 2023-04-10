@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,29 +29,75 @@ namespace KLTN.Views
             DataContext = vm;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            CRUD_BangGia_San cRUD_BangGia_San = new CRUD_BangGia_San();
-            //Visibility = Visibility.Hidden;
-            cRUD_BangGia_San.ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            CRUD_DanhSachSan temp = new CRUD_DanhSachSan();
-            //Visibility = Visibility.Hidden;
-            temp.ShowDialog();
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void OpenDanhSachKhachHang(object sender, RoutedEventArgs e)
         {
             KhachHang_View temp = new KhachHang_View();
             temp.ShowDialog();
         }
+
+        private void OpenWinDowInformation(object sender, RoutedEventArgs e)
+        {
+            ThongTinAccount_View temp = new ThongTinAccount_View();
+            temp.ShowDialog();
+        }
+
+        private void BackToLoginWindow(object sender, RoutedEventArgs e)
+        {
+            Login_View temp = new Login_View();
+            temp.Show();
+            this.Close();
+        }
+
+        private void Close_Application_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void NuocUong_Click(object sender, RoutedEventArgs e)
+        {
+            NuocUong_View temp = new NuocUong_View();
+            temp.Show();
+            this.Close();
+        }
+
+        private void KhachHang_Click(object sender, RoutedEventArgs e)
+        {
+            KhachHang_View temp = new KhachHang_View();
+            temp.ShowDialog();
+        }
+
+        private void DanhSach_San_Click(object sender, RoutedEventArgs e)
+        {
+            CRUD_DanhSachSan temp = new CRUD_DanhSachSan();
+            temp.Show();
+            this.Close();
+        }
+
+        private void DanhSach_BangGia_Click(object sender, RoutedEventArgs e)
+        {
+            CRUD_BangGia_San temp = new CRUD_BangGia_San();
+            temp.Show();
+            this.Close();
+        }
+
+        private void DanhSach_LoaiSan_Click(object sender, RoutedEventArgs e)
+        {
+            KhuVuc_SanBanh_View temp = new KhuVuc_SanBanh_View();
+            temp.Show();
+            this.Close();
+        }
+
+        private void DanhSach_NhanVien_Click(object sender, RoutedEventArgs e)
+        {
+            AccountEmployee_View temp = new AccountEmployee_View();
+            temp.Show();
+            this.Close();
+        }
+
+        private void DanhSach_Camera_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
     }
 }

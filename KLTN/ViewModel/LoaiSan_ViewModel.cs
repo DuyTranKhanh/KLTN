@@ -99,6 +99,7 @@ namespace KLTN.ViewModel
             TenItem = SelectedItem.TenObject;
             TrangThaiItem = SelectedItem.TrangThaiObject;
             IsButtonModifyEnable = true;
+            IsButtonSaveEnable = false;
         }
         #endregion Method when Selected Item
         #endregion
@@ -153,6 +154,8 @@ namespace KLTN.ViewModel
                 Id = "0";
             }
             IsButtonSaveEnable = true;
+            IsTextboxEnable = true;
+            IsButtonModifyEnable = false;
         }
 
         public override void ActionWhenBtnModifyClicked()
@@ -177,6 +180,8 @@ namespace KLTN.ViewModel
                 temp.TrangThaiObject = TrangThaiItem;
                 DanhSach_LoaiSan.Add(temp);
                 IsButtonSaveEnable = false;
+                IsButtonModifyEnable = true;
+                IsTextboxEnable = false;
                 SelectedItem = DanhSach_LoaiSan[0];
             }
         }

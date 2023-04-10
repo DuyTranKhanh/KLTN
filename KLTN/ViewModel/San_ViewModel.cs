@@ -4,12 +4,285 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using System;
 
 namespace KLTN.ViewModel
 {
+    public class SanObject : BaseObjectSingle
+    {
+        private string _TenLoaiSanObject;
+        public string TenLoaiSanObject
+        {
+            get => _TenLoaiSanObject;
+            set
+            {
+                if(_TenLoaiSanObject != value)
+                {
+                    _TenLoaiSanObject = value;
+                    OnPropertyChanged(nameof(TenLoaiSanObject));
+                }    
+            }
+        }
+    }
     public partial class San_ViewModel : BaseViewModel
     {
-        
+        #region Selected Item
+        private SanObject _SelectedItem;
+        public SanObject SelectedItem
+        {
+            get
+            {
+                if (_SelectedItem == null)
+                {
+                    _SelectedItem = new SanObject();
+                }
+                return _SelectedItem;
+            }
+            set
+            {
+                if (_SelectedItem != value)
+                {
+                    _SelectedItem = value;
+                    ActionWhenChangeItem();
+                    OnPropertyChanged(nameof(SelectedItem));
+                }
+            }
+        }
+
+        #region Dummy Fields
+        private string _Id;
+        private string _TenItem;
+        private string _TrangThaiItem;
+        private string _TenLoaiSanItem;
+        #endregion Dummy Fields
+
+        #region Properties of selected item
+        /// <summary>
+        /// Get set value of Id
+        /// </summary>
+        public string Id
+        {
+            get => _Id;
+            set
+            {
+                if (_Id != value)
+                {
+                    _Id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get set value of TenItem
+        /// </summary>
+        public string TenItem
+        {
+            get => _TenItem;
+            set
+            {
+                if (_TenItem != value)
+                {
+                    _TenItem = value;
+                    OnPropertyChanged(nameof(TenItem));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get set value of TrangThaiItem
+        /// </summary>
+        public string TrangThaiItem
+        {
+            get => _TrangThaiItem;
+            set
+            {
+                if (_TrangThaiItem != value)
+                {
+                    _TrangThaiItem = value;
+                    OnPropertyChanged(nameof(TrangThaiItem));
+                }
+            }
+        }
+
+        public string TenLoaiSanItem
+        {
+            get => _TenLoaiSanItem;
+            set
+            {
+                if(_TenLoaiSanItem != value)
+                {
+                    _TenLoaiSanItem = value;
+                    OnPropertyChanged(nameof(TenLoaiSanItem));
+                }    
+            }
+        }
+        #endregion Properties of selected item
+
+        #region Method when Selected Item
+        /// <summary>
+        /// Update value when select an item
+        /// </summary>
+        public void ActionWhenChangeItem()
+        {
+            Id = SelectedItem.Id.ToString();
+            TenItem = SelectedItem.TenObject;
+            TrangThaiItem = SelectedItem.TrangThaiObject;
+            TenLoaiSanItem = SelectedItem.TenLoaiSanObject;
+            IsButtonModifyEnable = true;
+            IsButtonSaveEnable = false;
+        }
+        #endregion Method when Selected Item
+        #endregion
+
+        private ObservableCollection<SanObject> _DanhSach_San;
+
+        public ObservableCollection<SanObject> DanhSach_San
+        {
+            get
+            {
+                if (_DanhSach_San == null)
+                {
+                    _DanhSach_San = new ObservableCollection<SanObject>();
+                    GetDataFromDatabase();
+                }
+                return _DanhSach_San;
+            }
+            set
+            {
+                if (_DanhSach_San != value)
+                {
+                    _DanhSach_San = value;
+                    OnPropertyChanged(nameof(DanhSach_San));
+                }
+            }
+        }
+
+        #region Method
+        public override void GetDataFromDatabase()
+        {
+            //Dummy Data
+            SanObject item = new SanObject();
+            item.TenObject = "San 5_01";
+            item.Id = 0;
+            item.TrangThaiObject = "Hoạt động";
+            item.TenLoaiSanObject = "Sân 5";
+            DanhSach_San.Add(item);
+        }
+
+        public override void ActionWhenBtnAddClicked()
+        {
+            //Clear all information in textbox
+            TenItem = "";
+            TenLoaiSanItem = "";
+            TrangThaiItem = "Hoạt động";
+
+            //Get last item in DanhSach_LoaiSan
+            if (DanhSach_San.Count > 0)
+            {
+                Id = DanhSach_San.Count().ToString();
+            }
+            else
+            {
+                Id = "0";
+            }
+            IsButtonSaveEnable = true;
+            IsButtonModifyEnable = false;
+            IsTextboxEnable = true;
+        }
+
+        public override void ActionWhenBtnModifyClicked()
+        {
+            if (SelectedItem.TrangThaiObject == _HoatDong)
+            {
+                SelectedItem.TrangThaiObject = _KhongHoatDong;
+            }
+            else
+            {
+                SelectedItem.TrangThaiObject = _HoatDong;
+            }
+            TrangThaiItem = SelectedItem.TrangThaiObject;
+        }
+        public override void ActionWhenBtnSaveClicked()
+        {
+            if (TenItem != string.Empty && TenItem.Length > 0)
+            {
+                SanObject temp = new SanObject();
+                temp.TenObject = TenItem;
+                temp.TenLoaiSanObject = TenLoaiSanItem;
+                temp.Id = Convert.ToInt32(Id);
+                temp.TrangThaiObject = TrangThaiItem;
+                DanhSach_San.Add(temp);
+                IsButtonSaveEnable = false;
+                IsButtonModifyEnable = true;
+                IsTextboxEnable = false;
+                SelectedItem = DanhSach_San[0];
+            }
+        }
+        #endregion Method
+
+        #region Command
+        private ICommand _ReloadCommand;
+        public ICommand ReloadCommand
+        {
+            get
+            {
+                if (_ReloadCommand == null)
+                {
+                    _ReloadCommand = new RelayCommand(ActionWhenBtnReloadClicked, CanExecute);
+                }
+                return _ReloadCommand;
+            }
+        }
+
+        void ActionWhenBtnReloadClicked()
+        {
+            DanhSach_LoaiSan = new Dictionary<int, string>();
+            DanhSach_LoaiSan.Add(0, "Sân 5");
+            DanhSach_LoaiSan.Add(1, "Sân 7");
+            DanhSach_LoaiSan.Add(2, "Sân 11");
+            DanhSach_LoaiSan.Add(3, "Sân khác");
+        }
+        #endregion
+
+        #region Combobox and Trigger
+        private Dictionary<int, string> _DanhSach_LoaiSan;
+
+        public Dictionary<int, string> DanhSach_LoaiSan
+        {
+            get
+            {
+                if (_DanhSach_LoaiSan == null)
+                {
+                    _DanhSach_LoaiSan = new Dictionary<int, string>();
+                    _DanhSach_LoaiSan = GetDataForComboboxLoaiSan();
+                }
+                return _DanhSach_LoaiSan;
+            }
+            set
+            {
+                if (_DanhSach_LoaiSan != value)
+                {
+                    _DanhSach_LoaiSan = value;
+                    OnPropertyChanged(nameof(DanhSach_LoaiSan));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get data from Db to LoaiSanCbb
+        /// </summary>
+        public Dictionary<int, string> GetDataForComboboxLoaiSan()
+        {
+            //Get List Data of LoaiSan from Db.
+            Dictionary<int, string> temp = new Dictionary<int, string>();
+            temp.Add(0, "Sân 5");
+            temp.Add(1, "Sân 7");
+            temp.Add(2, "Sân 11");
+            temp.Add(3, "Sân khác");
+            return temp;
+        }
+        #endregion Combobox and Trigger
     }
 
     /// <summary>

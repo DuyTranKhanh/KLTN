@@ -29,6 +29,8 @@ namespace KLTN.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            YardView temp = new YardView();
+            temp.Show();
             this.Close();
         }
     }

@@ -1,0 +1,30 @@
+﻿<Window
+    x:Class="KLTN.Views.ThongTinAccount_View"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KLTN.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ThongTinAccount_View"
+    Width="450"
+    Height="350"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <materialDesign:PackIcon
+            x:Key="EyeOff"
+            Width="20"
+            Height="20"
+            Background="DeepSkyBlue"
+            Kind="EyeOff" />
+        <materialDesign:PackIcon
+            x:Key="EyeShow"
+            Width="20"
+            Height="20"
+            Background="DeepSkyBlue"
+            Kind="Eye" />
+    </Window.Resources>
+    <Grid />
+</Window>

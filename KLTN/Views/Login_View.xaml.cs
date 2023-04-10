@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLTN.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,20 @@ namespace KLTN.Views
         public Login_View()
         {
             InitializeComponent();
+            Login_ViewModel vm = new Login_ViewModel();
+            DataContext = vm;
+        }
+
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool ressult = ((Login_ViewModel)(this.DataContext)).IsValid;
+            if(ressult)
+            {
+                YardView temp = new YardView();
+                temp.Show();
+                this.Close();
+                MessageBox.Show("Login");
+            }
         }
     }
 }

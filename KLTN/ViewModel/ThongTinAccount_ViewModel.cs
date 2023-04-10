@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KLTN.ViewModel
 {
-    class NavigationBar_ViewModel
+    public class ThongTinAccount_ViewModel : BaseViewModel
     {
     }
 }

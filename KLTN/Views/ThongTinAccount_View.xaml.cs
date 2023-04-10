@@ -1,5 +1,4 @@
 ﻿using KLTN.ViewModel;
-using KLTN.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KLTN
+namespace KLTN.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ThongTinAccount_View.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ThongTinAccount_View : Window
     {
-        public MainWindow()
+        public ThongTinAccount_View()
         {
             InitializeComponent();
-
-            MainViewModel vm = new MainViewModel();
+            ThongTinAccount_ViewModel vm = new ThongTinAccount_ViewModel();
             DataContext = vm;
-
+        }
+        public void CloseThisWindow(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -13,5 +13,9 @@ namespace KLTN
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            StartupUri = new Uri("Views/Login_View.xaml", UriKind.Relative);
+        }
     }
 }

@@ -7,21 +7,23 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Danh sách tài khoản"
-    Width="800"
-    Height="600"
     WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <materialDesign:PackIcon x:Key="EyeOff"
-                                Width="20"
-                                Height="20"
-                                Background="DeepSkyBlue"
-                                Kind="EyeOff" />
-        <materialDesign:PackIcon x:Key="EyeShow"
-                                Width="20"
-                                Height="20"
-                                Background="DeepSkyBlue"
-                                Kind="Eye" />
+        <materialDesign:PackIcon
+            x:Key="EyeOff"
+            Width="20"
+            Height="20"
+            Background="DeepSkyBlue"
+            Kind="EyeOff" />
+        <materialDesign:PackIcon
+            x:Key="EyeShow"
+            Width="20"
+            Height="20"
+            Background="DeepSkyBlue"
+            Kind="Eye" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -104,14 +106,14 @@
                             HorizontalAlignment="Left"
                             Text="{Binding MatKhau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
+                            Name="ShowHide"
                             Grid.Column="1"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="Transparent"
-                            Name="ShowHide"
-                            Click="ShowHide_Click"
-                            BorderThickness="0">
-                            <DynamicResource ResourceKey="EyeOff"/>
+                            BorderThickness="0"
+                            Click="ShowHide_Click">
+                            <DynamicResource ResourceKey="EyeOff" />
                         </Button>
                     </Grid>
                     <Label
