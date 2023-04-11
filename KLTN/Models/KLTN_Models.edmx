@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KLTN_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountNhanVien">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten_NhanVien" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sdt" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cmnd" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+          <Property Name="Is_Admin" Type="bit" />
+        </EntityType>
+        <EntityType Name="BangGia">
+          <Key>
+            <PropertyRef Name="Id_BangGia" />
+          </Key>
+          <Property Name="Id_BangGia" Type="int" Nullable="false" />
+          <Property Name="Id_LoaiSan" Type="int" />
+          <Property Name="Ten_LoaiSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioBatDau" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioKetThuc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tien" Type="money" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DanhSachNuocUongVsHoaDon">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Id_DanhSachNuocUongVsHoaDon" Type="int" />
+          <Property Name="Id_SanPham" Type="int" />
+          <Property Name="Ten_SanPham" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gia_SanPham" Type="money" />
+          <Property Name="SoLuong_SanPham" Type="int" />
+          <Property Name="TongTien" Type="money" />
+        </EntityType>
+        <EntityType Name="DanhSachNuocUongVsHoatdongHienTai">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Id_DanhSachNuocUongVsHoatdongHienTai" Type="int" />
+          <Property Name="Id_SanPham" Type="int" />
+          <Property Name="Ten_SanPham" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gia_SanPham" Type="money" />
+          <Property Name="SoLuong_SanPham" Type="int" />
+          <Property Name="TongTien" Type="money" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="Id_HoatDongHienTai" />
+          </Key>
+          <Property Name="Id_HoatDongHienTai" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="nchar" MaxLength="10" />
+          <Property Name="Ten_San" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten_NhanVien" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioVaoSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioRaSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayThucHien" Type="nvarchar" MaxLength="50" />
+          <Property Name="TongTien" Type="money" />
+          <Property Name="TienKhachDua" Type="money" />
+          <Property Name="TienDu" Type="money" />
+          <Property Name="GhiChu" Type="nvarchar(max)" />
+          <Property Name="Id_DanhSachNuocUong" Type="int" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai">
+          <Key>
+            <PropertyRef Name="Id_HoatDongHienTai" />
+          </Key>
+          <Property Name="Id_HoatDongHienTai" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="nchar" MaxLength="10" />
+          <Property Name="Ten_San" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten_NhanVien" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioVaoSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioRaSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayThucHien" Type="nvarchar" MaxLength="50" />
+          <Property Name="TongTien" Type="money" />
+          <Property Name="TienKhachDua" Type="money" />
+          <Property Name="TienDu" Type="money" />
+          <Property Name="GhiChu" Type="nvarchar(max)" />
+          <Property Name="Id_DanhSachNuocUong" Type="int" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="Id_KhachHang" />
+          </Key>
+          <Property Name="Id_KhachHang" Type="int" Nullable="false" />
+          <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sdt_KhachTrang" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoaiSan">
+          <Key>
+            <PropertyRef Name="Id_LoaiSan" />
+          </Key>
+          <Property Name="Id_LoaiSan" Type="int" Nullable="false" />
+          <Property Name="Ten_LoaiSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NuocUong">
+          <Key>
+            <PropertyRef Name="Id_NuocUong" />
+          </Key>
+          <Property Name="Id_NuocUong" Type="int" Nullable="false" />
+          <Property Name="Ten_NuocUong" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gia_NuocUong" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="San">
+          <Key>
+            <PropertyRef Name="Id_San" />
+          </Key>
+          <Property Name="Id_San" Type="int" Nullable="false" />
+          <Property Name="Ten_San" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_LoaiSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten_LoaiSan" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="KLTN_DatabaseModelStoreContainer">
+          <EntitySet Name="AccountNhanVien" EntityType="Self.AccountNhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BangGia" EntityType="Self.BangGia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhSachNuocUongVsHoaDon" EntityType="Self.DanhSachNuocUongVsHoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhSachNuocUongVsHoatdongHienTai" EntityType="Self.DanhSachNuocUongVsHoatdongHienTai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoatDongHienTai" EntityType="Self.HoatDongHienTai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiSan" EntityType="Self.LoaiSan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NuocUong" EntityType="Self.NuocUong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="San" EntityType="Self.San" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KLTN_DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountNhanVien">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten_NhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sdt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cmnd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Admin" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BangGia">
+          <Key>
+            <PropertyRef Name="Id_BangGia" />
+          </Key>
+          <Property Name="Id_BangGia" Type="Int32" Nullable="false" />
+          <Property Name="Id_LoaiSan" Type="Int32" />
+          <Property Name="Ten_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioBatDau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioKetThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DanhSachNuocUongVsHoaDon">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="Id_DanhSachNuocUongVsHoaDon" Type="Int32" />
+          <Property Name="Id_SanPham" Type="Int32" />
+          <Property Name="Ten_SanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gia_SanPham" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SoLuong_SanPham" Type="Int32" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="DanhSachNuocUongVsHoatdongHienTai">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="Id_DanhSachNuocUongVsHoatdongHienTai" Type="Int32" />
+          <Property Name="Id_SanPham" Type="Int32" />
+          <Property Name="Ten_SanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gia_SanPham" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SoLuong_SanPham" Type="Int32" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="Id_HoatDongHienTai" />
+          </Key>
+          <Property Name="Id_HoatDongHienTai" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ten_San" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten_NhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioVaoSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioRaSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayThucHien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TienKhachDua" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TienDu" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id_DanhSachNuocUong" Type="Int32" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai">
+          <Key>
+            <PropertyRef Name="Id_HoatDongHienTai" />
+          </Key>
+          <Property Name="Id_HoatDongHienTai" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ten_San" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten_NhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioVaoSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioRaSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayThucHien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TienKhachDua" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TienDu" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id_DanhSachNuocUong" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="Id_KhachHang" />
+          </Key>
+          <Property Name="Id_KhachHang" Type="Int32" Nullable="false" />
+          <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sdt_KhachTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LoaiSan">
+          <Key>
+            <PropertyRef Name="Id_LoaiSan" />
+          </Key>
+          <Property Name="Id_LoaiSan" Type="Int32" Nullable="false" />
+          <Property Name="Ten_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NuocUong">
+          <Key>
+            <PropertyRef Name="Id_NuocUong" />
+          </Key>
+          <Property Name="Id_NuocUong" Type="Int32" Nullable="false" />
+          <Property Name="Ten_NuocUong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gia_NuocUong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="San">
+          <Key>
+            <PropertyRef Name="Id_San" />
+          </Key>
+          <Property Name="Id_San" Type="Int32" Nullable="false" />
+          <Property Name="Ten_San" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="KLTN_DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountNhanViens" EntityType="Self.AccountNhanVien" />
+          <EntitySet Name="BangGias" EntityType="Self.BangGia" />
+          <EntitySet Name="DanhSachNuocUongVsHoaDons" EntityType="Self.DanhSachNuocUongVsHoaDon" />
+          <EntitySet Name="DanhSachNuocUongVsHoatdongHienTais" EntityType="Self.DanhSachNuocUongVsHoatdongHienTai" />
+          <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
+          <EntitySet Name="HoatDongHienTais" EntityType="Self.HoatDongHienTai" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="LoaiSans" EntityType="Self.LoaiSan" />
+          <EntitySet Name="NuocUongs" EntityType="Self.NuocUong" />
+          <EntitySet Name="Sans" EntityType="Self.San" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KLTN_DatabaseModelStoreContainer" CdmEntityContainer="KLTN_DatabaseEntities">
+          <EntitySetMapping Name="AccountNhanViens">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.AccountNhanVien">
+              <MappingFragment StoreEntitySet="AccountNhanVien">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Ten_NhanVien" ColumnName="Ten_NhanVien" />
+                <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+                <ScalarProperty Name="Cmnd" ColumnName="Cmnd" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="Is_Admin" ColumnName="Is_Admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangGias">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.BangGia">
+              <MappingFragment StoreEntitySet="BangGia">
+                <ScalarProperty Name="Id_BangGia" ColumnName="Id_BangGia" />
+                <ScalarProperty Name="Id_LoaiSan" ColumnName="Id_LoaiSan" />
+                <ScalarProperty Name="Ten_LoaiSan" ColumnName="Ten_LoaiSan" />
+                <ScalarProperty Name="GioBatDau" ColumnName="GioBatDau" />
+                <ScalarProperty Name="GioKetThuc" ColumnName="GioKetThuc" />
+                <ScalarProperty Name="Tien" ColumnName="Tien" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DanhSachNuocUongVsHoaDons">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.DanhSachNuocUongVsHoaDon">
+              <MappingFragment StoreEntitySet="DanhSachNuocUongVsHoaDon">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Id_DanhSachNuocUongVsHoaDon" ColumnName="Id_DanhSachNuocUongVsHoaDon" />
+                <ScalarProperty Name="Id_SanPham" ColumnName="Id_SanPham" />
+                <ScalarProperty Name="Ten_SanPham" ColumnName="Ten_SanPham" />
+                <ScalarProperty Name="Gia_SanPham" ColumnName="Gia_SanPham" />
+                <ScalarProperty Name="SoLuong_SanPham" ColumnName="SoLuong_SanPham" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DanhSachNuocUongVsHoatdongHienTais">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.DanhSachNuocUongVsHoatdongHienTai">
+              <MappingFragment StoreEntitySet="DanhSachNuocUongVsHoatdongHienTai">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Id_DanhSachNuocUongVsHoatdongHienTai" ColumnName="Id_DanhSachNuocUongVsHoatdongHienTai" />
+                <ScalarProperty Name="Id_SanPham" ColumnName="Id_SanPham" />
+                <ScalarProperty Name="Ten_SanPham" ColumnName="Ten_SanPham" />
+                <ScalarProperty Name="Gia_SanPham" ColumnName="Gia_SanPham" />
+                <ScalarProperty Name="SoLuong_SanPham" ColumnName="SoLuong_SanPham" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDons">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoaDon">
+              <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="Id_HoatDongHienTai" ColumnName="Id_HoatDongHienTai" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Ten_San" ColumnName="Ten_San" />
+                <ScalarProperty Name="Ten_NhanVien" ColumnName="Ten_NhanVien" />
+                <ScalarProperty Name="Ten_KhachHang" ColumnName="Ten_KhachHang" />
+                <ScalarProperty Name="GioVaoSan" ColumnName="GioVaoSan" />
+                <ScalarProperty Name="GioRaSan" ColumnName="GioRaSan" />
+                <ScalarProperty Name="NgayThucHien" ColumnName="NgayThucHien" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="TienKhachDua" ColumnName="TienKhachDua" />
+                <ScalarProperty Name="TienDu" ColumnName="TienDu" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="Id_DanhSachNuocUong" ColumnName="Id_DanhSachNuocUong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoatDongHienTais">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoatDongHienTai">
+              <MappingFragment StoreEntitySet="HoatDongHienTai">
+                <ScalarProperty Name="Id_HoatDongHienTai" ColumnName="Id_HoatDongHienTai" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Ten_San" ColumnName="Ten_San" />
+                <ScalarProperty Name="Ten_NhanVien" ColumnName="Ten_NhanVien" />
+                <ScalarProperty Name="Ten_KhachHang" ColumnName="Ten_KhachHang" />
+                <ScalarProperty Name="GioVaoSan" ColumnName="GioVaoSan" />
+                <ScalarProperty Name="GioRaSan" ColumnName="GioRaSan" />
+                <ScalarProperty Name="NgayThucHien" ColumnName="NgayThucHien" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="TienKhachDua" ColumnName="TienKhachDua" />
+                <ScalarProperty Name="TienDu" ColumnName="TienDu" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="Id_DanhSachNuocUong" ColumnName="Id_DanhSachNuocUong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="Id_KhachHang" ColumnName="Id_KhachHang" />
+                <ScalarProperty Name="Ten_KhachHang" ColumnName="Ten_KhachHang" />
+                <ScalarProperty Name="Sdt_KhachTrang" ColumnName="Sdt_KhachTrang" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiSans">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.LoaiSan">
+              <MappingFragment StoreEntitySet="LoaiSan">
+                <ScalarProperty Name="Id_LoaiSan" ColumnName="Id_LoaiSan" />
+                <ScalarProperty Name="Ten_LoaiSan" ColumnName="Ten_LoaiSan" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NuocUongs">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.NuocUong">
+              <MappingFragment StoreEntitySet="NuocUong">
+                <ScalarProperty Name="Id_NuocUong" ColumnName="Id_NuocUong" />
+                <ScalarProperty Name="Ten_NuocUong" ColumnName="Ten_NuocUong" />
+                <ScalarProperty Name="Gia_NuocUong" ColumnName="Gia_NuocUong" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sans">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.San">
+              <MappingFragment StoreEntitySet="San">
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Ten_San" ColumnName="Ten_San" />
+                <ScalarProperty Name="Id_LoaiSan" ColumnName="Id_LoaiSan" />
+                <ScalarProperty Name="Ten_LoaiSan" ColumnName="Ten_LoaiSan" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

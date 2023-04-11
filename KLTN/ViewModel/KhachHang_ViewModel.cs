@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLTN.Service;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -160,16 +161,16 @@ namespace KLTN.ViewModel
             }
         }
 
+        KhachHang_Service TheDatabase_KhachHang;
+        public KhachHang_ViewModel()
+        {
+            TheDatabase_KhachHang = new KhachHang_Service();
+
+        }
         #region Method
         public override void GetDataFromDatabase()
         {
-            //Dummy Data
-            KhachHangObject item = new KhachHangObject();
-            item.TenObject = "Khách vãng lai";
-            item.Id = 0;
-            item.TrangThaiObject = "Hoạt động";
-            item.Sdt = "0123456789";
-            DanhSach_KhachHang.Add(item);
+            DanhSach_KhachHang = TheDatabase_KhachHang.GetAll();
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -203,6 +204,7 @@ namespace KLTN.ViewModel
             {
                 SelectedItem.TrangThaiObject = _HoatDong;
             }
+            TheDatabase_KhachHang.Update(SelectedItem);
             TrangThaiItem = SelectedItem.TrangThaiObject;
         }
         public override void ActionWhenBtnSaveClicked()
@@ -215,6 +217,8 @@ namespace KLTN.ViewModel
                 temp.TrangThaiObject = TrangThaiItem;
                 temp.Sdt = SdtItem;
                 DanhSach_KhachHang.Add(temp);
+                //Save to database
+                TheDatabase_KhachHang.Add(temp);
                 IsButtonSaveEnable = false;
                 IsButtonModifyEnable = true;
                 IsTextboxEnable = false;
