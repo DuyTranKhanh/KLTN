@@ -56,9 +56,9 @@
             Grid.Row="2"
             Grid.Column="1"
             materialDesign:HintAssist.Hint="Password"
-            KeyDown="txtPassword_KeyDown"
             materialDesign:TextFieldAssist.HasClearButton="True"
             IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+            KeyDown="txtPassword_KeyDown"
             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
 
 

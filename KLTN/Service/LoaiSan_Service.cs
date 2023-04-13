@@ -20,11 +20,11 @@ namespace KLTN.Service
             bool _IsAdd = false;
             try
             {
-                var temp = new LoaiSan();
+                var temp = new LoaiSan_Db();
                 temp.Id_LoaiSan = parameter.BaseObject.IdObject;
                 temp.Ten_LoaiSan = parameter.BaseObject.TenObject;
-                temp.TrangThai = parameter.BaseObject.TrangThaiObject;
-                Database.LoaiSans.Add(temp);
+                temp.TrangThai_LoaiSan = parameter.BaseObject.TrangThaiObject;
+                Database.LoaiSan_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
             }
@@ -40,14 +40,14 @@ namespace KLTN.Service
             ObservableCollection<LoaiSan_Model> objList = new ObservableCollection<LoaiSan_Model>();
             try
             {
-                var objQuery = from KhachHang in Database.LoaiSans
+                var objQuery = from KhachHang in Database.LoaiSan_Db
                                select KhachHang;
                 foreach (var item in objQuery)
                 {
                     var temp = new LoaiSan_Model();
                     temp.BaseObject.IdObject = item.Id_LoaiSan;
                     temp.BaseObject.TenObject = item.Ten_LoaiSan;
-                    temp.BaseObject.TrangThaiObject = item.TrangThai;
+                    temp.BaseObject.TrangThaiObject = item.TrangThai_LoaiSan;
                     objList.Add(temp);
                 }
             }
@@ -63,11 +63,15 @@ namespace KLTN.Service
             bool l_IsUpdate = false;
             try
             {
-                var item = Database.LoaiSans.Find(parameter.BaseObject.IdObject);
-                item.Ten_LoaiSan = parameter.BaseObject.TenObject;
-                item.TrangThai = parameter.BaseObject.TrangThaiObject;
-                var NoOfRowsAffected = Database.SaveChanges();
-                l_IsUpdate = NoOfRowsAffected > 0;
+                var item = Database.LoaiSan_Db.Find(parameter.BaseObject.IdObject);
+                if(item != null)
+                {
+                    item.Ten_LoaiSan = parameter.BaseObject.TenObject;
+                    item.TrangThai_LoaiSan = parameter.BaseObject.TrangThaiObject;
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+
             }
             catch (Exception ex) { throw ex; }
             return l_IsUpdate;

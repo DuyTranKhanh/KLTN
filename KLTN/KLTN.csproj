@@ -57,10 +57,10 @@
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
@@ -106,25 +106,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\AccountNhanVien.cs">
+    <Compile Include="Models\Account_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BangGia.cs">
+    <Compile Include="Models\BangGia_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DanhSachNuocUongVsHoaDon.cs">
+    <Compile Include="Models\DanhSachHienTai_NuocUong_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DanhSachNuocUongVsHoatdongHienTai.cs">
+    <Compile Include="Models\DanhSachHoaDon_NuocUong_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HoaDon.cs">
+    <Compile Include="Models\HoaDon_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HoatDongHienTai.cs">
+    <Compile Include="Models\HoatDongHienTai_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\KhachHang.cs">
+    <Compile Include="Models\KhachHang_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KLTN_Models.Context.cs">
@@ -142,13 +142,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KLTN_Models.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoaiSan.cs">
+    <Compile Include="Models\LichDat_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NuocUong.cs">
+    <Compile Include="Models\LoaiSan_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\San.cs">
+    <Compile Include="Models\NuocUong_Db.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhieuThu_Db.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\San_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\AccountObject_Model.cs" />
@@ -162,13 +168,16 @@
     <Compile Include="Model\HoaDon_Model.cs" />
     <Compile Include="Service\AccountOfNhanVien_Service.cs" />
     <Compile Include="Service\BangGia_Service.cs" />
+    <Compile Include="Service\DanhSachHienTai_NuocUong_Service.cs" />
+    <Compile Include="Service\DanhSachHoaDon_NuocUong_Service.cs" />
+    <Compile Include="Service\DatLich_Service.cs" />
     <Compile Include="Service\HoaDon_Service.cs" />
     <Compile Include="Service\HoatDongHienTai_Service.cs" />
     <Compile Include="Service\KhachHang_Service.cs" />
     <Compile Include="Service\LoaiSan_Service.cs" />
     <Compile Include="Service\MainService.cs" />
-    <Compile Include="Service\NuocUongObject_Model_Model.cs" />
     <Compile Include="Service\NuocUong_Service.cs" />
+    <Compile Include="Service\PhieuThu_Service.cs" />
     <Compile Include="Service\San_Service.cs" />
     <Compile Include="ViewModel\AccountOfNhanVien_ViewModel.cs" />
     <Compile Include="ViewModel\BangGia_ViewModel.cs" />

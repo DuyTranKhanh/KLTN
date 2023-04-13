@@ -9,11 +9,11 @@ namespace KLTN.Model
         private KhachHangObject_Model _KhachHang;
         private string _GioVaoSan;
         private string _GioKetThuc;
-        private int _SoGiothue;
+        private double _SoGiothue;
         private ObservableCollection<HoatDongNuocUong_Model> _DanhSachNuocUong;
-        private int _TongTien;
-        private int _TienKhachDua;
-        private int _TienThoi;
+        private decimal _TongTien;
+        private decimal _TienKhachDua;
+        private decimal _TienThoi;
         private string _Ngay;
         private string _GhiChu;
         private AccountObject_Model _NhanVien;
@@ -93,19 +93,19 @@ namespace KLTN.Model
             set { _Ngay = value; }
         }
 
-        public int SoGioThue
+        public double SoGioThue
         { 
             get => _SoGiothue;
             set { _SoGiothue = value; }
         }
 
-        public int TongTien
+        public decimal TongTien
         {
             get => _TongTien;
             set { _TongTien = value; }
         }
 
-        public int TienKhachDua
+        public decimal TienKhachDua
         {
             get => _TienKhachDua;
             set { _TienKhachDua = value; }
@@ -117,7 +117,7 @@ namespace KLTN.Model
             set { _IdHoaDon = value; }
         }
 
-        public int TienThoi
+        public decimal TienThoi
         {
             get => _TienThoi;
             set { _TienThoi = value; }
@@ -167,8 +167,8 @@ namespace KLTN.Model
     public class HoatDongHienTaiModel
     {
 
-        private int _TrangThaiSan;
-        public int TrangThaiSan
+        private string _TrangThaiSan;
+        public string TrangThaiSan
         {
             get => _TrangThaiSan;
             set { _TrangThaiSan = value; }

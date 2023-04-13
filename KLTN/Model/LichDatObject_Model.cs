@@ -8,27 +8,20 @@ namespace KLTN.Model
 {
     public class LichDatObject_Model
     {
-        private BaseObject_Model _BaseObject_Model;
+        private int _IdLichDat;
         private KhachHangObject_Model _KhachHang;
         private SanObject_Model _San;
         private string _GioBatDau;
         private string _GioKetThuc;
-
-        public BaseObject_Model BaseObject_Model
+        private string _TrangThai;
+        public int IdLichDat
         {
-            get
-            {
-                if (_BaseObject_Model == null)
-                {
-                    _BaseObject_Model = new BaseObject_Model();
-                }
-                return _BaseObject_Model;
-            }
+            get => _IdLichDat;
             set
             {
-                if(_BaseObject_Model != value)
+                if(_IdLichDat != value)
                 {
-                    _BaseObject_Model = value;
+                    _IdLichDat = value;
                 }
             }
         }
@@ -81,6 +74,18 @@ namespace KLTN.Model
                 }
             }
         }
+
+        public string TrangThai
+        {
+            get => _TrangThai;
+            set
+            {
+                if (_TrangThai != value)
+                {
+                    _TrangThai = value;
+                }
+            }
+        }
         public string GioKetThuc
         {
             get => _GioKetThuc;
@@ -96,7 +101,7 @@ namespace KLTN.Model
         public LichDatObject_Model Clone()
         {
             LichDatObject_Model item = new LichDatObject_Model();
-            item.BaseObject_Model = BaseObject_Model.Clone();
+            item._IdLichDat = _IdLichDat;
             item.KhachHang = KhachHang.Clone();
             item.GioBatDau = GioBatDau;
             item.GioKetThuc = GioKetThuc;

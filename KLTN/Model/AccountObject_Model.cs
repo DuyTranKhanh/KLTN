@@ -9,7 +9,7 @@ namespace KLTN.Model
         private string _Account;
         private string _Password;
         private string _HoVaTen;
-        private bool _Status;
+        private string _Status;
         private bool _IsAdmin;
 
         public bool IsAdmin
@@ -65,7 +65,7 @@ namespace KLTN.Model
             }
         }
 
-        public bool Status
+        public string Status
         {
             get => _Status;
             set

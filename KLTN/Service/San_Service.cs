@@ -20,12 +20,12 @@ namespace KLTN.Service
             bool _IsAdd = false;
             try
             {
-                var temp = new San();
+                var temp = new San_Db();
                 temp.Id_San = parameter.BaseObject.IdObject;
                 temp.Ten_LoaiSan = parameter.TenLoaiSan;
                 temp.Ten_San = parameter.BaseObject.TenObject;
-                temp.TrangThai = parameter.BaseObject.TrangThaiObject;
-                Database.Sans.Add(temp);
+                temp.TrangThai_San = parameter.BaseObject.TrangThaiObject;
+                Database.San_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
             }
@@ -41,7 +41,7 @@ namespace KLTN.Service
             ObservableCollection<SanObject_Model> objList = new ObservableCollection<SanObject_Model>();
             try
             {
-                var objQuery = from listSan in Database.Sans
+                var objQuery = from listSan in Database.San_Db
                                select listSan;
                 foreach (var item in objQuery)
                 {
@@ -49,7 +49,7 @@ namespace KLTN.Service
                     temp.BaseObject.IdObject = item.Id_San;
                     temp.BaseObject.TenObject = item.Ten_San;
                     temp.TenLoaiSan = item.Ten_LoaiSan;
-                    temp.BaseObject.TrangThaiObject = item.TrangThai;
+                    temp.BaseObject.TrangThaiObject = item.TrangThai_San;
                     objList.Add(temp);
                 }
             }
@@ -65,11 +65,11 @@ namespace KLTN.Service
             bool l_IsUpdate = false;
             try
             {
-                var item = Database.Sans.Find(parameter.BaseObject.IdObject);
+                var item = Database.San_Db.Find(parameter.BaseObject.IdObject);
                 if(item != null)
                 {
 
-                    item.TrangThai = parameter.BaseObject.TrangThaiObject;
+                    item.TrangThai_San = parameter.BaseObject.TrangThaiObject;
                     var NoOfRowsAffected = Database.SaveChanges();
                     l_IsUpdate = NoOfRowsAffected > 0;
                 }

@@ -9,10 +9,34 @@ namespace KLTN.Model
     public class HoatDongNuocUong_Model
     {
         private int _IdNuocUong;
+        private int _IdSan;
+        private int _IdHoaDon;
         private string _TenNuocUong;
         private int _SoLuong;
         private decimal _GiaTien;
 
+        public int IdHoaDon
+        {
+            get => _IdHoaDon;
+            set
+            {
+                if (_IdHoaDon != value)
+                {
+                    _IdHoaDon = value;
+                }
+            }
+        }
+        public int IdSan
+        {
+            get => _IdSan;
+            set
+            {
+                if(_IdSan != value)
+                {
+                    _IdSan = value;
+                }
+            }
+        }
         public int IdNuocUong
         {
             get => _IdNuocUong;
@@ -67,6 +91,7 @@ namespace KLTN.Model
             item.TenNuocUong = TenNuocUong;
             item.SoLuong = SoLuong;
             item.GiaTien = GiaTien;
+            item.IdSan = IdSan;
 
             return item;
         }

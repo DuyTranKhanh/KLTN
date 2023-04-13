@@ -19,12 +19,12 @@ namespace KLTN.Service
             bool _IsAdd = false;
             try
             {
-                var temp = new NuocUong();
+                var temp = new NuocUong_Db();
                 temp.Id_NuocUong = parameter.BaseObject.IdObject;
                 temp.Ten_NuocUong = parameter.BaseObject.TenObject;
-                temp.Gia_NuocUong = parameter.GiaTienObject;
-                temp.TrangThai = parameter.BaseObject.TrangThaiObject;
-                Database.NuocUongs.Add(temp);
+                temp.GiaTien = Convert.ToDecimal(parameter.GiaTienObject);
+                temp.TrangThai_NuocUong = parameter.BaseObject.TrangThaiObject;
+                Database.NuocUong_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
             }
@@ -40,15 +40,15 @@ namespace KLTN.Service
             ObservableCollection<NuocUongObject_Model> objList = new ObservableCollection<NuocUongObject_Model>();
             try
             {
-                var objQuery = from KhachHang in Database.NuocUongs
+                var objQuery = from KhachHang in Database.NuocUong_Db
                                select KhachHang;
                 foreach (var item in objQuery)
                 {
                     var temp = new NuocUongObject_Model();
                     temp.BaseObject.IdObject = item.Id_NuocUong;
-                    temp.GiaTienObject = item.Gia_NuocUong;
+                    temp.GiaTienObject = item.GiaTien.ToString();
                     temp.BaseObject.TenObject = item.Ten_NuocUong;
-                    temp.BaseObject.TrangThaiObject = item.TrangThai;
+                    temp.BaseObject.TrangThaiObject = item.TrangThai_NuocUong;
                     objList.Add(temp);
                 }
             }
@@ -64,14 +64,14 @@ namespace KLTN.Service
             bool l_IsUpdate = false;
             try
             {
-                var item = Database.NuocUongs.Find(parameter.BaseObject.IdObject);
+                var item = Database.NuocUong_Db.Find(parameter.BaseObject.IdObject);
                 {
                     if(item != null)
                     {
 
-                        item.Gia_NuocUong = parameter.GiaTienObject;
+                        item.GiaTien = Convert.ToDecimal( parameter.GiaTienObject);
                         item.Ten_NuocUong = parameter.BaseObject.TenObject;
-                        item.TrangThai = parameter.BaseObject.TrangThaiObject;
+                        item.TrangThai_NuocUong = parameter.BaseObject.TrangThaiObject;
                         var NoOfRowsAffected = Database.SaveChanges();
                         l_IsUpdate = NoOfRowsAffected > 0;
                     }

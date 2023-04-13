@@ -25,15 +25,17 @@ namespace KLTN.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AccountNhanVien> AccountNhanViens { get; set; }
-        public virtual DbSet<BangGia> BangGias { get; set; }
-        public virtual DbSet<DanhSachNuocUongVsHoaDon> DanhSachNuocUongVsHoaDons { get; set; }
-        public virtual DbSet<DanhSachNuocUongVsHoatdongHienTai> DanhSachNuocUongVsHoatdongHienTais { get; set; }
-        public virtual DbSet<HoaDon> HoaDons { get; set; }
-        public virtual DbSet<HoatDongHienTai> HoatDongHienTais { get; set; }
-        public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<LoaiSan> LoaiSans { get; set; }
-        public virtual DbSet<NuocUong> NuocUongs { get; set; }
-        public virtual DbSet<San> Sans { get; set; }
+        public virtual DbSet<Account_Db> Account_Db { get; set; }
+        public virtual DbSet<BangGia_Db> BangGia_Db { get; set; }
+        public virtual DbSet<DanhSachHienTai_NuocUong_Db> DanhSachHienTai_NuocUong_Db { get; set; }
+        public virtual DbSet<DanhSachHoaDon_NuocUong_Db> DanhSachHoaDon_NuocUong_Db { get; set; }
+        public virtual DbSet<HoaDon_Db> HoaDon_Db { get; set; }
+        public virtual DbSet<HoatDongHienTai_Db> HoatDongHienTai_Db { get; set; }
+        public virtual DbSet<KhachHang_Db> KhachHang_Db { get; set; }
+        public virtual DbSet<LichDat_Db> LichDat_Db { get; set; }
+        public virtual DbSet<LoaiSan_Db> LoaiSan_Db { get; set; }
+        public virtual DbSet<NuocUong_Db> NuocUong_Db { get; set; }
+        public virtual DbSet<San_Db> San_Db { get; set; }
+        public virtual DbSet<PhieuThu_Db> PhieuThu_Db { get; set; }
     }
 }

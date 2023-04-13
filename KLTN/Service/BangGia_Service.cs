@@ -19,16 +19,16 @@ namespace KLTN.Service
             bool _IsAdd = false;
             try
             {
-                var temp = new BangGia();
+                var temp = new BangGia_Db();
                 temp.Id_BangGia = parameter.BaseObject.IdObject;
                 temp.Id_LoaiSan = parameter.IdLoaiSan;
                 temp.Ten_LoaiSan = parameter.BaseObject.TenObject;
-                temp.GioBatDau = parameter.ThoiGianBatDau.ToString();
-                temp.GioKetThuc = parameter.ThoiGianKetThuc.ToString();
-                temp.Tien = parameter.GiaTienObject;
-                temp.TrangThai = parameter.BaseObject.TrangThaiObject;
+                temp.ThoiGianBatDau = parameter.ThoiGianBatDau.ToString();
+                temp.ThoiGianKetThuc = parameter.ThoiGianKetThuc.ToString();
+                temp.GiaTien = parameter.GiaTienObject;
+                temp.TrangThai_BangGia = parameter.BaseObject.TrangThaiObject;
                 temp.NgayTao = parameter.NgayTao;
-                Database.BangGias.Add(temp);
+                Database.BangGia_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
             }
@@ -41,12 +41,47 @@ namespace KLTN.Service
 
         public override ObservableCollection<BangGiaObject_Model> GetAll()
         {
-            throw new NotImplementedException();
+            ObservableCollection<BangGiaObject_Model> objList = new ObservableCollection<BangGiaObject_Model>();
+            try
+            {
+                var objQuery = from KhachHang in Database.BangGia_Db
+                               select KhachHang;
+                foreach (var item in objQuery)
+                {
+                    var temp = new BangGiaObject_Model();
+                    temp.BaseObject.IdObject = item.Id_BangGia;
+                    temp.IdLoaiSan = Convert.ToInt32(item.Id_LoaiSan);
+                    temp.BaseObject.TrangThaiObject = item.TrangThai_BangGia;
+                    temp.BaseObject.TenObject = item.Ten_LoaiSan;
+                    temp.ThoiGianBatDau = item.ThoiGianBatDau;
+                    temp.ThoiGianKetThuc = item.ThoiGianKetThuc;
+                    temp.GiaTienObject = Convert.ToDecimal(item.GiaTien);
+                    temp.NgayTao = item.NgayTao;
+                    objList.Add(temp);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return objList;
         }
 
         public override bool UpdateItem(BangGiaObject_Model parameter)
         {
-            throw new NotImplementedException();
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.BangGia_Db.Find(parameter.BaseObject.IdObject);
+                if(item != null)
+                {
+                    item.TrangThai_BangGia = parameter.BaseObject.TrangThaiObject;
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
         }
     }
 }
