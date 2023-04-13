@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace KLTN.Service
 {
+    //Chua thuc hien mapping Ngay dat san va Ngay su dung san
     public class DatLich_Service : MainService<LichDatObject_Model>
     {
         KLTN_DatabaseEntities Database;

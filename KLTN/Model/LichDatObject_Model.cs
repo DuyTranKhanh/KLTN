@@ -13,7 +13,33 @@ namespace KLTN.Model
         private SanObject_Model _San;
         private string _GioBatDau;
         private string _GioKetThuc;
-        private string _TrangThai;
+        private string _TrangThai; // Disable, Dat 1 lan duy nhat, hang tuan => se lien tiep 1 thang. 
+        private string _NgayDat;
+        private string _NgaySuDung;
+
+        public string NgayDatSan
+        {
+            get => _NgayDat;
+            set
+            {
+                if(_NgayDat != value)
+                {
+                    _NgayDat = value;
+                }
+            }
+        }
+
+        public string NgaySuDung
+        {
+            get => _NgaySuDung;
+            set
+            {
+                if (_NgaySuDung != value)
+                {
+                    _NgaySuDung = value;
+                }
+            }
+        }
         public int IdLichDat
         {
             get => _IdLichDat;
@@ -105,6 +131,8 @@ namespace KLTN.Model
             item.KhachHang = KhachHang.Clone();
             item.GioBatDau = GioBatDau;
             item.GioKetThuc = GioKetThuc;
+            item.NgayDatSan = NgayDatSan;
+            item.NgaySuDung = NgaySuDung;
             item.San = San.Clone();
             return item;
         }
