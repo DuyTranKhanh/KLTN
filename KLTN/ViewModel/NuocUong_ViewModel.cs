@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLTN.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,33 +8,17 @@ using System.Threading.Tasks;
 
 namespace KLTN.ViewModel
 {
-    public class NuocUongObject : BaseObjectSingle
-    {
-        private string _GiaTien;
-        public string GiaTien
-        {
-            get => _GiaTien;
-            set
-            {
-                if(_GiaTien != value)
-                {
-                    _GiaTien = value;
-                    OnPropertyChanged(nameof(GiaTien));
-                }
-            }
-        }
-    }
     public partial class NuocUong_ViewModel : BaseViewModel
     {
         #region Selected Item
-        private NuocUongObject _SelectedItem;
-        public NuocUongObject SelectedItem
+        private NuocUongObject_Model _SelectedItem;
+        public NuocUongObject_Model SelectedItem
         {
             get
             {
                 if (_SelectedItem == null)
                 {
-                    _SelectedItem = new NuocUongObject();
+                    _SelectedItem = new NuocUongObject_Model();
                 }
                 return _SelectedItem;
             }
@@ -127,25 +112,25 @@ namespace KLTN.ViewModel
         /// </summary>
         public void ActionWhenChangeItem()
         {
-            Id = SelectedItem.Id.ToString();
-            TenItem = SelectedItem.TenObject;
-            TrangThaiItem = SelectedItem.TrangThaiObject;
-            GiaTienItem = SelectedItem.GiaTien;
+            Id = SelectedItem.BaseObject.IdObject.ToString();
+            TenItem = SelectedItem.BaseObject.TenObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            GiaTienItem = SelectedItem.GiaTienObject;
             IsButtonModifyEnable = true;
             IsButtonSaveEnable = false;
         }
         #endregion Method when Selected Item
         #endregion
 
-        private ObservableCollection<NuocUongObject> _DanhSachNuocUong;
+        private ObservableCollection<NuocUongObject_Model> _DanhSachNuocUong;
 
-        public ObservableCollection<NuocUongObject> DanhSach_NuocUong
+        public ObservableCollection<NuocUongObject_Model> DanhSach_NuocUong
         {
             get
             {
                 if (_DanhSachNuocUong == null)
                 {
-                    _DanhSachNuocUong = new ObservableCollection<NuocUongObject>();
+                    _DanhSachNuocUong = new ObservableCollection<NuocUongObject_Model>();
                     GetDataFromDatabase();
                 }
                 return _DanhSachNuocUong;
@@ -164,12 +149,6 @@ namespace KLTN.ViewModel
         public override void GetDataFromDatabase()
         {
             //Dummy Data
-            NuocUongObject item = new NuocUongObject();
-            item.TenObject = "sting";
-            item.Id = 0;
-            item.TrangThaiObject = "Hoạt động";
-            item.GiaTien = "10.000";
-            DanhSach_NuocUong.Add(item);
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -195,25 +174,25 @@ namespace KLTN.ViewModel
 
         public override void ActionWhenBtnModifyClicked()
         {
-            if (SelectedItem.TrangThaiObject == _HoatDong)
+            if (SelectedItem.BaseObject.TrangThaiObject == _HoatDong)
             {
-                SelectedItem.TrangThaiObject = _KhongHoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _KhongHoatDong;
             }
             else
             {
-                SelectedItem.TrangThaiObject = _HoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
-            TrangThaiItem = SelectedItem.TrangThaiObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
         }
         public override void ActionWhenBtnSaveClicked()
         {
             if (TenItem != string.Empty && TenItem.Length > 0 & GiaTienItem.Length > 1000)
             {
-                NuocUongObject temp = new NuocUongObject();
-                temp.TenObject = TenItem;
-                temp.Id = Convert.ToInt32(Id);
-                temp.TrangThaiObject = TrangThaiItem;
-                temp.GiaTien = GiaTienItem;
+                NuocUongObject_Model temp = new NuocUongObject_Model();
+                temp.BaseObject.TenObject = TenItem;
+                temp.BaseObject.IdObject = Convert.ToInt32(Id);
+                temp.BaseObject.TrangThaiObject = TrangThaiItem;
+                temp.GiaTienObject = GiaTienItem;
                 DanhSach_NuocUong.Add(temp);
                 IsButtonSaveEnable = false;
                 IsButtonModifyEnable = true;

@@ -151,11 +151,14 @@
     <Compile Include="Models\San.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\AccountOfNhanVien_Model.cs" />
-    <Compile Include="Model\BangGia_Model.cs" />
-    <Compile Include="Model\KhachHang_Model.cs" />
-    <Compile Include="Model\NuocUong_Model.cs" />
-    <Compile Include="Model\San_Model.cs" />
+    <Compile Include="Model\AccountObject_Model.cs" />
+    <Compile Include="Model\BangGiaObject_Model.cs" />
+    <Compile Include="Model\DanhSachNuocUong_Model.cs" />
+    <Compile Include="Model\KhachHangObject_Model.cs" />
+    <Compile Include="Model\BaseObject_Model.cs" />
+    <Compile Include="Model\LichDatObject_Model.cs" />
+    <Compile Include="Model\NuocUongObject_Model.cs" />
+    <Compile Include="Model\SanObject_Model.cs" />
     <Compile Include="Model\HoaDon_Model.cs" />
     <Compile Include="Service\AccountOfNhanVien_Service.cs" />
     <Compile Include="Service\BangGia_Service.cs" />
@@ -164,13 +167,13 @@
     <Compile Include="Service\KhachHang_Service.cs" />
     <Compile Include="Service\LoaiSan_Service.cs" />
     <Compile Include="Service\MainService.cs" />
+    <Compile Include="Service\NuocUongObject_Model_Model.cs" />
     <Compile Include="Service\NuocUong_Service.cs" />
     <Compile Include="Service\San_Service.cs" />
     <Compile Include="ViewModel\AccountOfNhanVien_ViewModel.cs" />
     <Compile Include="ViewModel\BangGia_ViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\KhachHang_ViewModel.cs" />
-    <Compile Include="ViewModel\Login_ViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Model\LoaiSan_Model.cs" />
     <Compile Include="ViewModel\LoaiSan_ViewModel.cs" />
@@ -334,9 +337,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\KLTN_Models.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

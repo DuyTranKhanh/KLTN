@@ -2,7 +2,7 @@
 
 namespace KLTN.Model
 {
-    public class AccountOfNhanVien_Model
+    public class AccountObject_Model
     {
         private int _Sdt;
         private int _Cmnd;
@@ -74,9 +74,9 @@ namespace KLTN.Model
             }
         }
 
-        public AccountOfNhanVien_Model Clone()
+        public AccountObject_Model Clone()
         {
-            var temp = new AccountOfNhanVien_Model();
+            var temp = new AccountObject_Model();
             temp.Sdt = Sdt;
             temp.Status = Status;
             temp.HoVaTen = HoVaTen;
@@ -84,23 +84,6 @@ namespace KLTN.Model
             temp.Cmnd = Cmnd;
             temp.Account = Account;
             temp.IsAdmin = IsAdmin;
-            return temp;
-        }
-
-        public ObservableCollection<AccountOfNhanVien_Model> DummyList()
-        {
-            var temp = new ObservableCollection<AccountOfNhanVien_Model>();
-            var item = new AccountOfNhanVien_Model()
-            {
-                Account = "Admin",
-                Password = "Admin",
-                Cmnd = 123456789,
-                HoVaTen = "Admin",
-                Sdt = 0123456,
-                Status = true,
-                IsAdmin = true
-            };
-            temp.Add(item);
             return temp;
         }
     }

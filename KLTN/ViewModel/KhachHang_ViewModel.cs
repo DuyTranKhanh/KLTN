@@ -1,4 +1,5 @@
-﻿using KLTN.Service;
+﻿using KLTN.Model;
+using KLTN.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,33 +9,17 @@ using System.Threading.Tasks;
 
 namespace KLTN.ViewModel
 {
-    public class KhachHangObject : BaseObjectSingle
-    {
-        private string _Sdt;
-        public string Sdt
-        {
-            get => _Sdt;
-            set
-            {
-                if(_Sdt != value)
-                {
-                    _Sdt = value;
-                    OnPropertyChanged(nameof(Sdt));
-                }
-            }
-        }
-    }
     public partial class KhachHang_ViewModel : BaseViewModel
     {
         #region Selected Item
-        private KhachHangObject _SelectedItem;
-        public KhachHangObject SelectedItem
+        private KhachHangObject_Model _SelectedItem;
+        public KhachHangObject_Model SelectedItem
         {
             get
             {
                 if (_SelectedItem == null)
                 {
-                    _SelectedItem = new KhachHangObject();
+                    _SelectedItem = new KhachHangObject_Model();
                 }
                 return _SelectedItem;
             }
@@ -128,25 +113,25 @@ namespace KLTN.ViewModel
         /// </summary>
         public void ActionWhenChangeItem()
         {
-            Id = SelectedItem.Id.ToString();
-            TenItem = SelectedItem.TenObject;
-            TrangThaiItem = SelectedItem.TrangThaiObject;
-            SdtItem = SelectedItem.Sdt;
+            Id = SelectedItem.BaseObject.IdObject.ToString();
+            TenItem = SelectedItem.BaseObject.TenObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            SdtItem = SelectedItem.SdtObject;
             IsButtonSaveEnable = false;
             IsButtonModifyEnable = true;
         }
         #endregion Method when Selected Item
         #endregion
 
-        private ObservableCollection<KhachHangObject> _DanhSachKhachHang;
+        private ObservableCollection<KhachHangObject_Model> _DanhSachKhachHang;
 
-        public ObservableCollection<KhachHangObject> DanhSach_KhachHang
+        public ObservableCollection<KhachHangObject_Model> DanhSach_KhachHang
         {
             get
             {
                 if (_DanhSachKhachHang == null)
                 {
-                    _DanhSachKhachHang = new ObservableCollection<KhachHangObject>();
+                    _DanhSachKhachHang = new ObservableCollection<KhachHangObject_Model>();
                     GetDataFromDatabase();
                 }
                 return _DanhSachKhachHang;
@@ -196,26 +181,26 @@ namespace KLTN.ViewModel
 
         public override void ActionWhenBtnModifyClicked()
         {
-            if (SelectedItem.TrangThaiObject == _HoatDong)
+            if (SelectedItem.BaseObject.TrangThaiObject == _HoatDong)
             {
-                SelectedItem.TrangThaiObject = _KhongHoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _KhongHoatDong;
             }
             else
             {
-                SelectedItem.TrangThaiObject = _HoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
             TheDatabase_KhachHang.Update(SelectedItem);
-            TrangThaiItem = SelectedItem.TrangThaiObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
         }
         public override void ActionWhenBtnSaveClicked()
         {
             if (TenItem != string.Empty && TenItem.Length > 0 & SdtItem.Length > 9)
             {
-                KhachHangObject temp = new KhachHangObject();
-                temp.TenObject = TenItem;
-                temp.Id = Convert.ToInt32(Id);
-                temp.TrangThaiObject = TrangThaiItem;
-                temp.Sdt = SdtItem;
+                KhachHangObject_Model temp = new KhachHangObject_Model();
+                temp.BaseObject.TenObject = TenItem;
+                temp.BaseObject.IdObject = Convert.ToInt32(Id);
+                temp.BaseObject.TrangThaiObject = TrangThaiItem;
+                temp.SdtObject = SdtItem;
                 DanhSach_KhachHang.Add(temp);
                 //Save to database
                 TheDatabase_KhachHang.Add(temp);

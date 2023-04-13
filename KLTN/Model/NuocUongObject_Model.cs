@@ -1,7 +1,8 @@
 ﻿
+
 namespace KLTN.Model
 {
-    public class LoaiSan_Model
+    public class NuocUongObject_Model
     {
         private BaseObject_Model _BaseObject;
         public BaseObject_Model BaseObject
@@ -22,13 +23,25 @@ namespace KLTN.Model
                 }
             }
         }
-
-        public LoaiSan_Model Clone()
+        private string _GiaTienObject;
+        public string GiaTienObject
         {
-            LoaiSan_Model item = new LoaiSan_Model();
-            item.BaseObject = BaseObject.Clone();
-            return item;
+            get => _GiaTienObject;
+            set
+            {
+                if (_GiaTienObject != value)
+                {
+                    _GiaTienObject = value;
+                }
+            }
         }
 
+        public NuocUongObject_Model Clone()
+        {
+            var item = new NuocUongObject_Model();
+            item.BaseObject = BaseObject.Clone();
+            item.GiaTienObject = GiaTienObject;
+            return item;
+        }
     }
 }

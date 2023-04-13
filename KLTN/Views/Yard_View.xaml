@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Đặt sân"
     Background="AliceBlue"
-    WindowState="Maximized"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
     WindowStyle="None"
     mc:Ignorable="d">
 
@@ -277,8 +278,8 @@
                     </TabControl>
                     <ListView
                         Grid.Row="1"
-                        FontSize="15"
                         Height="250"
+                        FontSize="15"
                         ItemsSource="{Binding DanhSach_BangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Visibility="{Binding IsDanhSachBangGiaVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Collapsed}">
@@ -500,20 +501,6 @@
                                     Margin="-2,0,0,0"
                                     Foreground="OrangeRed"
                                     Kind="PlayCircle" />
-
-                            </Button>
-                            <Button
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Command="{Binding BatDauSuDung}"
-                                Style="{DynamicResource MaterialDesignIconButton}"
-                                ToolTip="{Binding TamDungSuDungLabel, FallbackValue='Lang-err'}">
-                                <materialDesign:PackIcon
-                                    Width="35"
-                                    Height="35"
-                                    Margin="-2,0,0,0"
-                                    Foreground="OrangeRed"
-                                    Kind="StopCircle" />
 
                             </Button>
                         </Grid>

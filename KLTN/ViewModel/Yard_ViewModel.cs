@@ -15,28 +15,6 @@ namespace KLTN.ViewModel
         DangDuocSuDung = 1,
         DaXuatHoaDon = 2,
         KhongTheSuDung = 3,
-        ChuaThuTien = 4
-    }
-
-    public class SanObjectInYard : BaseViewModel
-    {
-        private int _IdSan;
-        private string _TenSan;
-        private string _TenKhachHang;
-        private int _IdKhachHang;
-        private string _GioBatDau;
-        private string _GioKetThuc;
-        private string _TongTien;
-        private string _TienKhachDua;
-        private string _TienThoi;
-        private string _GhiChu;
-        private int _IdNhanVien;
-        private string _TenNhanVien;
-        private ObservableCollection<NuocUongObject> _ListNuocUong;
-
-        #region Properties
-        #endregion Properties
-
     }
     public partial class Yard_ViewModel : BaseViewModel
     {
@@ -135,6 +113,10 @@ namespace KLTN.ViewModel
 
     public partial class Yard_ViewModel : BaseViewModel
     {
+        public string SanSangSuDungContent => "Sẵn sàng sử dụng";
+        public string DangDuocSuDungContent => "Đang được sử dụng";
+        public string DaXuatHoaDonContent => "Đã in phiếu thu tiền";
+        public string KhongTheSuDungContent => "Không thể sử dụng";
         public string AdminLabel => "Admin";
         public string NuocUongButtonLabel => "Danh sách nước uống";
         public string KhachHangButtonLabel => "Danh sách khách hàng";

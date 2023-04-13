@@ -9,74 +9,17 @@ using System.Collections.Generic;
 
 namespace KLTN.ViewModel
 {
-    public class BangGiaObject : BaseObjectSingle
-    {
-        private DateTime _NgayApDungObject;
-        private int _ThoiGianBatDauObject;
-        private int _ThoiGianKetThucObject;
-        private int _GiaTienObject;
-        #region Properties
-        public DateTime NgayApDungObject
-        {
-            get => _NgayApDungObject;
-            set
-            {
-                if (_NgayApDungObject != value)
-                {
-                    _NgayApDungObject = value;
-                    OnPropertyChanged(nameof(NgayApDungObject));
-                }
-            }
-        }
-        public int ThoiGianBatDauObject
-        {
-            get => _ThoiGianBatDauObject;
-            set
-            {
-                if (_ThoiGianBatDauObject != value)
-                {
-                    _ThoiGianBatDauObject = value;
-                    OnPropertyChanged(nameof(ThoiGianBatDauObject));
-                }
-            }
-        }
-        public int ThoiGianKetThucObject
-        {
-            get => _ThoiGianKetThucObject;
-            set
-            {
-                if (_ThoiGianKetThucObject != value)
-                {
-                    _ThoiGianKetThucObject = value;
-                    OnPropertyChanged(nameof(ThoiGianKetThucObject));
-                }
-            }
-        }
-        public int GiaTienObject
-        {
-            get => _GiaTienObject;
-            set
-            {
-                if (_GiaTienObject != value)
-                {
-                    _GiaTienObject = value;
-                    OnPropertyChanged(nameof(GiaTienObject));
-                }
-            }
-        }
-        #endregion Properties
-    }
     public partial class BangGia_ViewModel : BaseViewModel
     {
         #region Selected Item
-        private BangGiaObject _SelectedItem;
-        public BangGiaObject SelectedItem
+        private BangGiaObject_Model _SelectedItem;
+        public BangGiaObject_Model SelectedItem
         {
             get
             {
                 if (_SelectedItem == null)
                 {
-                    _SelectedItem = new BangGiaObject();
+                    _SelectedItem = new BangGiaObject_Model();
                 }
                 return _SelectedItem;
             }
@@ -95,7 +38,7 @@ namespace KLTN.ViewModel
         private string _Id;
         private string _TenItem;
         private string _TrangThaiItem;
-        private DateTime _NgayApDungItem;
+        private string _NgayApDungItem;
         private string _ThoiGianBatDauItem;
         private string _ThoiGianKetThucItem;
         private string _GiaTienItem;
@@ -150,7 +93,7 @@ namespace KLTN.ViewModel
                 }
             }
         }
-        public DateTime NgayApDungItem
+        public string NgayApDungItem
         {
             get => _NgayApDungItem;
             set
@@ -219,12 +162,12 @@ namespace KLTN.ViewModel
         /// </summary>
         public void ActionWhenChangeItem()
         {
-            IdItem = SelectedItem.Id.ToString();
-            TenItem = SelectedItem.TenObject;
-            TrangThaiItem = SelectedItem.TrangThaiObject;
-            NgayApDungItem = SelectedItem.NgayApDungObject;
-            ThoiGianKetThucItem = SelectedItem.ThoiGianKetThucObject.ToString();
-            ThoiGianBatDauItem = SelectedItem.ThoiGianBatDauObject.ToString();
+            IdItem = SelectedItem.BaseObject.IdObject.ToString();
+            TenItem = SelectedItem.BaseObject.TenObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            NgayApDungItem = SelectedItem.NgayTao;
+            ThoiGianKetThucItem = SelectedItem.ThoiGianBatDau.ToString();
+            ThoiGianBatDauItem = SelectedItem.ThoiGianKetThuc.ToString();
             GiaTienItem = SelectedItem.GiaTienObject.ToString();
             IsButtonModifyEnable = true;
             IsButtonSaveEnable = false;
@@ -233,15 +176,15 @@ namespace KLTN.ViewModel
 
         #endregion Selected Item
 
-        private ObservableCollection<BangGiaObject> _DanhSach_BangGia;
+        private ObservableCollection<BangGiaObject_Model> _DanhSach_BangGia;
 
-        public ObservableCollection<BangGiaObject> DanhSach_BangGia
+        public ObservableCollection<BangGiaObject_Model> DanhSach_BangGia
         {
             get
             {
                 if (_DanhSach_BangGia == null)
                 {
-                    _DanhSach_BangGia = new ObservableCollection<BangGiaObject>();
+                    _DanhSach_BangGia = new ObservableCollection<BangGiaObject_Model>();
                     GetDataFromDatabase();
                 }
                 return _DanhSach_BangGia;
@@ -323,16 +266,6 @@ namespace KLTN.ViewModel
         public override void GetDataFromDatabase()
         {
             //Function Get data
-            //Dummy Data
-            BangGiaObject item = new BangGiaObject();
-            item.TenObject = "Sân 5";
-            item.Id = 0;
-            item.TrangThaiObject = "Hoạt động";
-            item.NgayApDungObject = DateTime.Today.Date;
-            item.ThoiGianBatDauObject = 6;
-            item.ThoiGianKetThucObject = 16;
-            item.GiaTienObject = 150000;
-            DanhSach_BangGia.Add(item);
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -341,7 +274,7 @@ namespace KLTN.ViewModel
             TenItem = "";
             GiaTienItem = "";
             TrangThaiItem = "Hoạt động";
-            NgayApDungItem = DateTime.Today.Date;
+            NgayApDungItem = DateTime.Today.Date.ToString();
             IsButtonSaveEnable = true;
             IsTextboxEnable = true;
             IsButtonModifyEnable = false;
@@ -359,18 +292,18 @@ namespace KLTN.ViewModel
 
         public override void ActionWhenBtnModifyClicked()
         {
-            if (SelectedItem.TrangThaiObject == _HoatDong)
+            if (SelectedItem.BaseObject.TrangThaiObject == _HoatDong)
             {
-                SelectedItem.TrangThaiObject = _KhongHoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _KhongHoatDong;
             }
             else
             {
-                SelectedItem.TrangThaiObject = _HoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
-            TrangThaiItem = SelectedItem.TrangThaiObject;
-            TenItem = SelectedItem.TenObject;
-            ThoiGianBatDauItem = SelectedItem.ThoiGianBatDauObject.ToString();
-            ThoiGianKetThucItem = SelectedItem.ThoiGianKetThucObject.ToString();
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            TenItem = SelectedItem.BaseObject.TenObject;
+            ThoiGianBatDauItem = SelectedItem.ThoiGianBatDau.ToString();
+            ThoiGianKetThucItem = SelectedItem.ThoiGianKetThuc.ToString();
         }
         public override void ActionWhenBtnSaveClicked()
         {
@@ -378,13 +311,13 @@ namespace KLTN.ViewModel
             {
                 if (Convert.ToInt32(GiaTienItem) > 1000)
                 {
-                    BangGiaObject temp = new BangGiaObject();
-                    temp.TenObject = TenItem;
-                    temp.Id = Convert.ToInt32(IdItem);
-                    temp.TrangThaiObject = TrangThaiItem;
-                    temp.NgayApDungObject = NgayApDungItem.Date;
-                    temp.ThoiGianBatDauObject = Convert.ToInt32(ThoiGianBatDauItem);
-                    temp.ThoiGianKetThucObject = Convert.ToInt32(ThoiGianKetThucItem);
+                    BangGiaObject_Model temp = new BangGiaObject_Model();
+                    temp.BaseObject.TenObject = TenItem;
+                    temp.BaseObject.IdObject = Convert.ToInt32(IdItem);
+                    temp.BaseObject.TrangThaiObject = TrangThaiItem;
+                    temp.NgayTao = NgayApDungItem;
+                    temp.ThoiGianBatDau = (ThoiGianBatDauItem);
+                    temp.ThoiGianKetThuc = (ThoiGianKetThucItem);
                     temp.GiaTienObject = Convert.ToInt32(GiaTienItem);
                     DanhSach_BangGia.Add(temp);
                     IsButtonSaveEnable = false;

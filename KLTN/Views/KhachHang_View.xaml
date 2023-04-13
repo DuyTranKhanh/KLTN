@@ -195,19 +195,19 @@
                         <GridView>
                             <GridViewColumn
                                 Width="130"
-                                DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.IdObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding Sdt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding SdtObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding CotDienThoaiLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="140"
-                                DisplayMemberBinding="{Binding TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
 
                             <GridView.ColumnHeaderContainerStyle>

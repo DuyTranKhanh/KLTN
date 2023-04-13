@@ -27,5 +27,6 @@ namespace KLTN.Models
         public Nullable<decimal> TienDu { get; set; }
         public string GhiChu { get; set; }
         public Nullable<int> Id_DanhSachNuocUong { get; set; }
+        public string TrangThai { get; set; }
     }
 }

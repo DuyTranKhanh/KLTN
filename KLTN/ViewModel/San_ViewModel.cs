@@ -8,33 +8,17 @@ using System;
 
 namespace KLTN.ViewModel
 {
-    public class SanObject : BaseObjectSingle
-    {
-        private string _TenLoaiSanObject;
-        public string TenLoaiSanObject
-        {
-            get => _TenLoaiSanObject;
-            set
-            {
-                if(_TenLoaiSanObject != value)
-                {
-                    _TenLoaiSanObject = value;
-                    OnPropertyChanged(nameof(TenLoaiSanObject));
-                }    
-            }
-        }
-    }
     public partial class San_ViewModel : BaseViewModel
     {
         #region Selected Item
-        private SanObject _SelectedItem;
-        public SanObject SelectedItem
+        private SanObject_Model _SelectedItem;
+        public SanObject_Model SelectedItem
         {
             get
             {
                 if (_SelectedItem == null)
                 {
-                    _SelectedItem = new SanObject();
+                    _SelectedItem = new SanObject_Model();
                 }
                 return _SelectedItem;
             }
@@ -125,25 +109,25 @@ namespace KLTN.ViewModel
         /// </summary>
         public void ActionWhenChangeItem()
         {
-            Id = SelectedItem.Id.ToString();
-            TenItem = SelectedItem.TenObject;
-            TrangThaiItem = SelectedItem.TrangThaiObject;
-            TenLoaiSanItem = SelectedItem.TenLoaiSanObject;
+            Id = SelectedItem.BaseObject.IdObject.ToString();
+            TenItem = SelectedItem.BaseObject.TenObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            TenLoaiSanItem = SelectedItem.TenLoaiSan;
             IsButtonModifyEnable = true;
             IsButtonSaveEnable = false;
         }
         #endregion Method when Selected Item
         #endregion
 
-        private ObservableCollection<SanObject> _DanhSach_San;
+        private ObservableCollection<SanObject_Model> _DanhSach_San;
 
-        public ObservableCollection<SanObject> DanhSach_San
+        public ObservableCollection<SanObject_Model> DanhSach_San
         {
             get
             {
                 if (_DanhSach_San == null)
                 {
-                    _DanhSach_San = new ObservableCollection<SanObject>();
+                    _DanhSach_San = new ObservableCollection<SanObject_Model>();
                     GetDataFromDatabase();
                 }
                 return _DanhSach_San;
@@ -162,12 +146,6 @@ namespace KLTN.ViewModel
         public override void GetDataFromDatabase()
         {
             //Dummy Data
-            SanObject item = new SanObject();
-            item.TenObject = "San 5_01";
-            item.Id = 0;
-            item.TrangThaiObject = "Hoạt động";
-            item.TenLoaiSanObject = "Sân 5";
-            DanhSach_San.Add(item);
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -193,25 +171,25 @@ namespace KLTN.ViewModel
 
         public override void ActionWhenBtnModifyClicked()
         {
-            if (SelectedItem.TrangThaiObject == _HoatDong)
+            if (SelectedItem.BaseObject.TrangThaiObject == _HoatDong)
             {
-                SelectedItem.TrangThaiObject = _KhongHoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _KhongHoatDong;
             }
             else
             {
-                SelectedItem.TrangThaiObject = _HoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
-            TrangThaiItem = SelectedItem.TrangThaiObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
         }
         public override void ActionWhenBtnSaveClicked()
         {
             if (TenItem != string.Empty && TenItem.Length > 0)
             {
-                SanObject temp = new SanObject();
-                temp.TenObject = TenItem;
-                temp.TenLoaiSanObject = TenLoaiSanItem;
-                temp.Id = Convert.ToInt32(Id);
-                temp.TrangThaiObject = TrangThaiItem;
+                SanObject_Model temp = new SanObject_Model();
+                temp.BaseObject.TenObject = TenItem;
+                temp.TenLoaiSan = TenLoaiSanItem;
+                temp.BaseObject.IdObject = Convert.ToInt32(Id);
+                temp.BaseObject.TrangThaiObject = TrangThaiItem;
                 DanhSach_San.Add(temp);
                 IsButtonSaveEnable = false;
                 IsButtonModifyEnable = true;

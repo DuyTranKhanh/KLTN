@@ -9,9 +9,6 @@
     <Application.Resources>
 
         <ResourceDictionary>
-            <DataTemplate DataType="{x:Type vm:Login_ViewModel}">
-                <v:Login_View />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:AccountOfNhanVien_ViewModel}">
                 <v:AccountEmployee_View />
             </DataTemplate>

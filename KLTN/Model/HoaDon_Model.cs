@@ -5,27 +5,27 @@ namespace KLTN.Model
     public class HoaDon_Model
     {
         private int _IdHoaDon;
-        private San_Model _San;
-        private KhachHang_Model _KhachHang;
+        private SanObject_Model _San;
+        private KhachHangObject_Model _KhachHang;
         private string _GioVaoSan;
         private string _GioKetThuc;
         private int _SoGiothue;
-        private ObservableCollection< SoLuongNuocUongModel> _DanhSachNuocUong;
+        private ObservableCollection<HoatDongNuocUong_Model> _DanhSachNuocUong;
         private int _TongTien;
         private int _TienKhachDua;
         private int _TienThoi;
         private string _Ngay;
         private string _GhiChu;
-        private AccountOfNhanVien_Model _NhanVien;
+        private AccountObject_Model _NhanVien;
         #region properties
 
-        public AccountOfNhanVien_Model NhanVien
+        public AccountObject_Model NhanVien
         {
             get
             {
                 if(_NhanVien == null)
                 {
-                    _NhanVien = new AccountOfNhanVien_Model();
+                    _NhanVien = new AccountObject_Model();
                 }
                 return _NhanVien;
             }
@@ -34,13 +34,13 @@ namespace KLTN.Model
                 _NhanVien = value;
             }
         }
-        public San_Model San
+        public SanObject_Model San
         {
             get
             {
                 if(_San == null)
                 {
-                    _San = new San_Model();
+                    _San = new SanObject_Model();
                 }
                 return _San;
             }
@@ -50,13 +50,13 @@ namespace KLTN.Model
             }
         }
 
-        public KhachHang_Model KhachHang
+        public KhachHangObject_Model KhachHang
         {
             get
             {
                 if (_KhachHang == null)
                 {
-                    _KhachHang = new KhachHang_Model();
+                    _KhachHang = new KhachHangObject_Model();
                 }
                 return _KhachHang;
             }
@@ -123,13 +123,13 @@ namespace KLTN.Model
             set { _TienThoi = value; }
         }
 
-        public ObservableCollection<SoLuongNuocUongModel> DanhSachNuocUong
+        public ObservableCollection<HoatDongNuocUong_Model> DanhSachNuocUong
         {
             get
             {
                 if (_DanhSachNuocUong == null)
                 {
-                    _DanhSachNuocUong = new ObservableCollection<SoLuongNuocUongModel>();
+                    _DanhSachNuocUong = new ObservableCollection<HoatDongNuocUong_Model>();
                 }
                 return _DanhSachNuocUong;
             }

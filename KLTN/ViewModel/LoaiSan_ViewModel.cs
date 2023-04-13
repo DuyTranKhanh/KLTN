@@ -11,14 +11,14 @@ namespace KLTN.ViewModel
     public partial class LoaiSan_ViewModel : BaseViewModel
     {
         #region Selected Item
-        private BaseObjectSingle _SelectedItem;
-        public BaseObjectSingle SelectedItem
+        private LoaiSan_Model _SelectedItem;
+        public LoaiSan_Model SelectedItem
         {
             get
             {
                 if (_SelectedItem == null)
                 {
-                    _SelectedItem = new BaseObjectSingle();
+                    _SelectedItem = new LoaiSan_Model();
                 }
                 return _SelectedItem;
             }
@@ -95,24 +95,24 @@ namespace KLTN.ViewModel
         /// </summary>
         public void ActionWhenChangeItem()
         {
-            Id = SelectedItem.Id.ToString() ;
-            TenItem = SelectedItem.TenObject;
-            TrangThaiItem = SelectedItem.TrangThaiObject;
+            Id = SelectedItem.BaseObject.IdObject.ToString() ;
+            TenItem = SelectedItem.BaseObject.TenObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             IsButtonModifyEnable = true;
             IsButtonSaveEnable = false;
         }
         #endregion Method when Selected Item
         #endregion
 
-        private ObservableCollection<BaseObjectSingle> _DanhSachLoaiSan;
+        private ObservableCollection<LoaiSan_Model> _DanhSachLoaiSan;
 
-        public ObservableCollection<BaseObjectSingle> DanhSach_LoaiSan
+        public ObservableCollection<LoaiSan_Model> DanhSach_LoaiSan
         {
             get
             {
                 if (_DanhSachLoaiSan == null)
                 {
-                    _DanhSachLoaiSan = new ObservableCollection<BaseObjectSingle>();
+                    _DanhSachLoaiSan = new ObservableCollection<LoaiSan_Model>();
                     GetDataFromDatabase();
                 }
                 return _DanhSachLoaiSan;
@@ -131,11 +131,6 @@ namespace KLTN.ViewModel
         public override void GetDataFromDatabase()
         {
             //Dummy Data
-            BaseObjectSingle item = new BaseObjectSingle();
-            item.TenObject = "San 5";
-            item.Id = 0;
-            item.TrangThaiObject = "Hoạt động";
-            DanhSach_LoaiSan.Add(item);
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -160,24 +155,24 @@ namespace KLTN.ViewModel
 
         public override void ActionWhenBtnModifyClicked()
         {
-            if(SelectedItem.TrangThaiObject == _HoatDong)
+            if(SelectedItem.BaseObject.TrangThaiObject == _HoatDong)
             {
-                SelectedItem.TrangThaiObject = _KhongHoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _KhongHoatDong;
             }    
             else
             {
-                SelectedItem.TrangThaiObject = _HoatDong;
+                SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
-            TrangThaiItem = SelectedItem.TrangThaiObject;
+            TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
         }
         public override void ActionWhenBtnSaveClicked()
         {
             if (TenItem != string.Empty && TenItem.Length > 0)
             {
-                BaseObjectSingle temp = new BaseObjectSingle();
-                temp.TenObject = TenItem;
-                temp.Id = Convert.ToInt32(Id);
-                temp.TrangThaiObject = TrangThaiItem;
+                LoaiSan_Model temp = new LoaiSan_Model();
+                temp.BaseObject.TenObject = TenItem;
+                temp.BaseObject.IdObject = Convert.ToInt32(Id);
+                temp.BaseObject.TrangThaiObject = TrangThaiItem;
                 DanhSach_LoaiSan.Add(temp);
                 IsButtonSaveEnable = false;
                 IsButtonModifyEnable = true;
