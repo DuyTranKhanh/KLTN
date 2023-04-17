@@ -27,6 +27,7 @@ namespace KLTN.Models
     
         public virtual DbSet<Account_Db> Account_Db { get; set; }
         public virtual DbSet<BangGia_Db> BangGia_Db { get; set; }
+        public virtual DbSet<CurrentUser_Db> CurrentUser_Db { get; set; }
         public virtual DbSet<DanhSachHienTai_NuocUong_Db> DanhSachHienTai_NuocUong_Db { get; set; }
         public virtual DbSet<DanhSachHoaDon_NuocUong_Db> DanhSachHoaDon_NuocUong_Db { get; set; }
         public virtual DbSet<HoaDon_Db> HoaDon_Db { get; set; }

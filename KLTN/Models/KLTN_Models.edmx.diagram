@@ -4,19 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b8970ff05bd8487589e4e6cf03a5c50e" Name="Diagram1">
+      <Diagram DiagramId="1b788b07c0134b5c9ff521804b09176f" Name="Diagram1">
         <EntityTypeShape EntityType="KLTN_DatabaseModel.Account_Db" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.BangGia_Db" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.DanhSachHienTai_NuocUong_Db" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.DanhSachHoaDon_NuocUong_Db" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoaDon_Db" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_Db" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.KhachHang_Db" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_Db" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.LoaiSan_Db" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.NuocUong_Db" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.San_Db" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.PhieuThu_Db" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.CurrentUser_Db" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.DanhSachHienTai_NuocUong_Db" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.DanhSachHoaDon_NuocUong_Db" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoaDon_Db" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_Db" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.KhachHang_Db" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_Db" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LoaiSan_Db" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.NuocUong_Db" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.San_Db" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.PhieuThu_Db" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

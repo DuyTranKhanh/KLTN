@@ -68,7 +68,7 @@ namespace KLTN.Service
                     temp.HoatDongCuaSan.San.BaseObject.IdObject = Convert.ToInt32(item.Id_San);
                     temp.HoatDongCuaSan.San.BaseObject.TenObject = item.Ten_San;
                     temp.HoatDongCuaSan.San.TenLoaiSan = item.Ten_LoaiSan;
-                    temp.HoatDongCuaSan.KhachHang.BaseObject.IdObject = (int)item.Id_KhachHang;
+                    temp.HoatDongCuaSan.KhachHang.BaseObject.IdObject = (item.Id_KhachHang == null) ? -1 : (int)item.Id_KhachHang;
                     temp.HoatDongCuaSan.KhachHang.BaseObject.TenObject = item.Ten_KhachHang;
                     temp.HoatDongCuaSan.KhachHang.SdtObject = item.Sdt_KhachHang;
                     temp.HoatDongCuaSan.DanhSachNuocUong = new ObservableCollection<HoatDongNuocUong_Model>();
@@ -81,10 +81,10 @@ namespace KLTN.Service
                     }
                     temp.HoatDongCuaSan.GioVaoSan = item.GioVaoSan;
                     temp.HoatDongCuaSan.GioKetThuc = item.GioRaSan;
-                    temp.HoatDongCuaSan.SoGioThue = Convert.ToDouble(item.SoGioThue);
-                    temp.HoatDongCuaSan.TongTien = (Decimal)item.TongTien;
-                    temp.HoatDongCuaSan.TienKhachDua = (Decimal)item.TienKhachDua;
-                    temp.HoatDongCuaSan.TienThoi = (Decimal)item.TienThua;
+                    temp.HoatDongCuaSan.SoGioThue = (item.SoGioThue == null) ? 0 : (Convert.ToDouble(item.SoGioThue));
+                    temp.HoatDongCuaSan.TongTien = (item.TongTien == null) ? 0 : (Decimal)item.TongTien;
+                    temp.HoatDongCuaSan.TienKhachDua = (item.TienKhachDua == null) ? 0 : (Decimal)item.TienKhachDua;
+                    temp.HoatDongCuaSan.TienThoi = (item.TienThua == null) ? 0 : (Decimal)item.TienThua;
                     temp.HoatDongCuaSan.Ngay = item.NgayThucHien;
                     temp.HoatDongCuaSan.GhiChu = item.GhiChu;
                     temp.HoatDongCuaSan.NhanVien.Account = item.Account_NhanVien;

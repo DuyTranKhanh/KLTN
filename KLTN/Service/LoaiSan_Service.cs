@@ -66,7 +66,6 @@ namespace KLTN.Service
                 var item = Database.LoaiSan_Db.Find(parameter.BaseObject.IdObject);
                 if(item != null)
                 {
-                    item.Ten_LoaiSan = parameter.BaseObject.TenObject;
                     item.TrangThai_LoaiSan = parameter.BaseObject.TrangThaiObject;
                     var NoOfRowsAffected = Database.SaveChanges();
                     l_IsUpdate = NoOfRowsAffected > 0;

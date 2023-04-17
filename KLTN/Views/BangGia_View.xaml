@@ -18,10 +18,6 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -174,21 +170,25 @@
                         Height="25"
                         HorizontalAlignment="Left"
                         IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Text="{Binding NgayApDungItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding NgayTao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
                         Grid.Row="8"
                         Grid.Column="0"
                         Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
                         FontSize="15" />
-                    <TextBox
+                    <ComboBox
                         Grid.Row="8"
                         Grid.Column="1"
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        materialDesign:HintAssist.Hint="Trạng thái hoạt động"
+                        DisplayMemberPath="Value"
                         IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Text="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        ItemsSource="{Binding TrangThaiCbb, FallbackValue='Err'}"
+                        SelectedValue="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Value" />
                 </Grid>
             </GroupBox>
 
@@ -267,6 +267,7 @@
                 </Grid.RowDefinitions>
                 <ListView
                     Grid.Row="1"
+                    MaxHeight="350"
                     FontSize="15"
                     ItemsSource="{Binding DanhSach_BangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -274,27 +275,27 @@
                         <GridView>
                             <GridViewColumn
                                 Width="100"
-                                DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.IdObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Width="160"
+                                DisplayMemberBinding="{Binding BaseObject.TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
-                                Width="120"
+                                Width="150"
                                 DisplayMemberBinding="{Binding GiaTienObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding DonGiaItemLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="150"
-                                DisplayMemberBinding="{Binding ThoiGianBatDauObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding ThoiGianBatDauItemLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="150"
-                                DisplayMemberBinding="{Binding ThoiGianKetThucObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding ThoiGianKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding ThoiGianKetThucItemLabel, FallbackValue='Lang-err'}" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">

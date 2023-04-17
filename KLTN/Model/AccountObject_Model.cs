@@ -4,8 +4,8 @@ namespace KLTN.Model
 {
     public class AccountObject_Model
     {
-        private int _Sdt;
-        private int _Cmnd;
+        private string _Sdt;
+        private string _Cmnd;
         private string _Account;
         private string _Password;
         private string _HoVaTen;
@@ -20,7 +20,7 @@ namespace KLTN.Model
                 _IsAdmin = value;
             }
         }
-        public int Sdt
+        public string Sdt
         {
             get => _Sdt;
             set
@@ -29,7 +29,7 @@ namespace KLTN.Model
             }
         }
 
-        public int Cmnd
+        public string Cmnd
         {
             get => _Cmnd;
             set

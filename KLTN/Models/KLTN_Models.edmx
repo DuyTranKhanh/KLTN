@@ -30,6 +30,19 @@
           <Property Name="ThoiGianKetThuc" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayTao" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CurrentUser_Db">
+          <Key>
+            <PropertyRef Name="Id_CurrentUser" />
+          </Key>
+          <Property Name="Id_CurrentUser" Type="int" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sdt" Type="nchar" MaxLength="10" />
+          <Property Name="Cmnd" Type="nchar" MaxLength="10" />
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai_Account" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsAdmin" Type="bit" />
+        </EntityType>
         <EntityType Name="DanhSachHienTai_NuocUong_Db">
           <Key>
             <PropertyRef Name="Id_San" />
@@ -117,10 +130,12 @@
           <Property Name="Ten_LoaiSan" Type="nvarchar" MaxLength="50" />
           <Property Name="TrangThai_LichDat" Type="nvarchar" MaxLength="50" />
           <Property Name="Id_KhachHang" Type="int" />
-          <Property Name="Ten_KhachHang" Type="nchar" MaxLength="10" />
+          <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt_KhachHang" Type="nvarchar" MaxLength="50" />
           <Property Name="GioBatDau" Type="nvarchar" MaxLength="50" />
           <Property Name="GioKetThuc" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayDat" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySuDungSan" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="LoaiSan_Db">
           <Key>
@@ -179,6 +194,7 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
         <EntityContainer Name="KLTN_DatabaseModelStoreContainer">
           <EntitySet Name="Account_Db" EntityType="Self.Account_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BangGia_Db" EntityType="Self.BangGia_Db" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentUser_Db" EntityType="Self.CurrentUser_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhSachHienTai_NuocUong_Db" EntityType="Self.DanhSachHienTai_NuocUong_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhSachHoaDon_NuocUong_Db" EntityType="Self.DanhSachHoaDon_NuocUong_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon_Db" EntityType="Self.HoaDon_Db" Schema="dbo" store:Type="Tables" />
@@ -241,6 +257,19 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="ThoiGianBatDau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ThoiGianKetThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgayTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CurrentUser_Db">
+          <Key>
+            <PropertyRef Name="Id_CurrentUser" />
+          </Key>
+          <Property Name="Id_CurrentUser" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Cmnd" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HoVaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai_Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" />
         </EntityType>
         <EntityType Name="DanhSachHienTai_NuocUong_Db">
           <Key>
@@ -329,10 +358,12 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="Ten_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai_LichDat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Id_KhachHang" Type="Int32" />
-          <Property Name="Ten_KhachHang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GioBatDau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GioKetThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayDat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySuDungSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LoaiSan_Db">
           <Key>
@@ -389,6 +420,7 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
         <EntityContainer Name="KLTN_DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Account_Db" EntityType="Self.Account_Db" />
           <EntitySet Name="BangGia_Db" EntityType="Self.BangGia_Db" />
+          <EntitySet Name="CurrentUser_Db" EntityType="Self.CurrentUser_Db" />
           <EntitySet Name="DanhSachHienTai_NuocUong_Db" EntityType="Self.DanhSachHienTai_NuocUong_Db" />
           <EntitySet Name="DanhSachHoaDon_NuocUong_Db" EntityType="Self.DanhSachHoaDon_NuocUong_Db" />
           <EntitySet Name="HoaDon_Db" EntityType="Self.HoaDon_Db" />
@@ -430,6 +462,20 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
                 <ScalarProperty Name="ThoiGianBatDau" ColumnName="ThoiGianBatDau" />
                 <ScalarProperty Name="ThoiGianKetThuc" ColumnName="ThoiGianKetThuc" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentUser_Db">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.CurrentUser_Db">
+              <MappingFragment StoreEntitySet="CurrentUser_Db">
+                <ScalarProperty Name="Id_CurrentUser" ColumnName="Id_CurrentUser" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+                <ScalarProperty Name="Cmnd" ColumnName="Cmnd" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="TrangThai_Account" ColumnName="TrangThai_Account" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -528,6 +574,8 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
                 <ScalarProperty Name="Sdt_KhachHang" ColumnName="Sdt_KhachHang" />
                 <ScalarProperty Name="GioBatDau" ColumnName="GioBatDau" />
                 <ScalarProperty Name="GioKetThuc" ColumnName="GioKetThuc" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="NgaySuDungSan" ColumnName="NgaySuDungSan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

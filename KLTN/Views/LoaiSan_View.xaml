@@ -6,8 +6,9 @@
     xmlns:local="clr-namespace:KLTN.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Danh sách loại sân"
-    Width="850"
-    Height="600"
+    Width="600"
+    Height="400"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -17,10 +18,6 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -78,14 +75,18 @@
                         Grid.Column="0"
                         Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
                         FontSize="15" />
-                    <TextBox
+                    <ComboBox
                         Grid.Row="4"
                         Grid.Column="1"
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        materialDesign:HintAssist.Hint="Trạng thái hoạt động"
+                        DisplayMemberPath="Value"
                         IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Text="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        ItemsSource="{Binding TrangThaiCbb, FallbackValue='Err'}"
+                        SelectedValue="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Value" />
                 </Grid>
             </GroupBox>
 
@@ -100,7 +101,6 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <Button
                     Grid.Column="0"
@@ -177,15 +177,15 @@
                         <GridView>
                             <GridViewColumn
                                 Width="100"
-                                DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.IdObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding TenItemLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Width="160"
+                                DisplayMemberBinding="{Binding BaseObject.TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">

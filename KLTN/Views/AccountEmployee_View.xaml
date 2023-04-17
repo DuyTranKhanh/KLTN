@@ -31,10 +31,6 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -74,6 +70,7 @@
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Text="{Binding HoVaTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
@@ -87,6 +84,7 @@
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Text="{Binding TenTaiKhoan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
@@ -104,6 +102,7 @@
                             Width="200"
                             Height="25"
                             HorizontalAlignment="Left"
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding MatKhau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Name="ShowHide"
@@ -122,11 +121,15 @@
                         Content="{Binding SdtItemLabel, FallbackValue='Lang-err'}"
                         FontSize="15" />
                     <TextBox
+                        x:Name="PhoneTextBox"
                         Grid.Row="3"
                         Grid.Column="1"
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        materialDesign:TransitionAssist.DisableTransitions="True"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        MaxLength="10"
                         Text="{Binding SDT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
@@ -135,11 +138,15 @@
                         Content="{Binding CmndItemLabel, FallbackValue='Lang-err'}"
                         FontSize="15" />
                     <TextBox
+                        x:Name="CmndTextbox"
                         Grid.Row="4"
                         Grid.Column="1"
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
+                        materialDesign:TransitionAssist.DisableTransitions="True"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        MaxLength="12"
                         Text="{Binding Cmnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
@@ -147,13 +154,26 @@
                         Grid.Column="0"
                         Content="{Binding TrangThaiLabel, FallbackValue='Lang-err'}"
                         FontSize="15" />
-                    <TextBox
+                    <ComboBox
                         Grid.Row="5"
                         Grid.Column="1"
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
-                        Text="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        materialDesign:HintAssist.Hint="Trạng thái hoạt động"
+                        DisplayMemberPath="Value"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding TrangThaiCbb, FallbackValue='Err'}"
+                        SelectedValue="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Value" />
+                    <!--<TextBox
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Width="250"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
 
                     <Label
                         Grid.Row="6"
@@ -168,6 +188,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         IsChecked="{Binding IsAdmin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{DynamicResource MaterialDesignSwitchToggleButton}" />
 
                 </Grid>
@@ -196,7 +217,8 @@
                     Content="{Binding AddLabel, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
                     FontSize="15"
-                    Foreground="GhostWhite" />
+                    Foreground="GhostWhite"
+                    IsEnabled="{Binding IsButtonAddEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     Grid.Column="1"
@@ -204,10 +226,11 @@
                     Margin="10,0,0,0"
                     Background="DeepSkyBlue"
                     Command="{Binding ModifyCommand}"
-                    Content="{Binding ModifyLabel, FallbackValue='Lang-err'}"
+                    Content="{Binding Modify_Label, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
                     FontSize="15"
-                    Foreground="GhostWhite" />
+                    Foreground="GhostWhite"
+                    IsEnabled="{Binding IsButtonModifyEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     Grid.Column="2"
@@ -218,7 +241,8 @@
                     Content="{Binding SaveLabel, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
                     FontSize="15"
-                    Foreground="GhostWhite" />
+                    Foreground="GhostWhite"
+                    IsEnabled="{Binding IsButtonSaveEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     Grid.Column="3"
@@ -251,26 +275,27 @@
                 </Grid.ColumnDefinitions>
                 <ListView
                     Grid.Row="1"
+                    MaxHeight="300"
                     FontSize="15"
-                    ItemsSource="{Binding DanhSach_TaiKhoan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding DanhSachAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
                                 Width="100"
-                                DisplayMemberBinding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding CotTaiKhoanLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding HoVaTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding HoVaTenItemLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding Sdt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding SdtItemLabel, FallbackValue='Lang-err'}" />
                             <GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding TrangThaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">

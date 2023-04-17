@@ -174,6 +174,7 @@ namespace KLTN.ViewModel
             {
                 Id = "0";
             }
+            IsButtonAddEnable = false;
             IsButtonSaveEnable = true;
             IsTextboxEnable = true;
             IsButtonModifyEnable = false;

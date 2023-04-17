@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using System;
+using KLTN.Service;
 
 namespace KLTN.ViewModel
 {
@@ -103,6 +104,15 @@ namespace KLTN.ViewModel
         }
         #endregion Properties of selected item
 
+        San_Service Database;
+        LoaiSan_Service LoaiSan_Database;
+        HoatDongHienTai_Service HoatDongHienTai_Database;
+        public San_ViewModel()
+        {
+            Database = new San_Service();
+            LoaiSan_Database = new LoaiSan_Service();
+            HoatDongHienTai_Database = new HoatDongHienTai_Service();
+        }
         #region Method when Selected Item
         /// <summary>
         /// Update value when select an item
@@ -145,7 +155,7 @@ namespace KLTN.ViewModel
         #region Method
         public override void GetDataFromDatabase()
         {
-            //Dummy Data
+            DanhSach_San = Database.GetAll();
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -180,6 +190,7 @@ namespace KLTN.ViewModel
                 SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            Database.UpdateItem(SelectedItem);
         }
         public override void ActionWhenBtnSaveClicked()
         {
@@ -195,6 +206,11 @@ namespace KLTN.ViewModel
                 IsButtonModifyEnable = true;
                 IsTextboxEnable = false;
                 SelectedItem = DanhSach_San[0];
+                Database.Add(temp);
+                HoatDongHienTaiModel item = new HoatDongHienTaiModel();
+                item.TrangThaiSan = "Sẵn sàng sử dụng";
+                item.HoatDongCuaSan.San = temp.Clone();
+                HoatDongHienTai_Database.Add(item);
             }
         }
         #endregion Method
@@ -216,10 +232,7 @@ namespace KLTN.ViewModel
         void ActionWhenBtnReloadClicked()
         {
             DanhSach_LoaiSan = new Dictionary<int, string>();
-            DanhSach_LoaiSan.Add(0, "Sân 5");
-            DanhSach_LoaiSan.Add(1, "Sân 7");
-            DanhSach_LoaiSan.Add(2, "Sân 11");
-            DanhSach_LoaiSan.Add(3, "Sân khác");
+            DanhSach_LoaiSan = GetDataForComboboxLoaiSan();
         }
         #endregion
 
@@ -254,10 +267,11 @@ namespace KLTN.ViewModel
         {
             //Get List Data of LoaiSan from Db.
             Dictionary<int, string> temp = new Dictionary<int, string>();
-            temp.Add(0, "Sân 5");
-            temp.Add(1, "Sân 7");
-            temp.Add(2, "Sân 11");
-            temp.Add(3, "Sân khác");
+            var listLoaiSan = LoaiSan_Database.GetAll();
+            for(int i = 0; i < listLoaiSan.Count; i++)
+            {
+                temp.Add(i, listLoaiSan[i].BaseObject.TenObject);
+            }
             return temp;
         }
         #endregion Combobox and Trigger

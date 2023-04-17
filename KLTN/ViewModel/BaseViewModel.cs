@@ -1,5 +1,6 @@
 ﻿
 using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -234,5 +235,16 @@ namespace KLTN.ViewModel
         public const string _San11 = "Sân 11";
         public const string _SanOther = "Sân khác";
         #endregion Constant
+
+        public Dictionary<int,string> TrangThaiCbb
+        {
+            get
+            {
+                Dictionary<int, string> temp = new Dictionary<int, string>();
+                temp.Add(0, _HoatDong);
+                temp.Add(1, _KhongHoatDong);
+                return temp;
+            }
+        }
     }
 }

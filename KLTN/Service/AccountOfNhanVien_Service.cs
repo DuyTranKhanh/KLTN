@@ -50,8 +50,8 @@ namespace KLTN.Service
                 {
                     var temp = new AccountObject_Model();
                     temp.Account = item.Account;
-                    temp.Sdt = Convert.ToInt32(item.Sdt);
-                    temp.Cmnd = Convert.ToInt32(item.Cmnd);
+                    temp.Sdt = item.Sdt;
+                    temp.Cmnd = item.Cmnd;
                     temp.Password = item.Password;
                     temp.HoVaTen = item.HoVaTen;
                     temp.Status = item.TrangThai_Account;
@@ -86,22 +86,78 @@ namespace KLTN.Service
             catch (Exception ex) { throw ex; }
             return l_IsUpdate;
         }
-        public bool Search(string account,string password)
+        public int Search(string account,string password)
         {
-            bool result = false;
+            int result = 0;
             try
             {
                 var objectUser = Database.Account_Db.Find(account);
-                if(objectUser != null && objectUser.Password == password)
+                if(objectUser == null)
                 {
-                    result = true;
+                    result = 0; // Khong co account nay
                 }
+                else if(objectUser != null && objectUser.Password != password)
+                {
+                    result = -1; // Khong dung mat khau
+                }
+                else if(objectUser != null && objectUser.Password == password && objectUser.TrangThai_Account != "Hoạt động")
+                {
+                    result = -2; // Trang thai khong hop le
+                }
+                else if(objectUser != null && objectUser.Password == password && objectUser.TrangThai_Account == "Hoạt động")
+                {
+                    result = 1; // Hop le
+                }
+
             }
             catch(Exception ex)
             {
                 throw ex;
             }
             return result;
+        }
+
+        public AccountObject_Model GetSingleItem(string account, string password)
+        {
+            try
+            {
+                AccountObject_Model objSingle = new AccountObject_Model();
+                var objectUser = Database.Account_Db.Find(account);
+                {
+                    objSingle.Account = objectUser.Account;
+                    objSingle.Sdt = objectUser.Sdt;
+                    objSingle.Cmnd = objectUser.Cmnd;
+                    objSingle.Password = objectUser.Password;
+                    objSingle.HoVaTen = objectUser.HoVaTen;
+                    objSingle.Status = objectUser.TrangThai_Account;
+                    objSingle.IsAdmin = Convert.ToBoolean(objectUser.IsAdmin);
+                }
+                return objSingle;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+        }
+
+        public bool ModifyItem(AccountObject_Model parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.Account_Db.Find(parameter.Account);
+                if (item != null)
+                {
+                    item.Sdt = parameter.Sdt.ToString();
+                    item.Cmnd = parameter.Cmnd.ToString();
+                    item.Password = parameter.Password;
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
         }
     }
 }

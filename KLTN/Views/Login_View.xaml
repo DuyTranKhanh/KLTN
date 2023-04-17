@@ -90,8 +90,8 @@
                 Grid.Column="1"
                 Width="30"
                 HorizontalAlignment="Center"
-                Command="{Binding ForgetPswCommand}"
                 FontSize="15"
+                Click="ForgetPswBtn_Click"
                 Style="{DynamicResource MaterialDesignIconButton}"
                 ToolTip="Quên mật khẩu">
                 <materialDesign:PackIcon

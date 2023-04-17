@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using System.Linq;
-using System.ComponentModel;
+using KLTN.Service;
 using System.Collections.ObjectModel;
 using KLTN.Model;
 using GalaSoft.MvvmLight.Command;
@@ -230,10 +230,13 @@ namespace KLTN.ViewModel
         {
             //Get List Data of LoaiSan from Db.
             Dictionary<int, string> temp = new Dictionary<int, string>();
-            temp.Add(0, "Sân 5");
-            temp.Add(1, "Sân 7");
-            temp.Add(2, "Sân 11");
-            temp.Add(3, "Sân khác");
+
+            var listOfLoaiSan = _LoaiSanDatabase.GetAll();
+            for(int i= 0; i < listOfLoaiSan.Count; i++)
+            {
+                temp.Add(i, listOfLoaiSan[i].BaseObject.TenObject);
+            }
+
             return temp;
         }
         #endregion Combobox and Trigger
@@ -262,10 +265,23 @@ namespace KLTN.ViewModel
         }
         #endregion
 
+        #region Service
+        BangGia_Service TheDatabase;
+        LoaiSan_Service _LoaiSanDatabase;
+        #endregion Service
+
+        #region Constructor
+        public BangGia_ViewModel()
+        {
+            TheDatabase = new BangGia_Service();
+            _LoaiSanDatabase = new LoaiSan_Service();
+        }
+        #endregion
         #region Method
         public override void GetDataFromDatabase()
         {
             //Function Get data
+            DanhSach_BangGia = TheDatabase.GetAll();
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -273,7 +289,7 @@ namespace KLTN.ViewModel
             //Clear all information in textbox
             TenItem = "";
             GiaTienItem = "";
-            TrangThaiItem = "Hoạt động";
+            TrangThaiItem = _HoatDong;
             NgayApDungItem = DateTime.Today.Date.ToString();
             IsButtonSaveEnable = true;
             IsTextboxEnable = true;
@@ -300,10 +316,11 @@ namespace KLTN.ViewModel
             {
                 SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
+            TheDatabase.UpdateItem(SelectedItem);
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
-            TenItem = SelectedItem.BaseObject.TenObject;
-            ThoiGianBatDauItem = SelectedItem.ThoiGianBatDau.ToString();
-            ThoiGianKetThucItem = SelectedItem.ThoiGianKetThuc.ToString();
+            //TenItem = SelectedItem.BaseObject.TenObject;
+            //ThoiGianBatDauItem = SelectedItem.ThoiGianBatDau.ToString();
+            //ThoiGianKetThucItem = SelectedItem.ThoiGianKetThuc.ToString();
         }
         public override void ActionWhenBtnSaveClicked()
         {
@@ -324,6 +341,7 @@ namespace KLTN.ViewModel
                     IsTextboxEnable = true;
                     IsButtonModifyEnable = true;
                     SelectedItem = DanhSach_BangGia[0];
+                    TheDatabase.Add(temp);
                 }
             }
             catch(Exception)

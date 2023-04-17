@@ -191,12 +191,12 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Header="Sân 5">
-                            <ListView ItemsSource="{Binding DanhSach_San5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedObj, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView ItemsSource="{Binding DanhSachSan5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn
                                             Width="130"
-                                            DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayMemberBinding="{Binding HoatDongCuaSan.San.BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Header="Tên sân" />
                                         <GridViewColumn
                                             Width="150"
@@ -213,12 +213,12 @@
                             VerticalAlignment="Center"
                             BorderThickness="1"
                             Header="Sân 7">
-                            <ListView ItemsSource="{Binding DanhSach_San7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedObj, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView ItemsSource="{Binding DanhSachSan7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn
                                             Width="130"
-                                            DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayMemberBinding="{Binding HoatDongCuaSan.San.BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Header="Tên sân" />
                                         <GridViewColumn
                                             Width="150"
@@ -238,12 +238,12 @@
                             VerticalAlignment="Center"
                             BorderThickness="1"
                             Header="Sân 11">
-                            <ListView ItemsSource="{Binding DanhSach_San11, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedObj, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView ItemsSource="{Binding DanhSachSan11, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn
                                             Width="130"
-                                            DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayMemberBinding="{Binding HoatDongCuaSan.San.BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Header="Tên sân" />
                                         <GridViewColumn
                                             Width="150"
@@ -260,12 +260,12 @@
                             VerticalAlignment="Center"
                             BorderThickness="1"
                             Header="Sân khác">
-                            <ListView ItemsSource="{Binding DanhSach_SanOthers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedObj, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView ItemsSource="{Binding DanhSachSanOther, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn
                                             Width="130"
-                                            DisplayMemberBinding="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayMemberBinding="{Binding HoatDongCuaSan.San.BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Header="Tên sân" />
                                         <GridViewColumn
                                             Width="150"
@@ -280,14 +280,13 @@
                         Grid.Row="1"
                         Height="250"
                         FontSize="15"
-                        ItemsSource="{Binding DanhSach_BangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding DanhSachBangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Visibility="{Binding IsDanhSachBangGiaVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Collapsed}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn
                                     Width="150"
-                                    DisplayMemberBinding="{Binding TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    DisplayMemberBinding="{Binding BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
                                 <GridViewColumn
                                     Width="150"
@@ -295,11 +294,11 @@
                                     Header="{Binding DonGiaItemLabel, FallbackValue='Lang-err'}" />
                                 <GridViewColumn
                                     Width="150"
-                                    DisplayMemberBinding="{Binding ThoiGianBatDauObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    DisplayMemberBinding="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Header="{Binding ThoiGianBatDauItemLabel, FallbackValue='Lang-err'}" />
                                 <GridViewColumn
                                     Width="150"
-                                    DisplayMemberBinding="{Binding ThoiGianKetThucObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    DisplayMemberBinding="{Binding ThoiGianKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Header="{Binding ThoiGianKetThucItemLabel, FallbackValue='Lang-err'}" />
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -330,8 +329,8 @@
             <GroupBox Grid.Column="1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="5" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
@@ -340,41 +339,27 @@
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Column="0"
-                                HorizontalContentAlignment="Stretch"
-                                Content="Thông tin sân:"
-                                FontSize="16" />
-                            <Label
-                                Grid.Column="1"
-                                HorizontalContentAlignment="Stretch"
-                                Background="AliceBlue"
-                                Content="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='ERR'}"
-                                FontSize="15" />
-                        </Grid>
-
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1" Content="{Binding TrangThaiSuDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" />
+                        <Label
+                            Grid.Column="0"
+                            HorizontalContentAlignment="Stretch"
+                            Content="Thông tin sân:"
+                            FontSize="16" />
+                        <Label
+                            Grid.Column="1"
+                            HorizontalContentAlignment="Stretch"
+                            Background="AliceBlue"
+                            Content="{Binding TenSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='ERR'}"
+                            FontSize="15" />
 
-                        </Grid>
-
+                        <Label
+                            Grid.Column="2"
+                            HorizontalContentAlignment="Stretch"
+                            Background="AliceBlue"
+                            Content="{Binding TinhTrang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='ERR'}"
+                            FontSize="15" />
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
@@ -402,9 +387,9 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
-                            DisplayMemberPath="Key"
-                            ItemsSource="{Binding ListCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedValue="{Binding TenItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            DisplayMemberPath="Value"
+                            ItemsSource="{Binding Dictionary_KhachHang}"
+                            SelectedValue="{Binding TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValuePath="Value"
                             Style="{StaticResource MaterialDesignComboBox}" />
                         <Grid Grid.Row="0" Grid.Column="2">
@@ -458,9 +443,9 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding GioVaoSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Label
-                            Grid.Row="2"
+                            Grid.Row="3"
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -468,21 +453,23 @@
                             <TextBlock Text="{Binding ThoiGianSuDungLabel, FallbackValue='Lang-err'}" TextWrapping="Wrap" />
                         </Label>
                         <TextBox
-                            Grid.Row="2"
+                            Grid.Row="3"
                             Grid.Column="1"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{Binding TongGio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Giờ ra"
                             FontSize="15" />
                         <TextBox
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Grid.Column="1"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{Binding GioKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Grid Grid.Row="1" Grid.Column="2">
                             <Grid.ColumnDefinitions>
@@ -507,7 +494,7 @@
 
 
                         <Button
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Grid.Column="2"
                             HorizontalAlignment="Left"
                             Style="{DynamicResource MaterialDesignIconButton}"
@@ -550,8 +537,12 @@
                                 Grid.Column="0"
                                 Width="150"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding DanhSach1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
+                                VerticalAlignment="Center"
+                                DisplayMemberPath="Value"
+                                ItemsSource="{Binding Dictionary_NuocUong}"
+                                SelectedValue="{Binding NuocUongSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedValuePath="Value"
+                                Style="{StaticResource MaterialDesignComboBox}" />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -563,17 +554,21 @@
                                 Grid.Column="1"
                                 Width="150"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
+                                Text="{Binding SoLuongSelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                VerticalAlignment="Center" 
+                                />
 
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 Content="Giá tiền"
-                                FontSize="15" />
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Width="150"
+                                Text="{Binding GiaTienSelecteItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" />
 
@@ -585,10 +580,12 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Grid.Column="0"
                                     HorizontalAlignment="Left"
+                                    ToolTip="Thêm sản phẩm"
                                     Style="{DynamicResource MaterialDesignIconButton}">
                                     <materialDesign:PackIcon
                                         Width="35"
@@ -600,17 +597,31 @@
                                 <Button
                                     Grid.Column="1"
                                     HorizontalAlignment="Left"
+                                    ToolTip="Modify sản phẩm"
                                     Style="{DynamicResource MaterialDesignIconButton}">
                                     <materialDesign:PackIcon
                                         Width="35"
                                         Height="35"
                                         Margin="-2,0,0,0"
                                         Foreground="DarkSeaGreen"
-                                        Kind="MinusThick" />
+                                        Kind="Update" />
                                 </Button>
                                 <Button
                                     Grid.Column="2"
+                                    ToolTip="Lưu"
                                     HorizontalAlignment="Left"
+                                    Style="{DynamicResource MaterialDesignIconButton}">
+                                    <materialDesign:PackIcon
+                                        Width="35"
+                                        Height="35"
+                                        Margin="-2,0,0,0"
+                                        Foreground="DarkSeaGreen"
+                                        Kind="ContentSave" />
+                                </Button>
+                                <Button
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="Xóa"
                                     Style="{DynamicResource MaterialDesignIconButton}">
                                     <materialDesign:PackIcon
                                         Width="35"
@@ -657,58 +668,95 @@
                     </Grid>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Content="In Phiếu" />
-                            <Button
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Content="Thu tiền" />
-                            <Button
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Content="Reload" />
+                        <Border
+                            Grid.Column="0"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Width="180"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="In phiếu"
+                                    Foreground="Green"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Width="180"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Thu tiền"
+                                    Foreground="Black"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Width="180"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Reload"
+                                    Foreground="DeepSkyBlue"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Width="180"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Đổi sân"
+                                    Foreground="Green"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                <Button
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Width="180"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Hủy sân"
+                                    Foreground="OrangeRed"
+                                    Style="{DynamicResource MaterialDesignRaisedDarkButton}" />
 
-                            <Button
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Content="Đổi sân" />
-                            <Button
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Content="Hủy sân" />
-                            <Button
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Content="Thoát" />
+                                <Button
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Width="180"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Blue"
+                                    Content="Thống kê"
+                                    Foreground="Yellow"
+                                    Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                                    ToolTip="Thống kê" />
+                            </Grid>
+                        </Border>
 
-                            <Button
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Content="Thống kê" />
-                        </Grid>
                         <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
@@ -723,38 +771,67 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                Content="Tiền Giờ" />
+                                Content="Tiền Giờ"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
                             <TextBox Grid.Row="0" Grid.Column="1" />
 
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Content="Tiền nước" />
+                                Content="Tiền nước"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
                             <TextBox Grid.Row="1" Grid.Column="1" />
 
                             <Label
                                 Grid.Row="2"
                                 Grid.Column="0"
-                                Content="Tiền Dịch vụ khác" />
+                                Content="Tiền Dịch vụ khác"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
                             <TextBox Grid.Row="2" Grid.Column="1" />
 
                             <Label
                                 Grid.Row="3"
                                 Grid.Column="0"
-                                Content="Tổng:" />
+                                Content="Tổng:"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
                             <TextBox Grid.Row="3" Grid.Column="1" />
 
                             <Label
                                 Grid.Row="4"
                                 Grid.Column="0"
-                                Content="Khách đưa" />
-                            <TextBox Grid.Row="4" Grid.Column="1" />
+                                Content="Khách đưa"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Text="{Binding TienKhachDua, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
                                 Grid.Row="5"
                                 Grid.Column="0"
-                                Content="Tiền thối" />
-                            <TextBox Grid.Row="5" Grid.Column="1" />
+                                Content="Tiền thối"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
+                            <TextBox
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Text="{Binding TienThoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Label
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Content="Ghi chú"
+                                FontSize="15"
+                                Style="{DynamicResource MaterialDesignLabel}" />
+                            <TextBox
+                                Grid.Row="6"
+                                Grid.Column="1"
+                                Text="{Binding GhiChu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         </Grid>
                     </Grid>

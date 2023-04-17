@@ -1,10 +1,8 @@
 ﻿using KLTN.Model;
 using System;
-using System.Collections.Generic;
+using KLTN.Service;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KLTN.ViewModel
 {
@@ -106,6 +104,11 @@ namespace KLTN.ViewModel
         }
         #endregion Properties of selected item
 
+        NuocUong_Service Database;
+        public NuocUong_ViewModel()
+        {
+            Database = new NuocUong_Service();
+        }
         #region Method when Selected Item
         /// <summary>
         /// Update value when select an item
@@ -148,7 +151,7 @@ namespace KLTN.ViewModel
         #region Method
         public override void GetDataFromDatabase()
         {
-            //Dummy Data
+            DanhSach_NuocUong = Database.GetAll();
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -183,10 +186,11 @@ namespace KLTN.ViewModel
                 SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            Database.UpdateItem(SelectedItem);
         }
         public override void ActionWhenBtnSaveClicked()
         {
-            if (TenItem != string.Empty && TenItem.Length > 0 & GiaTienItem.Length > 1000)
+            if (TenItem != string.Empty && TenItem.Length > 0 & Convert.ToInt32(GiaTienItem) > 1000)
             {
                 NuocUongObject_Model temp = new NuocUongObject_Model();
                 temp.BaseObject.TenObject = TenItem;
@@ -198,6 +202,7 @@ namespace KLTN.ViewModel
                 IsButtonModifyEnable = true;
                 IsTextboxEnable = false;
                 SelectedItem = DanhSach_NuocUong[0];
+                Database.Add(temp);
             }
         }
         #endregion Method

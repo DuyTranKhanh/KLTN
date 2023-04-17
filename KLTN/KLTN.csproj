@@ -112,6 +112,9 @@
     <Compile Include="Models\BangGia_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CurrentUser_Db.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DanhSachHienTai_NuocUong_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
@@ -168,6 +171,7 @@
     <Compile Include="Model\HoaDon_Model.cs" />
     <Compile Include="Service\AccountOfNhanVien_Service.cs" />
     <Compile Include="Service\BangGia_Service.cs" />
+    <Compile Include="Service\CurrentUser_Service.cs" />
     <Compile Include="Service\DanhSachHienTai_NuocUong_Service.cs" />
     <Compile Include="Service\DanhSachHoaDon_NuocUong_Service.cs" />
     <Compile Include="Service\DatLich_Service.cs" />
@@ -346,7 +350,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\KLTN_Models.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

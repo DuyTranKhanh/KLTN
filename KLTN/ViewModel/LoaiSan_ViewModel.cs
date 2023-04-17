@@ -1,10 +1,8 @@
-﻿using System.Windows.Input;
-using System.Linq;
-using System.ComponentModel;
+﻿using System.Linq;
 using System.Collections.ObjectModel;
 using KLTN.Model;
-using GalaSoft.MvvmLight.Command;
 using System;
+using KLTN.Service;
 
 namespace KLTN.ViewModel
 {
@@ -104,6 +102,11 @@ namespace KLTN.ViewModel
         #endregion Method when Selected Item
         #endregion
 
+        LoaiSan_Service Database;
+        public LoaiSan_ViewModel()
+        {
+            Database = new LoaiSan_Service();
+        }
         private ObservableCollection<LoaiSan_Model> _DanhSachLoaiSan;
 
         public ObservableCollection<LoaiSan_Model> DanhSach_LoaiSan
@@ -130,7 +133,7 @@ namespace KLTN.ViewModel
         #region Method
         public override void GetDataFromDatabase()
         {
-            //Dummy Data
+            DanhSach_LoaiSan = Database.GetAll();
         }
 
         public override void ActionWhenBtnAddClicked()
@@ -164,6 +167,7 @@ namespace KLTN.ViewModel
                 SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            Database.UpdateItem(SelectedItem);
         }
         public override void ActionWhenBtnSaveClicked()
         {
@@ -178,6 +182,7 @@ namespace KLTN.ViewModel
                 IsButtonModifyEnable = true;
                 IsTextboxEnable = false;
                 SelectedItem = DanhSach_LoaiSan[0];
+                Database.Add(temp);
             }
         }
         #endregion Method
