@@ -554,9 +554,8 @@
                                 Grid.Column="1"
                                 Width="150"
                                 HorizontalAlignment="Left"
-                                Text="{Binding SoLuongSelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                VerticalAlignment="Center" 
-                                />
+                                VerticalAlignment="Center"
+                                Text="{Binding SoLuongSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
                                 Grid.Row="0"
@@ -568,9 +567,9 @@
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Width="150"
-                                Text="{Binding GiaTienSelecteItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center"
+                                Text="{Binding GiaTienSelecteItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Grid
                                 Grid.Row="1"
@@ -585,8 +584,8 @@
                                 <Button
                                     Grid.Column="0"
                                     HorizontalAlignment="Left"
-                                    ToolTip="Thêm sản phẩm"
-                                    Style="{DynamicResource MaterialDesignIconButton}">
+                                    Style="{DynamicResource MaterialDesignIconButton}"
+                                    ToolTip="Thêm sản phẩm">
                                     <materialDesign:PackIcon
                                         Width="35"
                                         Height="35"
@@ -597,8 +596,8 @@
                                 <Button
                                     Grid.Column="1"
                                     HorizontalAlignment="Left"
-                                    ToolTip="Modify sản phẩm"
-                                    Style="{DynamicResource MaterialDesignIconButton}">
+                                    Style="{DynamicResource MaterialDesignIconButton}"
+                                    ToolTip="Modify sản phẩm">
                                     <materialDesign:PackIcon
                                         Width="35"
                                         Height="35"
@@ -608,9 +607,9 @@
                                 </Button>
                                 <Button
                                     Grid.Column="2"
-                                    ToolTip="Lưu"
                                     HorizontalAlignment="Left"
-                                    Style="{DynamicResource MaterialDesignIconButton}">
+                                    Style="{DynamicResource MaterialDesignIconButton}"
+                                    ToolTip="Lưu">
                                     <materialDesign:PackIcon
                                         Width="35"
                                         Height="35"
@@ -621,8 +620,8 @@
                                 <Button
                                     Grid.Column="3"
                                     HorizontalAlignment="Left"
-                                    ToolTip="Xóa"
-                                    Style="{DynamicResource MaterialDesignIconButton}">
+                                    Style="{DynamicResource MaterialDesignIconButton}"
+                                    ToolTip="Xóa">
                                     <materialDesign:PackIcon
                                         Width="35"
                                         Height="35"

@@ -4,6 +4,7 @@ using KLTN.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Core;
 using System.Linq;
 
 namespace KLTN.Service
@@ -110,9 +111,9 @@ namespace KLTN.Service
                 }
 
             }
-            catch(Exception ex)
+            catch(EntityException ex)
             {
-                throw ex;
+                throw new Exception(ex.ToString());
             }
             return result;
         }

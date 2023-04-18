@@ -7,10 +7,10 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Đăng Nhập"
-    Width="450"
-    Height="350"
+    Width="700"
+    Height="450"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="ToolWindow"
+    WindowStyle="ThreeDBorderWindow"
     mc:Ignorable="d">
     <Window.Resources>
         <DropShadowEffect
@@ -22,86 +22,101 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-
-        <Label
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalAlignment="Center"
-            Content="Login"
-            FontSize="16"
-            FontWeight="Bold"
-            Style="{DynamicResource MaterialDesignLabel}" />
-        <TextBox
-            x:Name="txtAccount"
-            Grid.Row="1"
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            materialDesign:HintAssist.Hint="Account"
-            FontSize="14"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            Text="{Binding Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-        <PasswordBox
-            x:Name="txtPassword"
-            Grid.Row="2"
-            Grid.Column="1"
-            materialDesign:HintAssist.Hint="Password"
-            materialDesign:TextFieldAssist.HasClearButton="True"
-            IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
-            KeyDown="txtPassword_KeyDown"
-            Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
-
-
-        <Grid Grid.Row="4" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button
-                x:Name="LoginBtn"
-                Grid.Row="3"
-                Grid.Column="0"
-                Width="30"
-                HorizontalAlignment="Center"
-                Click="LoginBtn_Click"
-                FontSize="15"
-                Style="{DynamicResource MaterialDesignIconButton}">
-                <materialDesign:PackIcon
-                    Width="30"
-                    Height="30"
-                    HorizontalAlignment="Center"
-                    Foreground="LightSkyBlue"
-                    Kind="Login" />
-            </Button>
-
-            <Button
-                x:Name="ForgetPswBtn"
-                Grid.Row="3"
+        <Grid Grid.Column="0" Background="Purple">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
                 Grid.Column="1"
-                Width="30"
                 HorizontalAlignment="Center"
-                FontSize="15"
-                Click="ForgetPswBtn_Click"
-                Style="{DynamicResource MaterialDesignIconButton}"
-                ToolTip="Quên mật khẩu">
-                <materialDesign:PackIcon
+                Content="Login"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="Red"
+                Style="{DynamicResource MaterialDesignLabel}" />
+            <TextBox
+                x:Name="txtAccount"
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Account"
+                BorderBrush="Yellow"
+                BorderThickness="1"
+                FontSize="14"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <PasswordBox
+                x:Name="txtPassword"
+                Grid.Row="2"
+                Grid.Column="1"
+                Height="50"
+                materialDesign:HintAssist.Hint="Password"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                BorderBrush="Yellow"
+                BorderThickness="1"
+                Foreground="Black"
+                IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+                KeyDown="txtPassword_KeyDown"
+                Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+
+
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="LoginBtn"
+                    Grid.Row="3"
+                    Grid.Column="0"
                     Width="30"
-                    Height="30"
                     HorizontalAlignment="Center"
-                    Foreground="LightSkyBlue"
-                    Kind="ForgotPassword" />
-            </Button>
+                    Click="LoginBtn_Click"
+                    FontSize="15"
+                    Style="{DynamicResource MaterialDesignIconButton}">
+                    <materialDesign:PackIcon
+                        Width="30"
+                        Height="30"
+                        HorizontalAlignment="Center"
+                        Foreground="LightSkyBlue"
+                        Kind="Login" />
+                </Button>
+
+                <Button
+                    x:Name="ForgetPswBtn"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="30"
+                    HorizontalAlignment="Center"
+                    Click="ForgetPswBtn_Click"
+                    FontSize="15"
+                    Style="{DynamicResource MaterialDesignIconButton}"
+                    ToolTip="Quên mật khẩu">
+                    <materialDesign:PackIcon
+                        Width="30"
+                        Height="30"
+                        HorizontalAlignment="Center"
+                        Foreground="LightSkyBlue"
+                        Kind="ForgotPassword" />
+                </Button>
+            </Grid>
         </Grid>
+        <Grid Grid.Column="1">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Theme\ImageResource/wp9844272-efootball-pes-2022-wallpapers.jpg" />
+            </Grid.Background>
+        </Grid>
+
+
 
     </Grid>
 </Window>
