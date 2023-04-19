@@ -10,7 +10,7 @@
     Background="AliceBlue"
     WindowStartupLocation="CenterScreen"
     WindowState="Normal"
-    WindowStyle="None"
+    WindowStyle="ThreeDBorderWindow"
     mc:Ignorable="d">
 
     <Grid>
@@ -388,11 +388,15 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             DisplayMemberPath="Value"
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding Dictionary_KhachHang}"
                             SelectedValue="{Binding TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValuePath="Value"
                             Style="{StaticResource MaterialDesignComboBox}" />
-                        <Grid Grid.Row="0" Grid.Column="2">
+                        <Grid
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -443,6 +447,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             VerticalAlignment="Center"
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding GioVaoSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Label
                             Grid.Row="3"
@@ -456,6 +461,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             VerticalAlignment="Center"
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding TongGio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label
@@ -469,9 +475,13 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             VerticalAlignment="Center"
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding GioKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Grid Grid.Row="1" Grid.Column="2">
+                        <Grid
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -480,6 +490,7 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 Command="{Binding BatDauSuDung}"
+
                                 Style="{DynamicResource MaterialDesignIconButton}"
                                 ToolTip="{Binding BatDauSuDungLabel, FallbackValue='Lang-err'}">
                                 <materialDesign:PackIcon
@@ -493,20 +504,28 @@
                         </Grid>
 
 
-                        <Button
+                        <Grid
                             Grid.Row="2"
                             Grid.Column="2"
-                            HorizontalAlignment="Left"
-                            Style="{DynamicResource MaterialDesignIconButton}"
-                            ToolTip="{Binding KetThucSuDungLabel, FallbackValue='Lang-err'}">
-                            <materialDesign:PackIcon
-                                Width="35"
-                                Height="35"
-                                Margin="10,0,0,0"
-                                Foreground="OrangeRed"
-                                Kind="Timer" />
+                            IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                HorizontalAlignment="Center"
+                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{DynamicResource MaterialDesignIconButton}"
+                                ToolTip="{Binding KetThucSuDungLabel, FallbackValue='Lang-err'}">
+                                <materialDesign:PackIcon
+                                    Width="35"
+                                    Height="35"
+                                    Margin="-2,0,0,0"
+                                    Foreground="OrangeRed"
+                                    Kind="Timer" />
 
-                        </Button>
+                            </Button>
+                        </Grid>
 
                     </Grid>
                     <Grid Grid.Row="3">
@@ -514,7 +533,7 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
@@ -539,6 +558,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 DisplayMemberPath="Value"
+                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Dictionary_NuocUong}"
                                 SelectedValue="{Binding NuocUongSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedValuePath="Value"
@@ -553,6 +573,7 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Width="150"
+                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Text="{Binding SoLuongSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -568,6 +589,7 @@
                                 Grid.Column="2"
                                 Width="150"
                                 HorizontalAlignment="Left"
+                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 VerticalAlignment="Center"
                                 Text="{Binding GiaTienSelecteItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -583,7 +605,9 @@
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Grid.Column="0"
+                                    Command="{Binding BtnAddCommand}"
                                     HorizontalAlignment="Left"
+                                    IsEnabled="{Binding IsBtnAddEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Thêm sản phẩm">
                                     <materialDesign:PackIcon
@@ -595,7 +619,9 @@
                                 </Button>
                                 <Button
                                     Grid.Column="1"
+                                    Command="{Binding BtnModifyCommand}"
                                     HorizontalAlignment="Left"
+                                    IsEnabled="{Binding IsBtnModifyEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Modify sản phẩm">
                                     <materialDesign:PackIcon
@@ -603,11 +629,13 @@
                                         Height="35"
                                         Margin="-2,0,0,0"
                                         Foreground="DarkSeaGreen"
-                                        Kind="Update" />
+                                        Kind="EditBox" />
                                 </Button>
                                 <Button
                                     Grid.Column="2"
+                                    Command="{Binding BtnSaveCommand}"
                                     HorizontalAlignment="Left"
+                                    IsEnabled="{Binding IsBtnSaveEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Lưu">
                                     <materialDesign:PackIcon
@@ -619,7 +647,9 @@
                                 </Button>
                                 <Button
                                     Grid.Column="3"
+                                    Command="{Binding BtnDeleteCommand}"
                                     HorizontalAlignment="Left"
+                                    IsEnabled="{Binding IsBtnDeleteEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Xóa">
                                     <materialDesign:PackIcon
@@ -684,64 +714,109 @@
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200" />
-                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    Width="180"
+                                    Width="150"
+                                    Command="{Binding BtnBatDauSuDungCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    Content="In phiếu"
+                                    IsEnabled="{Binding IsBtnBatDauSudungEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Content="Bắt đầu sử dụng"
                                     Foreground="Green"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Width="180"
+                                    Width="150"
+                                    Command="{Binding BtnTamDungSuDungCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    Content="Thu tiền"
+                                    IsEnabled="{Binding IsBtnTamDungSuDungEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Content="{Binding ContentOfBtnPause,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Foreground="Green"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Width="150"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Đặt sân"
                                     Foreground="Black"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Width="180"
+                                    Width="150"
+                                    Command="{Binding BtnInphieuCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    Content="Reload"
-                                    Foreground="DeepSkyBlue"
+                                    IsEnabled="{Binding IsBtnInphieuEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Content="In phiếu"
+                                    Foreground="Green"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    Width="180"
+                                    Width="150"
+                                    Command="{Binding BtnHuyInPhieuCommand}"
+                                    IsEnabled="{Binding IsBtnHuyInPhieuEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Hủy in phiếu"
+                                    Foreground="Green"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Width="150"
+                                    Command="{Binding BtnThuTienCommand}"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Background="Transparent"
+                                    Content="Thu tiền"
+                                    IsEnabled="{Binding IsBtnThuTienEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Foreground="Black"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+
+                                <Button
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Width="150"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
                                     Content="Đổi sân"
-                                    Foreground="Green"
+                                    IsEnabled="{Binding IsBtnDoiSanEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Foreground="Black"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="2"
-                                    Grid.Column="0"
-                                    Width="180"
+                                    Grid.Column="1"
+                                    Width="150"
+                                    Command="{Binding BtnHuySanCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
                                     Content="Hủy sân"
+                                    IsEnabled="{Binding IsBtnHuySanEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Foreground="OrangeRed"
                                     Style="{DynamicResource MaterialDesignRaisedDarkButton}" />
 
                                 <Button
                                     Grid.Row="2"
-                                    Grid.Column="1"
-                                    Width="180"
+                                    Grid.Column="2"
+                                    Width="150"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Blue"

@@ -23,7 +23,10 @@ namespace KLTN.ViewModel
         DangDuocSuDung = 1,
         DaXuatHoaDon = 2,
         KhongTheSuDung = 3,
+        TamDungSuDung = 4,
     }
+
+    //Visibility
     public partial class Yard_ViewModel : BaseViewModel
     {
 
@@ -119,9 +122,12 @@ namespace KLTN.ViewModel
         #endregion Danh sách sân vs Bảng giá
     }
 
+    //Language
     public partial class Yard_ViewModel : BaseViewModel
     {
         public string SanSangSuDungContent => "Sẵn sàng sử dụng";
+        public string TamDungSuDungContent => "Tạm dừng sử dụng";
+        public string TiepTucSuDungContent => "Tiếp tục sử dụng";
         public string DangDuocSuDungContent => "Đang được sử dụng";
         public string DaXuatHoaDonContent => "Đã in phiếu thu tiền";
         public string KhongTheSuDungContent => "Không thể sử dụng";
@@ -148,6 +154,19 @@ namespace KLTN.ViewModel
         public string ThoiGianSuDungLabel => "Thời gian sử dụng";
         #endregion
 
+        private string _ContentOfPause;
+        public string ContentOfBtnPause
+        {
+            get => _ContentOfPause;
+            set
+            {
+                if(_ContentOfPause != value)
+                {
+                    _ContentOfPause = value;
+                    OnPropertyChanged(nameof(ContentOfBtnPause));
+                }
+            }
+        }
     }
 
     //Database
@@ -584,6 +603,90 @@ namespace KLTN.ViewModel
             TienThoi = SelectedItem.HoatDongCuaSan.TienThoi;
             GhiChu = SelectedItem.HoatDongCuaSan.GhiChu;
             TinhTrang = SelectedItem.TrangThaiSan;
+            if(TinhTrang == DangDuocSuDungContent)
+            {
+                DangDuocSuDung();
+            }
+            else if (TinhTrang == SanSangSuDungContent)
+            {
+                SanSangSuDung();
+            }
+            else if(TinhTrang == DaXuatHoaDonContent)
+            {
+                DaXuatHoaDon();
+            }
+            else if (TinhTrang == TamDungSuDungContent)
+            {
+                TamDungSuDung();
+            }
+        }
+
+        public void SanSangSuDung()
+        {
+            IsBtnBatDauSudungEnable = true;
+            IsBtnTamDungSuDungEnable = false;
+            IsInforFieldEnable = false;
+            IsBtnInphieuEnable = false;
+            IsBtnHuyInPhieuEnable = false;
+            IsBtnThuTienEnable = false;
+            IsBtnDoiSanEnable = false;
+            IsBtnHuySanEnable = false;
+            SelectedItem.TrangThaiSan = SanSangSuDungContent;
+        }
+        public void DangDuocSuDung()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = true;
+            IsInforFieldEnable = true;
+            IsBtnInphieuEnable = true;
+            IsBtnHuyInPhieuEnable = false;
+            IsBtnThuTienEnable = false;
+            IsBtnDoiSanEnable = true;
+            IsBtnHuySanEnable = true;
+            SelectedItem.TrangThaiSan = DangDuocSuDungContent;
+            ContentOfBtnPause = TamDungSuDungContent;
+        }
+
+        public void DaXuatHoaDon()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = false;
+            IsInforFieldEnable = false;
+            IsBtnInphieuEnable = false;
+            IsBtnHuyInPhieuEnable = true;
+            IsBtnThuTienEnable = true;
+            IsBtnDoiSanEnable = false;
+            IsBtnHuySanEnable = false;
+            SelectedItem.TrangThaiSan = DaXuatHoaDonContent;
+        }
+
+        public void TamDungSuDung()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = true;
+            if(SelectedItem.TrangThaiSan == TamDungSuDungContent)
+            {
+                IsInforFieldEnable = false;
+                IsBtnInphieuEnable = false;
+                IsBtnHuyInPhieuEnable = false;
+                IsBtnThuTienEnable = false;
+                IsBtnDoiSanEnable = false;
+                IsBtnHuySanEnable = true;
+                ContentOfBtnPause = TiepTucSuDungContent;
+
+            }
+            else
+            {
+                //Tiep tuc hoat dong
+                IsInforFieldEnable = true;
+                IsBtnInphieuEnable = true;
+                IsBtnHuyInPhieuEnable = false;
+                IsBtnThuTienEnable = false;
+                IsBtnDoiSanEnable = true;
+                IsBtnHuySanEnable = true;
+                ContentOfBtnPause = TamDungSuDungContent;
+            }
+
         }
         #endregion Selected item
 
@@ -695,7 +798,7 @@ namespace KLTN.ViewModel
     }
 
 
-    //Danh sach san Pham
+    //Danh sach san Pham nuoc uong
     public partial class Yard_ViewModel : BaseViewModel
     {
         #region Fields
@@ -743,5 +846,453 @@ namespace KLTN.ViewModel
             }
         }
         #endregion
+
+        #region Method
+        //Add item 
+        public void ActionBtnAddClicked()
+        {
+
+        }
+
+        //Modify number of item base id san and Id Nuoc Uong
+        public void ActionBtnModifyClicked()
+        {
+
+        }
+
+        //Remove item
+        public void ActionBtnDeleteClicked()
+        {
+
+        }
+
+        //Save into Db
+        public void ActionBtnSaveClicked()
+        {
+
+        }
+        #endregion
+    }
+
+
+    //Status of Btn and Command
+    public partial class Yard_ViewModel : BaseViewModel
+    {
+        #region Status
+        #region Fields of Status
+        private bool _IsInforFieldEnable;
+        private bool _IsBtnAddEnable;
+        private bool _IsBtnModifyEnable;
+        private bool _IsBtnSaveEnable;
+        private bool _IsBtnDeleteEnable;
+        private bool _IsBtnBatDauSudungEnable;
+        private bool _IsBtnTamDungSuDungEnable;
+        private bool _IsBtnInphieuEnable;
+        private bool _IsBtnHuyInPhieuEnable;
+        private bool _IsBtnThuTienEnable;
+        private bool _IsBtnDoiSanEnable;
+        private bool _IsBtnHuySanEnable;
+        #endregion Status of Fields
+
+        #region Properties of Status
+        public bool IsInforFieldEnable
+        {
+            get => _IsInforFieldEnable;
+            set
+            {
+                if (_IsInforFieldEnable != value)
+                {
+                    _IsInforFieldEnable = value;
+                    OnPropertyChanged(nameof(IsInforFieldEnable));
+                }
+            }
+        }
+        public bool IsBtnAddEnable
+        {
+            get => _IsBtnAddEnable;
+            set
+            {
+                if (_IsBtnAddEnable != value)
+                {
+                    _IsBtnAddEnable = value;
+                    OnPropertyChanged(nameof(IsBtnAddEnable));
+                }
+            }
+        }
+        public bool IsBtnModifyEnable
+        {
+            get => _IsBtnModifyEnable;
+            set
+            {
+                if (_IsBtnModifyEnable != value)
+                {
+                    _IsBtnModifyEnable = value;
+                    OnPropertyChanged(nameof(IsBtnModifyEnable));
+                }
+            }
+        }
+        public bool IsBtnSaveEnable
+        {
+            get => _IsBtnSaveEnable;
+            set
+            {
+                if (_IsBtnSaveEnable != value)
+                {
+                    _IsBtnSaveEnable = value;
+                    OnPropertyChanged(nameof(IsBtnSaveEnable));
+                }
+            }
+        }
+        public bool IsBtnDeleteEnable
+        {
+            get => _IsBtnDeleteEnable;
+            set
+            {
+                if (_IsBtnDeleteEnable != value)
+                {
+                    _IsBtnDeleteEnable = value;
+                    OnPropertyChanged(nameof(IsBtnDeleteEnable));
+                }
+            }
+        }
+        public bool IsBtnBatDauSudungEnable
+        {
+            get => _IsBtnBatDauSudungEnable;
+            set
+            {
+                if (_IsBtnBatDauSudungEnable != value)
+                {
+                    _IsBtnBatDauSudungEnable = value;
+                    OnPropertyChanged(nameof(IsBtnBatDauSudungEnable));
+                }
+            }
+        }
+        public bool IsBtnTamDungSuDungEnable
+        {
+            get => _IsBtnTamDungSuDungEnable;
+            set
+            {
+                if (_IsBtnTamDungSuDungEnable != value)
+                {
+                    _IsBtnTamDungSuDungEnable = value;
+                    OnPropertyChanged(nameof(IsBtnTamDungSuDungEnable));
+                }
+            }
+        }
+        public bool IsBtnInphieuEnable
+        {
+            get => _IsBtnInphieuEnable;
+            set
+            {
+                if (_IsBtnInphieuEnable != value)
+                {
+                    _IsBtnInphieuEnable = value;
+                    OnPropertyChanged(nameof(IsBtnInphieuEnable));
+                }
+            }
+        }
+        public bool IsBtnHuyInPhieuEnable
+        {
+            get => _IsBtnHuyInPhieuEnable;
+            set
+            {
+                if (_IsBtnHuyInPhieuEnable != value)
+                {
+                    _IsBtnHuyInPhieuEnable = value;
+                    OnPropertyChanged(nameof(IsBtnHuyInPhieuEnable));
+                }
+            }
+        }
+        public bool IsBtnThuTienEnable
+        {
+            get => _IsBtnThuTienEnable;
+            set
+            {
+                if (_IsBtnThuTienEnable != value)
+                {
+                    _IsBtnThuTienEnable = value;
+                    OnPropertyChanged(nameof(IsBtnThuTienEnable));
+                }
+            }
+        }
+        public bool IsBtnDoiSanEnable
+        {
+            get => _IsBtnDoiSanEnable;
+            set
+            {
+                if (_IsBtnDoiSanEnable != value)
+                {
+                    _IsBtnDoiSanEnable = value;
+                    OnPropertyChanged(nameof(IsBtnDoiSanEnable));
+                }
+            }
+        }
+        public bool IsBtnHuySanEnable
+        {
+            get => _IsBtnHuySanEnable;
+            set
+            {
+                if (_IsBtnHuySanEnable != value)
+                {
+                    _IsBtnHuySanEnable = value;
+                    OnPropertyChanged(nameof(IsBtnHuySanEnable));
+                }
+            }
+        }
+        #endregion Property of Status
+
+        #endregion Status
+
+        #region Command
+        #region Fields of Command
+        private ICommand _BtnAddCommand;
+        private ICommand _BtnModifyCommand;
+        private ICommand _BtnSaveCommand;
+        private ICommand _BtnDeleteCommand;
+        private ICommand _BtnBatDauSuDungCommand;
+        private ICommand _BtnTamDungSuDungCommand;
+        private ICommand _BtnInphieuCommand;
+        private ICommand _BtnHuyInPhieuCommand;
+        private ICommand _BtnThuTienCommand;
+        private ICommand _BtnHuySanCommand;
+        #endregion Fields of Command
+        #region Property of Command
+        public ICommand BtnAddCommand
+        {
+            get
+            {
+                if (_BtnAddCommand == null)
+                {
+                    _BtnAddCommand = new RelayCommand(ActionBtnAddClicked, CanExecute);
+                }
+                return _BtnAddCommand;
+            }
+        }
+        public ICommand BtnModifyCommand
+        {
+            get 
+            {
+                if (_BtnModifyCommand == null)
+                {
+                    _BtnModifyCommand = new RelayCommand(ActionBtnModifyClicked, CanExecute);
+                }
+                return _BtnModifyCommand;
+            }
+        }
+        public ICommand BtnSaveCommand
+        {
+            get
+            {
+                if (_BtnSaveCommand == null)
+                {
+                    _BtnSaveCommand = new RelayCommand(ActionBtnSaveClicked, CanExecute);
+                }
+                return _BtnSaveCommand;
+            }
+        }
+        public ICommand BtnDeleteCommand
+        {
+            get
+            {
+                if (_BtnDeleteCommand == null)
+                {
+                    _BtnDeleteCommand = new RelayCommand(ActionWhenBtnModifyClicked, CanExecute);
+                }
+                return _BtnDeleteCommand;
+            }
+        }
+        public ICommand BtnBatDauSuDungCommand
+        {
+            get
+            {
+                if (_BtnBatDauSuDungCommand == null)
+                {
+                    _BtnBatDauSuDungCommand = new RelayCommand(ActionWhenBtnBatDauSuDungClicked, CanExecute);
+                }
+                return _BtnBatDauSuDungCommand;
+            }
+        }
+        public ICommand BtnTamDungSuDungCommand
+        {
+            get
+            {
+                if (_BtnTamDungSuDungCommand == null)
+                {
+                    _BtnTamDungSuDungCommand = new RelayCommand(ActionWhenBtnTamDungSuDungClicked, CanExecute);
+                }
+                return _BtnTamDungSuDungCommand;
+            }
+        }
+
+        public ICommand BtnInphieuCommand
+        {
+            get
+            {
+                if (_BtnInphieuCommand == null)
+                {
+                    _BtnInphieuCommand = new RelayCommand(ActionWhenBtnInPhieuClicked, CanExecute);
+                }
+                return _BtnInphieuCommand;
+            }
+        }
+        public ICommand BtnHuyInPhieuCommand
+        {
+            get
+            {
+                if (_BtnHuyInPhieuCommand == null)
+                {
+                    _BtnHuyInPhieuCommand = new RelayCommand(ActionWhenBtnHuyInPhieuClicked, CanExecute);
+                }
+                return _BtnHuyInPhieuCommand;
+            }
+        }
+        public ICommand BtnThuTienCommand
+        {
+            get
+            {
+                if (_BtnThuTienCommand == null)
+                {
+                    _BtnThuTienCommand = new RelayCommand(ActionWhenBtnThuTienClicked, CanExecute);
+                }
+                return _BtnThuTienCommand;
+            }
+        }
+        public ICommand BtnHuySanCommand
+        {
+            get
+            {
+                if (_BtnHuySanCommand == null)
+                {
+                    _BtnHuySanCommand = new RelayCommand(ActionWhenBtnHuySanClicked, CanExecute);
+                }
+                return _BtnHuySanCommand;
+            }
+        }
+
+        #endregion Property of Command
+
+        #region Method of Command
+        //Update trang thai va update status cua Info_Of_Field
+        public void ActionWhenBtnBatDauSuDungClicked()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = true;
+            IsInforFieldEnable = true;
+            IsBtnInphieuEnable = true;
+            IsBtnHuyInPhieuEnable = false;
+            IsBtnThuTienEnable = false;
+            IsBtnDoiSanEnable = true;
+            IsBtnHuySanEnable = true;
+            SelectedItem.TrangThaiSan = DangDuocSuDungContent;
+            TinhTrang = SelectedItem.TrangThaiSan;
+            ContentOfBtnPause = TamDungSuDungContent;
+        }
+
+        //Update trang thai va Update status cua nhung btn sau
+            //Status cua Info_Of_Field
+        public void ActionWhenBtnTamDungSuDungClicked()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = true;
+            if(SelectedItem.TrangThaiSan == DangDuocSuDungContent)
+            {
+                //Tam dung hoat dong
+                IsInforFieldEnable = false;
+                IsBtnInphieuEnable = true;
+                IsBtnHuyInPhieuEnable = false;
+                IsBtnThuTienEnable = false;
+                IsBtnDoiSanEnable = false;
+                IsBtnHuySanEnable = true;
+                SelectedItem.TrangThaiSan = TamDungSuDungContent;
+                TinhTrang = SelectedItem.TrangThaiSan;
+                ContentOfBtnPause = TiepTucSuDungContent;
+            }
+            else
+            {
+                //Tiep tuc hoat dong
+                IsInforFieldEnable = true;
+                IsBtnInphieuEnable = true;
+                IsBtnHuyInPhieuEnable = false;
+                IsBtnThuTienEnable = true;
+                IsBtnDoiSanEnable = true;
+                IsBtnHuySanEnable = true;
+                SelectedItem.TrangThaiSan = DangDuocSuDungContent;
+                TinhTrang = SelectedItem.TrangThaiSan;
+                ContentOfBtnPause = TamDungSuDungContent;
+            }
+
+        }
+
+        //Add item vao InPhieu_Db
+        //Update trang thai
+        public void ActionWhenBtnInPhieuClicked()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = false;
+            IsInforFieldEnable = false;
+            IsBtnInphieuEnable = false;
+            IsBtnHuyInPhieuEnable = true;
+            IsBtnThuTienEnable = true;
+            IsBtnDoiSanEnable = false;
+            IsBtnHuySanEnable = false;
+            SelectedItem.TrangThaiSan = DaXuatHoaDonContent;
+            TinhTrang = SelectedItem.TrangThaiSan;
+            ContentOfBtnPause = "";
+        }
+
+        //Clear thong tin trong InPhieu_Db
+        //Update lai trang thai
+        public void ActionWhenBtnHuyInPhieuClicked()
+        {
+            IsBtnBatDauSudungEnable = false;
+            IsBtnTamDungSuDungEnable = true;
+            IsInforFieldEnable = true;
+            IsBtnInphieuEnable = true;
+            IsBtnHuyInPhieuEnable = false;
+            IsBtnThuTienEnable = false;
+            IsBtnDoiSanEnable = true;
+            IsBtnHuySanEnable = true;
+            SelectedItem.TrangThaiSan = DangDuocSuDungContent;
+            TinhTrang = SelectedItem.TrangThaiSan;
+            ContentOfBtnPause = TamDungSuDungContent;
+        }
+
+        //Add thong tin cua Selected item vao HoaDon_Db
+        //Clear thong tin cua san roi update vao lai Hoatdong_HienTai
+        //Update lai trang thai thanh co the su dung
+        public void ActionWhenBtnThuTienClicked()
+        {
+            IsBtnBatDauSudungEnable = true;
+            IsBtnTamDungSuDungEnable = false;
+            IsInforFieldEnable = false;
+            IsBtnInphieuEnable = false;
+            IsBtnHuyInPhieuEnable = false;
+            IsBtnThuTienEnable = false;
+            IsBtnDoiSanEnable = false;
+            IsBtnHuySanEnable = false;
+            SelectedItem.TrangThaiSan = SanSangSuDungContent;
+            TinhTrang = SelectedItem.TrangThaiSan;
+            ContentOfBtnPause = "";
+        }
+
+        //Clear thong tin cua san do
+        //Update lai trang thai thanh co the su dung
+        public void ActionWhenBtnHuySanClicked()
+        {
+            IsBtnBatDauSudungEnable = true;
+            IsBtnTamDungSuDungEnable = false;
+            IsInforFieldEnable = false;
+            IsBtnInphieuEnable = false;
+            IsBtnHuyInPhieuEnable = false;
+            IsBtnThuTienEnable = false;
+            IsBtnDoiSanEnable = false;
+            IsBtnHuySanEnable = false;
+            SelectedItem.TrangThaiSan = SanSangSuDungContent;
+            TinhTrang = SelectedItem.TrangThaiSan;
+            ContentOfBtnPause = "";
+        }
+        #endregion Method of Command
+        #endregion Command
+
     }
 }
