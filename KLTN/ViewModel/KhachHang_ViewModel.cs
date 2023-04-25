@@ -190,6 +190,12 @@ namespace KLTN.ViewModel
             {
                 SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
+            var tempList = new ObservableCollection<KhachHangObject_Model>();
+            for (int i = 0; i < DanhSach_KhachHang.Count; i++)
+            {
+                tempList.Add(DanhSach_KhachHang[i].Clone());
+            }
+            DanhSach_KhachHang = tempList;
             TheDatabase_KhachHang.Update(SelectedItem);
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
         }

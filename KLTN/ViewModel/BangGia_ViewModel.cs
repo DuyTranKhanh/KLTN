@@ -318,6 +318,12 @@ namespace KLTN.ViewModel
             }
             TheDatabase.UpdateItem(SelectedItem);
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            var tempList = new ObservableCollection<BangGiaObject_Model>();
+            for (int i = 0; i < DanhSach_BangGia.Count; i++)
+            {
+                tempList.Add(DanhSach_BangGia[i].Clone());
+            }
+            DanhSach_BangGia = tempList;
             //TenItem = SelectedItem.BaseObject.TenObject;
             //ThoiGianBatDauItem = SelectedItem.ThoiGianBatDau.ToString();
             //ThoiGianKetThucItem = SelectedItem.ThoiGianKetThuc.ToString();

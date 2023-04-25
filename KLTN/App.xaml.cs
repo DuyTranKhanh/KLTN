@@ -15,7 +15,7 @@ namespace KLTN
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            StartupUri = new Uri("Views/Login_View.xaml", UriKind.Relative);
+            StartupUri = new Uri("Views/Yard_View.xaml", UriKind.Relative);
         }
     }
 }

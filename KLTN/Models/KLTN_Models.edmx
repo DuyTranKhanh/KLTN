@@ -45,9 +45,10 @@
         </EntityType>
         <EntityType Name="DanhSachHienTai_NuocUong_Db">
           <Key>
-            <PropertyRef Name="Id_San" />
+            <PropertyRef Name="Id_DanhSachHienTai" />
           </Key>
-          <Property Name="Id_San" Type="int" Nullable="false" />
+          <Property Name="Id_DanhSachHienTai" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="int" />
           <Property Name="Id_NuocUong" Type="int" />
           <Property Name="Ten_NuocUong" Type="nvarchar" MaxLength="50" />
           <Property Name="SoLuong" Type="int" />
@@ -55,9 +56,10 @@
         </EntityType>
         <EntityType Name="DanhSachHoaDon_NuocUong_Db">
           <Key>
-            <PropertyRef Name="Id_HoaDon" />
+            <PropertyRef Name="Id_DanhSachHoaDon" />
           </Key>
-          <Property Name="Id_HoaDon" Type="int" Nullable="false" />
+          <Property Name="Id_DanhSachHoaDon" Type="int" Nullable="false" />
+          <Property Name="Id_HoaDon" Type="int" />
           <Property Name="Id_NuocUong" Type="int" />
           <Property Name="Ten_NuocUong" Type="nvarchar" MaxLength="50" />
           <Property Name="SoLuong" Type="int" />
@@ -273,9 +275,10 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
         </EntityType>
         <EntityType Name="DanhSachHienTai_NuocUong_Db">
           <Key>
-            <PropertyRef Name="Id_San" />
+            <PropertyRef Name="Id_DanhSachHienTai" />
           </Key>
-          <Property Name="Id_San" Type="Int32" Nullable="false" />
+          <Property Name="Id_DanhSachHienTai" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="Int32" />
           <Property Name="Id_NuocUong" Type="Int32" />
           <Property Name="Ten_NuocUong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
@@ -283,9 +286,10 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
         </EntityType>
         <EntityType Name="DanhSachHoaDon_NuocUong_Db">
           <Key>
-            <PropertyRef Name="Id_HoaDon" />
+            <PropertyRef Name="Id_DanhSachHoaDon" />
           </Key>
-          <Property Name="Id_HoaDon" Type="Int32" Nullable="false" />
+          <Property Name="Id_DanhSachHoaDon" Type="Int32" Nullable="false" />
+          <Property Name="Id_HoaDon" Type="Int32" />
           <Property Name="Id_NuocUong" Type="Int32" />
           <Property Name="Ten_NuocUong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
@@ -482,6 +486,7 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <EntitySetMapping Name="DanhSachHienTai_NuocUong_Db">
             <EntityTypeMapping TypeName="KLTN_DatabaseModel.DanhSachHienTai_NuocUong_Db">
               <MappingFragment StoreEntitySet="DanhSachHienTai_NuocUong_Db">
+                <ScalarProperty Name="Id_DanhSachHienTai" ColumnName="Id_DanhSachHienTai" />
                 <ScalarProperty Name="Id_San" ColumnName="Id_San" />
                 <ScalarProperty Name="Id_NuocUong" ColumnName="Id_NuocUong" />
                 <ScalarProperty Name="Ten_NuocUong" ColumnName="Ten_NuocUong" />
@@ -493,6 +498,7 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <EntitySetMapping Name="DanhSachHoaDon_NuocUong_Db">
             <EntityTypeMapping TypeName="KLTN_DatabaseModel.DanhSachHoaDon_NuocUong_Db">
               <MappingFragment StoreEntitySet="DanhSachHoaDon_NuocUong_Db">
+                <ScalarProperty Name="Id_DanhSachHoaDon" ColumnName="Id_DanhSachHoaDon" />
                 <ScalarProperty Name="Id_HoaDon" ColumnName="Id_HoaDon" />
                 <ScalarProperty Name="Id_NuocUong" ColumnName="Id_NuocUong" />
                 <ScalarProperty Name="Ten_NuocUong" ColumnName="Ten_NuocUong" />

@@ -160,7 +160,7 @@ namespace KLTN.ViewModel
             get => _ContentOfPause;
             set
             {
-                if(_ContentOfPause != value)
+                if (_ContentOfPause != value)
                 {
                     _ContentOfPause = value;
                     OnPropertyChanged(nameof(ContentOfBtnPause));
@@ -400,9 +400,12 @@ namespace KLTN.ViewModel
             get
             {
                 Dictionary<int, string> temp = new Dictionary<int, string>();
-                for(int i = 0; i < DanhSachNuocUong.Count; i++)
+                for (int i = 0; i < DanhSachNuocUong.Count; i++)
                 {
-                    temp.Add(i, DanhSachNuocUong[i].BaseObject.TenObject);
+                    if(DanhSachNuocUong[i].BaseObject.TrangThaiObject == _HoatDong)
+                    {
+                        temp.Add(i, DanhSachNuocUong[i].BaseObject.TenObject);
+                    }
                 }
                 return temp;
             }
@@ -439,7 +442,7 @@ namespace KLTN.ViewModel
         private decimal _TienThoi;
         private string _GhiChu;
         private string _TinhTrang;
-        
+
         public string TenKhachHang
         {
             get => _TenKhachHang;
@@ -450,6 +453,7 @@ namespace KLTN.ViewModel
                     _TenKhachHang = value;
                     SelectedItem.HoatDongCuaSan.KhachHang.BaseObject.TenObject = value;
                     OnPropertyChanged(nameof(TenKhachHang));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
             }
         }
@@ -463,6 +467,7 @@ namespace KLTN.ViewModel
                     _GioVaoSan = value;
                     SelectedItem.HoatDongCuaSan.GioVaoSan = value;
                     OnPropertyChanged(nameof(GioVaoSan));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
             }
         }
@@ -476,6 +481,7 @@ namespace KLTN.ViewModel
                     _GioKetThuc = value;
                     SelectedItem.HoatDongCuaSan.GioKetThuc = value;
                     OnPropertyChanged(nameof(GioKetThuc));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
             }
         }
@@ -526,6 +532,7 @@ namespace KLTN.ViewModel
                     _TienKhachDua = value;
                     SelectedItem.HoatDongCuaSan.TienKhachDua = value;
                     OnPropertyChanged(nameof(TienKhachDua));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
             }
         }
@@ -539,6 +546,7 @@ namespace KLTN.ViewModel
                     _TienThoi = value;
                     SelectedItem.HoatDongCuaSan.TienThoi = value;
                     OnPropertyChanged(nameof(TienThoi));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
             }
         }
@@ -552,6 +560,7 @@ namespace KLTN.ViewModel
                     _GhiChu = value;
                     SelectedItem.HoatDongCuaSan.GhiChu = value;
                     OnPropertyChanged(nameof(GhiChu));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
             }
         }
@@ -561,7 +570,7 @@ namespace KLTN.ViewModel
             get => _TinhTrang;
             set
             {
-                if(_TinhTrang != value)
+                if (_TinhTrang != value)
                 {
                     _TinhTrang = value;
                     SelectedItem.TrangThaiSan = value;
@@ -570,11 +579,32 @@ namespace KLTN.ViewModel
             }
         }
 
+        private ObservableCollection<HoatDongNuocUong_Model> _DanhSachNuocUongItem;
+
+        public ObservableCollection<HoatDongNuocUong_Model> DanhSachNuocUongItem
+        {
+            get
+            {
+                if (_DanhSachNuocUongItem == null)
+                {
+                    _DanhSachNuocUongItem = new ObservableCollection<HoatDongNuocUong_Model>();
+                }
+                return _DanhSachNuocUongItem;
+            }
+            set
+            {
+                if (_DanhSachNuocUongItem != value)
+                {
+                    _DanhSachNuocUongItem = value;
+                    OnPropertyChanged(nameof(DanhSachNuocUongItem));
+                }
+            }
+        }
         public HoatDongHienTaiModel SelectedItem
         {
             get
             {
-                if(_SelectedItem == null)
+                if (_SelectedItem == null)
                 {
                     _SelectedItem = new HoatDongHienTaiModel();
                 }
@@ -582,12 +612,14 @@ namespace KLTN.ViewModel
             }
             set
             {
-                if(_SelectedItem != value)
+                if (_SelectedItem != value)
                 {
                     _SelectedItem = value;
                     ActionWhenChangeSelectedItem();
-                    OnPropertyChanged(nameof(SelectedItem));
+                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
+                OnPropertyChanged(nameof(SelectedItem));
+
             }
         }
 
@@ -603,7 +635,8 @@ namespace KLTN.ViewModel
             TienThoi = SelectedItem.HoatDongCuaSan.TienThoi;
             GhiChu = SelectedItem.HoatDongCuaSan.GhiChu;
             TinhTrang = SelectedItem.TrangThaiSan;
-            if(TinhTrang == DangDuocSuDungContent)
+            DanhSachNuocUongItem = GetListNuocUongHienTai(SelectedItem.HoatDongCuaSan.San.BaseObject.IdObject);
+            if (TinhTrang == DangDuocSuDungContent)
             {
                 DangDuocSuDung();
             }
@@ -611,7 +644,7 @@ namespace KLTN.ViewModel
             {
                 SanSangSuDung();
             }
-            else if(TinhTrang == DaXuatHoaDonContent)
+            else if (TinhTrang == DaXuatHoaDonContent)
             {
                 DaXuatHoaDon();
             }
@@ -664,7 +697,7 @@ namespace KLTN.ViewModel
         {
             IsBtnBatDauSudungEnable = false;
             IsBtnTamDungSuDungEnable = true;
-            if(SelectedItem.TrangThaiSan == TamDungSuDungContent)
+            if (SelectedItem.TrangThaiSan == TamDungSuDungContent)
             {
                 IsInforFieldEnable = false;
                 IsBtnInphieuEnable = false;
@@ -700,7 +733,7 @@ namespace KLTN.ViewModel
         {
             get
             {
-                if(_DanhSachSan5 == null)
+                if (_DanhSachSan5 == null)
                 {
                     _DanhSachSan5 = new ObservableCollection<HoatDongHienTaiModel>();
                     _DanhSachSan5 = GetCorrectSan((int)LoaiSanIndex.San5);
@@ -709,7 +742,7 @@ namespace KLTN.ViewModel
             }
             set
             {
-                if(_DanhSachSan5 != value)
+                if (_DanhSachSan5 != value)
                 {
                     _DanhSachSan5 = value;
                     OnPropertyChanged(nameof(DanhSachSan5));
@@ -733,8 +766,9 @@ namespace KLTN.ViewModel
                 if (_DanhSachSan7 != value)
                 {
                     _DanhSachSan7 = value;
-                    OnPropertyChanged(nameof(DanhSachSan7));
                 }
+                OnPropertyChanged(nameof(DanhSachSan7));
+
             }
         }
 
@@ -754,8 +788,8 @@ namespace KLTN.ViewModel
                 if (_DanhSachSan11 != value)
                 {
                     _DanhSachSan11 = value;
-                    OnPropertyChanged(nameof(DanhSachSan11));
                 }
+                OnPropertyChanged(nameof(DanhSachSan11));
             }
         }
 
@@ -775,8 +809,8 @@ namespace KLTN.ViewModel
                 if (_DanhSachSanOther != value)
                 {
                     _DanhSachSanOther = value;
-                    OnPropertyChanged(nameof(DanhSachSanOther));
                 }
+                OnPropertyChanged(nameof(DanhSachSanOther));
             }
         }
 
@@ -784,9 +818,9 @@ namespace KLTN.ViewModel
         public ObservableCollection<HoatDongHienTaiModel> GetCorrectSan(int loaisan)
         {
             ObservableCollection<HoatDongHienTaiModel> temp = new ObservableCollection<HoatDongHienTaiModel>();
-            foreach(var item in DanhSachHoatDongHienTai)
+            foreach (var item in DanhSachHoatDongHienTai)
             {
-                if(item.HoatDongCuaSan.San.IdLoaiSan == loaisan)
+                if (item.HoatDongCuaSan.San.IdLoaiSan == loaisan)
                 {
                     temp.Add(item);
                 }
@@ -815,6 +849,7 @@ namespace KLTN.ViewModel
                 if (_NuocUongSelectedItem != value)
                 {
                     _NuocUongSelectedItem = value;
+                    UpdateGiaTien();
                     OnPropertyChanged(nameof(NuocUongSelectedItem));
                 }
             }
@@ -845,6 +880,29 @@ namespace KLTN.ViewModel
                 }
             }
         }
+
+        private HoatDongNuocUong_Model _SelectedNuocUongItem;
+
+        public HoatDongNuocUong_Model SelectedNuocUongItem
+        {
+            get
+            {
+                if (_SelectedNuocUongItem == null)
+                {
+                    _SelectedNuocUongItem = new HoatDongNuocUong_Model();
+                }
+                return _SelectedNuocUongItem;
+            }
+            set
+            {
+                if (_SelectedNuocUongItem != value)
+                {
+                    _SelectedNuocUongItem = value;
+                    ActionWhenChangeSelectedNuocUongItem();
+                    OnPropertyChanged(nameof(SelectedNuocUongItem));
+                }
+            }
+        }
         #endregion
 
         #region Method
@@ -870,6 +928,36 @@ namespace KLTN.ViewModel
         public void ActionBtnSaveClicked()
         {
 
+        }
+
+        public void ActionWhenChangeSelectedNuocUongItem()
+        {
+            NuocUongSelectedItem = SelectedNuocUongItem.TenNuocUong;
+            SoLuongSelectedItem = SelectedNuocUongItem.SoLuong.ToString();
+            GiaTienSelecteItem = SelectedNuocUongItem.GiaTien.ToString();
+        }
+        public void UpdateGiaTien()
+        {
+            foreach (var item in DanhSachNuocUong)
+            {
+                if (item.BaseObject.TenObject == NuocUongSelectedItem)
+                {
+                    GiaTienSelecteItem = item.GiaTienObject.ToString();
+                }
+            }
+        }
+        public ObservableCollection<HoatDongNuocUong_Model> GetListNuocUongHienTai(int idSan)
+        {
+            var listDanhSach = new ObservableCollection<HoatDongNuocUong_Model>();
+
+            foreach (var item in DanhSachNuocUongHienTai)
+            {
+                if (item.IdSan == idSan)
+                {
+                    listDanhSach.Add(item.Clone());
+                }
+            }
+            return listDanhSach;
         }
         #endregion
     }
@@ -1070,7 +1158,7 @@ namespace KLTN.ViewModel
         }
         public ICommand BtnModifyCommand
         {
-            get 
+            get
             {
                 if (_BtnModifyCommand == null)
                 {
@@ -1186,15 +1274,58 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = DangDuocSuDungContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = TamDungSuDungContent;
+            UpdateCollection();
         }
 
+        public void UpdateCollection()
+        {
+            int tempSelectedItem = SelectedItem.HoatDongCuaSan.San.BaseObject.IdObject;
+            var listDanhSach = new ObservableCollection<HoatDongHienTaiModel>();
+            if (SelectedItem.HoatDongCuaSan.San.IdLoaiSan == 0)
+            {
+                for (int i = 0; i < DanhSachSan5.Count; i++)
+                {
+                    listDanhSach.Add(DanhSachSan5[i].Clone());
+                }
+                DanhSachSan5 = listDanhSach;
+                SelectedItem = DanhSachSan5[tempSelectedItem];
+            }
+            else if (SelectedItem.HoatDongCuaSan.San.IdLoaiSan == 1)
+            {
+                for (int i = 0; i < DanhSachSan7.Count; i++)
+                {
+                    listDanhSach.Add(DanhSachSan7[i].Clone());
+                }
+                DanhSachSan7 = listDanhSach;
+                SelectedItem = DanhSachSan11[tempSelectedItem];
+            }
+            else if (SelectedItem.HoatDongCuaSan.San.IdLoaiSan == 2)
+            {
+                for (int i = 0; i < DanhSachSan11.Count; i++)
+                {
+                    listDanhSach.Add(DanhSachSan11[i].Clone());
+                }
+                DanhSachSan11 = listDanhSach;
+                SelectedItem = DanhSachSan11[tempSelectedItem];
+            }
+            else
+            {
+                for (int i = 0; i < DanhSachSanOther.Count; i++)
+                {
+                    listDanhSach.Add(DanhSachSanOther[i].Clone());
+                }
+                DanhSachSanOther = listDanhSach;
+                SelectedItem = DanhSachSanOther[tempSelectedItem];
+            }
+            Database_HoatDongHienTai.UpdateItem(SelectedItem);
+        }
         //Update trang thai va Update status cua nhung btn sau
-            //Status cua Info_Of_Field
+        //Status cua Info_Of_Field
         public void ActionWhenBtnTamDungSuDungClicked()
         {
             IsBtnBatDauSudungEnable = false;
             IsBtnTamDungSuDungEnable = true;
-            if(SelectedItem.TrangThaiSan == DangDuocSuDungContent)
+            if (SelectedItem.TrangThaiSan == DangDuocSuDungContent)
             {
                 //Tam dung hoat dong
                 IsInforFieldEnable = false;
@@ -1220,6 +1351,7 @@ namespace KLTN.ViewModel
                 TinhTrang = SelectedItem.TrangThaiSan;
                 ContentOfBtnPause = TamDungSuDungContent;
             }
+            UpdateCollection();
 
         }
 
@@ -1238,6 +1370,7 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = DaXuatHoaDonContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
+            UpdateCollection();
         }
 
         //Clear thong tin trong InPhieu_Db
@@ -1255,6 +1388,7 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = DangDuocSuDungContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = TamDungSuDungContent;
+            UpdateCollection();
         }
 
         //Add thong tin cua Selected item vao HoaDon_Db
@@ -1273,6 +1407,7 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = SanSangSuDungContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
+            UpdateCollection();
         }
 
         //Clear thong tin cua san do
@@ -1290,6 +1425,7 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = SanSangSuDungContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
+            UpdateCollection();
         }
         #endregion Method of Command
         #endregion Command

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1b788b07c0134b5c9ff521804b09176f" Name="Diagram1">
+      <Diagram DiagramId="2ff351011d4c46478415469dff11944c" Name="Diagram1">
         <EntityTypeShape EntityType="KLTN_DatabaseModel.Account_Db" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.BangGia_Db" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.CurrentUser_Db" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

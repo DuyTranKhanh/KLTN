@@ -9,7 +9,7 @@
     Title="Đặt sân"
     Background="AliceBlue"
     WindowStartupLocation="CenterScreen"
-    WindowState="Normal"
+    WindowState="Maximized"
     WindowStyle="ThreeDBorderWindow"
     mc:Ignorable="d">
 
@@ -490,7 +490,6 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 Command="{Binding BatDauSuDung}"
-
                                 Style="{DynamicResource MaterialDesignIconButton}"
                                 ToolTip="{Binding BatDauSuDungLabel, FallbackValue='Lang-err'}">
                                 <materialDesign:PackIcon
@@ -528,12 +527,17 @@
                         </Grid>
 
                     </Grid>
-                    <Grid Grid.Row="3">
+                    <Border
+                        Grid.Row="3"
+                        Margin="0,10,0,10"
+                        BorderBrush="Black"
+                        BorderThickness="1" />
+                    <Grid Grid.Row="3" Margin="0,10,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="350" />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" >
+                        <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
@@ -573,9 +577,9 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Width="150"
-                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
+                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Text="{Binding SoLuongSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
@@ -589,8 +593,8 @@
                                 Grid.Column="2"
                                 Width="150"
                                 HorizontalAlignment="Left"
-                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 VerticalAlignment="Center"
+                                IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Text="{Binding GiaTienSelecteItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Grid
@@ -605,9 +609,9 @@
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Grid.Column="0"
-                                    Command="{Binding BtnAddCommand}"
                                     HorizontalAlignment="Left"
-                                    IsEnabled="{Binding IsBtnAddEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnAddCommand}"
+                                    IsEnabled="{Binding IsBtnAddEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Thêm sản phẩm">
                                     <materialDesign:PackIcon
@@ -619,9 +623,9 @@
                                 </Button>
                                 <Button
                                     Grid.Column="1"
-                                    Command="{Binding BtnModifyCommand}"
                                     HorizontalAlignment="Left"
-                                    IsEnabled="{Binding IsBtnModifyEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnModifyCommand}"
+                                    IsEnabled="{Binding IsBtnModifyEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Modify sản phẩm">
                                     <materialDesign:PackIcon
@@ -633,9 +637,9 @@
                                 </Button>
                                 <Button
                                     Grid.Column="2"
-                                    Command="{Binding BtnSaveCommand}"
                                     HorizontalAlignment="Left"
-                                    IsEnabled="{Binding IsBtnSaveEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnSaveCommand}"
+                                    IsEnabled="{Binding IsBtnSaveEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Lưu">
                                     <materialDesign:PackIcon
@@ -647,9 +651,9 @@
                                 </Button>
                                 <Button
                                     Grid.Column="3"
-                                    Command="{Binding BtnDeleteCommand}"
                                     HorizontalAlignment="Left"
-                                    IsEnabled="{Binding IsBtnDeleteEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnDeleteCommand}"
+                                    IsEnabled="{Binding IsBtnDeleteEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
                                     ToolTip="Xóa">
                                     <materialDesign:PackIcon
@@ -661,29 +665,23 @@
                                 </Button>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="1" Grid.ColumnSpan="5">
-                            <ListView ItemsSource="{Binding DanhSach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <Grid Grid.Row="1">
+                            <ListView ItemsSource="{Binding DanhSachNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Index}">
-                                            <TextBlock
-                                                FontSize="15"
-                                                Text="STT"
-                                                TextWrapping="Wrap" />
-                                        </GridViewColumn>
-                                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding Index}">
+                                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding TenNuocUong}">
                                             <TextBlock
                                                 FontSize="15"
                                                 Text="Tên mặt hàng"
                                                 TextWrapping="WrapWithOverflow" />
                                         </GridViewColumn>
-                                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding Index}">
+                                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding SoLuong}">
                                             <TextBlock
                                                 FontSize="15"
                                                 Text="Số lượng"
                                                 TextWrapping="WrapWithOverflow" />
                                         </GridViewColumn>
-                                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding Index}">
+                                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding GiaTien}">
                                             <TextBlock
                                                 FontSize="15"
                                                 Text="Giá"
@@ -695,6 +693,11 @@
                         </Grid>
 
                     </Grid>
+
+                    <Border
+                        Grid.Row="4"
+                        BorderBrush="Black"
+                        BorderThickness="1" />
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="500" />
@@ -722,25 +725,25 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Width="150"
-                                    Command="{Binding BtnBatDauSuDungCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    IsEnabled="{Binding IsBtnBatDauSudungEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnBatDauSuDungCommand}"
                                     Content="Bắt đầu sử dụng"
                                     Foreground="Green"
+                                    IsEnabled="{Binding IsBtnBatDauSudungEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Width="150"
-                                    Command="{Binding BtnTamDungSuDungCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    IsEnabled="{Binding IsBtnTamDungSuDungEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                    Content="{Binding ContentOfBtnPause,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnTamDungSuDungCommand}"
+                                    Content="{Binding ContentOfBtnPause, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Foreground="Green"
+                                    IsEnabled="{Binding IsBtnTamDungSuDungEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="0"
@@ -756,37 +759,37 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Width="150"
-                                    Command="{Binding BtnInphieuCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    IsEnabled="{Binding IsBtnInphieuEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding BtnInphieuCommand}"
                                     Content="In phiếu"
                                     Foreground="Green"
+                                    IsEnabled="{Binding IsBtnInphieuEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Width="150"
-                                    Command="{Binding BtnHuyInPhieuCommand}"
-                                    IsEnabled="{Binding IsBtnHuyInPhieuEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
+                                    Command="{Binding BtnHuyInPhieuCommand}"
                                     Content="Hủy in phiếu"
                                     Foreground="Green"
+                                    IsEnabled="{Binding IsBtnHuyInPhieuEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     Width="150"
-                                    Command="{Binding BtnThuTienCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
+                                    Command="{Binding BtnThuTienCommand}"
                                     Content="Thu tiền"
-                                    IsEnabled="{Binding IsBtnThuTienEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Foreground="Black"
+                                    IsEnabled="{Binding IsBtnThuTienEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
 
                                 <Button
@@ -797,20 +800,20 @@
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
                                     Content="Đổi sân"
-                                    IsEnabled="{Binding IsBtnDoiSanEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Foreground="Black"
+                                    IsEnabled="{Binding IsBtnDoiSanEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     Width="150"
-                                    Command="{Binding BtnHuySanCommand}"
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
+                                    Command="{Binding BtnHuySanCommand}"
                                     Content="Hủy sân"
-                                    IsEnabled="{Binding IsBtnHuySanEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Foreground="OrangeRed"
+                                    IsEnabled="{Binding IsBtnHuySanEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignRaisedDarkButton}" />
 
                                 <Button

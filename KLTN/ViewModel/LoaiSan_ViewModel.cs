@@ -167,6 +167,12 @@ namespace KLTN.ViewModel
                 SelectedItem.BaseObject.TrangThaiObject = _HoatDong;
             }
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
+            var tempList = new ObservableCollection<LoaiSan_Model>();
+            for (int i = 0; i < DanhSach_LoaiSan.Count; i++)
+            {
+                tempList.Add(DanhSach_LoaiSan[i].Clone());
+            }
+            DanhSach_LoaiSan = tempList;
             Database.UpdateItem(SelectedItem);
         }
         public override void ActionWhenBtnSaveClicked()

@@ -14,7 +14,8 @@ namespace KLTN.Models
     
     public partial class DanhSachHienTai_NuocUong_Db
     {
-        public int Id_San { get; set; }
+        public int Id_DanhSachHienTai { get; set; }
+        public Nullable<int> Id_San { get; set; }
         public Nullable<int> Id_NuocUong { get; set; }
         public string Ten_NuocUong { get; set; }
         public Nullable<int> SoLuong { get; set; }

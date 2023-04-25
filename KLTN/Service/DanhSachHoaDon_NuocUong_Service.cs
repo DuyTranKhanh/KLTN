@@ -47,7 +47,7 @@ namespace KLTN.Service
                 foreach (var item in objQuery)
                 {
                     var temp = new HoatDongNuocUong_Model();
-                    temp.IdHoaDon = item.Id_HoaDon;
+                    temp.IdHoaDon = (item.Id_HoaDon != null) ? (int)item.Id_HoaDon : 0;
                     temp.IdNuocUong = Convert.ToInt32(item.Id_NuocUong);
                     temp.TenNuocUong = item.Ten_NuocUong;
                     temp.SoLuong = Convert.ToInt32(item.SoLuong);
@@ -73,7 +73,7 @@ namespace KLTN.Service
                 foreach (var item in objQuery)
                 {
                     var temp = new HoatDongNuocUong_Model();
-                    temp.IdHoaDon = item.Id_HoaDon;
+                    temp.IdHoaDon = (item.Id_HoaDon != null) ? (int)item.Id_HoaDon : 0;
                     temp.IdNuocUong = Convert.ToInt32(item.Id_NuocUong);
                     temp.TenNuocUong = item.Ten_NuocUong;
                     temp.SoLuong = Convert.ToInt32(item.SoLuong);

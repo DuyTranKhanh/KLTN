@@ -191,6 +191,14 @@ namespace KLTN.ViewModel
             }
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             Database.UpdateItem(SelectedItem);
+            int idSelected = SelectedItem.BaseObject.IdObject;
+            var tempList = new ObservableCollection<SanObject_Model>();
+            for (int i = 0; i < DanhSach_San.Count; i++)
+            {
+                tempList.Add(DanhSach_San[i].Clone());
+            }
+            DanhSach_San = tempList;
+            SelectedItem = DanhSach_San[idSelected];
         }
         public override void ActionWhenBtnSaveClicked()
         {
@@ -200,7 +208,7 @@ namespace KLTN.ViewModel
                 temp.BaseObject.TenObject = TenItem;
                 temp.TenLoaiSan = TenLoaiSanItem;
                 temp.BaseObject.IdObject = Convert.ToInt32(Id);
-                temp.BaseObject.TrangThaiObject = TrangThaiItem;
+                temp.BaseObject.TrangThaiObject = "Sẵn sàng sử dụng";
                 DanhSach_San.Add(temp);
                 IsButtonSaveEnable = false;
                 IsButtonModifyEnable = true;

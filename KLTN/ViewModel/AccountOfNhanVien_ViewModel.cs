@@ -241,6 +241,13 @@ namespace KLTN.ViewModel
             //Modify Item
             else
             {
+                string idSelected = SelectedItem.Account;
+                var tempList = new ObservableCollection<AccountObject_Model>();
+                for(int i = 0; i < DanhSachAccount.Count;i++)
+                {
+                    tempList.Add(DanhSachAccount[i].Clone());
+                }
+                DanhSachAccount = tempList;
                 TheDatabase.UpdateItem(temp);
             }
             SelectedItem = DanhSachAccount[0];

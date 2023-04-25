@@ -345,6 +345,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Theme\ImageResource\wp9844272-efootball-pes-2022-wallpapers.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
     <Content Include="Models\KLTN_Models.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KLTN_Models.edmx</DependentUpon>
@@ -355,7 +359,6 @@
       <DependentUpon>KLTN_Models.edmx</DependentUpon>
       <LastGenOutput>KLTN_Models.cs</LastGenOutput>
     </Content>
-    <Resource Include="Theme\ImageResource\wp9844272-efootball-pes-2022-wallpapers.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets')" />
