@@ -55,7 +55,7 @@
                         Width="250"
                         Height="25"
                         HorizontalAlignment="Left"
-                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding IsTrangThaiEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
@@ -168,7 +168,7 @@
                         HorizontalAlignment="Left"
                         materialDesign:HintAssist.Hint="Trạng thái hoạt động"
                         DisplayMemberPath="Value"
-                        IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding IsTrangThaiEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding TrangThaiCbb, FallbackValue='Err'}"
                         SelectedValue="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedValuePath="Value" />

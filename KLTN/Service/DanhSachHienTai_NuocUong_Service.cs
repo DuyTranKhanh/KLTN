@@ -20,12 +20,24 @@ namespace KLTN.Service
             bool _IsAdd = false;
             try
             {
+                //Get current DanhSachHienTai_Id
+                var objQuery = from KhachHang in Database.DanhSachHienTai_NuocUong_Db
+                               select KhachHang;
+                int Id_DanhSachHienTai = objQuery.Count();
+                foreach (var item in objQuery)
+                {
+                    if(Id_DanhSachHienTai == item.Id_DanhSachHienTai)
+                    {
+                        Id_DanhSachHienTai++;
+                    }
+                }
                 var temp = new DanhSachHienTai_NuocUong_Db();
                 temp.Id_NuocUong = parameter.IdNuocUong;
                 temp.Id_San = parameter.IdSan;
                 temp.Ten_NuocUong = parameter.TenNuocUong;
                 temp.SoLuong = parameter.SoLuong;
                 temp.GiaTien = parameter.GiaTien;
+                temp.Id_DanhSachHienTai = Id_DanhSachHienTai;
                 Database.DanhSachHienTai_NuocUong_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
@@ -95,9 +107,27 @@ namespace KLTN.Service
             {
                 //var item = Database.DanhSachHienTai_NuocUong_Db.Where(m => m.Id_San == parameter.IdSan && m.Id_NuocUong == parameter.IdNuocUong).First();
                 var item = Database.DanhSachHienTai_NuocUong_Db.SingleOrDefault(m => m.Id_San == parameter.IdSan && m.Id_NuocUong == parameter.IdNuocUong);
-                if(item != null)
+                if (item != null)
                 {
                     item.SoLuong = parameter.SoLuong;
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool RemoveItem(HoatDongNuocUong_Model parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                //var item = Database.DanhSachHienTai_NuocUong_Db.Where(m => m.Id_San == parameter.IdSan && m.Id_NuocUong == parameter.IdNuocUong).First();
+                var item = Database.DanhSachHienTai_NuocUong_Db.SingleOrDefault(m => m.Id_San == parameter.IdSan && m.Id_NuocUong == parameter.IdNuocUong);
+                if (item != null)
+                {
+                    Database.DanhSachHienTai_NuocUong_Db.Remove(item);
                     var NoOfRowsAffected = Database.SaveChanges();
                     l_IsUpdate = NoOfRowsAffected > 0;
                 }

@@ -102,6 +102,20 @@ namespace KLTN.ViewModel
                 }    
             }
         }
+
+        private bool _IsTrangThaiEnable;
+        public bool IsTrangThaiEnable
+        {
+            get => _IsTrangThaiEnable;
+            set
+            {
+                if(_IsTrangThaiEnable != value)
+                {
+                    _IsTrangThaiEnable = value;
+                    OnPropertyChanged(nameof(IsTrangThaiEnable));
+                }
+            }
+        }
         #endregion Properties of selected item
 
         San_Service Database;
@@ -160,9 +174,11 @@ namespace KLTN.ViewModel
 
         public override void ActionWhenBtnAddClicked()
         {
+
+            IsTrangThaiEnable = false;
             //Clear all information in textbox
             TenItem = "";
-            TenLoaiSanItem = "";
+            TenLoaiSanItem = DanhSach_LoaiSan[0];
             TrangThaiItem = "Hoạt động";
 
             //Get last item in DanhSach_LoaiSan
@@ -207,17 +223,19 @@ namespace KLTN.ViewModel
                 SanObject_Model temp = new SanObject_Model();
                 temp.BaseObject.TenObject = TenItem;
                 temp.TenLoaiSan = TenLoaiSanItem;
+                temp.IdLoaiSan = DanhSach_LoaiSan.FirstOrDefault(x => x.Value == temp.TenLoaiSan).Key;
                 temp.BaseObject.IdObject = Convert.ToInt32(Id);
-                temp.BaseObject.TrangThaiObject = "Sẵn sàng sử dụng";
+                temp.BaseObject.TrangThaiObject = _HoatDong;
                 DanhSach_San.Add(temp);
                 IsButtonSaveEnable = false;
                 IsButtonModifyEnable = true;
                 IsTextboxEnable = false;
+                IsTrangThaiEnable = false;
                 SelectedItem = DanhSach_San[0];
                 Database.Add(temp);
                 HoatDongHienTaiModel item = new HoatDongHienTaiModel();
-                item.TrangThaiSan = "Sẵn sàng sử dụng";
                 item.HoatDongCuaSan.San = temp.Clone();
+                item.TrangThaiSan = "Sẵn sàng sử dụng";
                 HoatDongHienTai_Database.Add(item);
             }
         }

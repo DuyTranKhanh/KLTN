@@ -381,7 +381,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Khách hàng"
-                            FontSize="15" />
+                            FontSize="12" />
                         <ComboBox
                             Grid.Row="0"
                             Grid.Column="1"
@@ -442,7 +442,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Giờ vào sân"
-                            FontSize="15" />
+                            FontSize="12" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
@@ -454,7 +454,7 @@
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontSize="15">
+                            FontSize="12">
                             <TextBlock Text="{Binding ThoiGianSuDungLabel, FallbackValue='Lang-err'}" TextWrapping="Wrap" />
                         </Label>
                         <TextBox
@@ -470,7 +470,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Giờ ra"
-                            FontSize="15" />
+                            FontSize="12" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
@@ -535,7 +535,7 @@
                     <Grid Grid.Row="3" Margin="0,10,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="350" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
@@ -605,11 +605,10 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Grid.Column="0"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Center"
                                     Command="{Binding BtnAddCommand}"
                                     IsEnabled="{Binding IsBtnAddEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
@@ -623,7 +622,8 @@
                                 </Button>
                                 <Button
                                     Grid.Column="1"
-                                    HorizontalAlignment="Left"
+                                    
+                                    HorizontalAlignment="Center"
                                     Command="{Binding BtnModifyCommand}"
                                     IsEnabled="{Binding IsBtnModifyEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
@@ -636,22 +636,8 @@
                                         Kind="EditBox" />
                                 </Button>
                                 <Button
-                                    Grid.Column="2"
-                                    HorizontalAlignment="Left"
-                                    Command="{Binding BtnSaveCommand}"
-                                    IsEnabled="{Binding IsBtnSaveEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{DynamicResource MaterialDesignIconButton}"
-                                    ToolTip="Lưu">
-                                    <materialDesign:PackIcon
-                                        Width="35"
-                                        Height="35"
-                                        Margin="-2,0,0,0"
-                                        Foreground="DarkSeaGreen"
-                                        Kind="ContentSave" />
-                                </Button>
-                                <Button
                                     Grid.Column="3"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Center"
                                     Command="{Binding BtnDeleteCommand}"
                                     IsEnabled="{Binding IsBtnDeleteEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MaterialDesignIconButton}"
@@ -666,7 +652,11 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <ListView ItemsSource="{Binding DanhSachNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView Height="135"
+                                ItemsSource="{Binding DanhSachNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ScrollViewer.CanContentScroll="False"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                SelectedItem="{Binding SelectedNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="150" DisplayMemberBinding="{Binding TenNuocUong}">
@@ -859,15 +849,11 @@
                                 Content="Tiền nước"
                                 FontSize="15"
                                 Style="{DynamicResource MaterialDesignLabel}" />
-                            <TextBox Grid.Row="1" Grid.Column="1" />
-
-                            <Label
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Content="Tiền Dịch vụ khác"
-                                FontSize="15"
-                                Style="{DynamicResource MaterialDesignLabel}" />
-                            <TextBox Grid.Row="2" Grid.Column="1" />
+              
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding TongTienNuoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
                                 Grid.Row="3"

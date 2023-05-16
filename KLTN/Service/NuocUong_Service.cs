@@ -35,6 +35,37 @@ namespace KLTN.Service
             return _IsAdd;
         }
 
+        public ObservableCollection<NuocUongObject_Model> GetWithCondition()
+        {
+            ObservableCollection<NuocUongObject_Model> objList = new ObservableCollection<NuocUongObject_Model>();
+            try
+            {
+                var objQuery = from KhachHang in Database.NuocUong_Db
+                               select KhachHang;
+                foreach (var item in objQuery)
+                {
+                    if(item.TrangThai_NuocUong == "Không hoạt động")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var temp = new NuocUongObject_Model();
+                        temp.BaseObject.IdObject = item.Id_NuocUong;
+                        temp.GiaTienObject = item.GiaTien.ToString();
+                        temp.BaseObject.TenObject = item.Ten_NuocUong;
+                        temp.BaseObject.TrangThaiObject = item.TrangThai_NuocUong;
+                        objList.Add(temp);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return objList;
+        }
+
         public override ObservableCollection<NuocUongObject_Model> GetAll()
         {
             ObservableCollection<NuocUongObject_Model> objList = new ObservableCollection<NuocUongObject_Model>();

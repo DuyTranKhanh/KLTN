@@ -48,16 +48,53 @@ namespace KLTN.Service
                                select KhachHang;
                 foreach (var item in objQuery)
                 {
-                    var temp = new BangGiaObject_Model();
-                    temp.BaseObject.IdObject = item.Id_BangGia;
-                    temp.IdLoaiSan = Convert.ToInt32(item.Id_LoaiSan);
-                    temp.BaseObject.TrangThaiObject = item.TrangThai_BangGia;
-                    temp.BaseObject.TenObject = item.Ten_LoaiSan;
-                    temp.ThoiGianBatDau = item.ThoiGianBatDau;
-                    temp.ThoiGianKetThuc = item.ThoiGianKetThuc;
-                    temp.GiaTienObject = Convert.ToDecimal(item.GiaTien);
-                    temp.NgayTao = item.NgayTao;
-                    objList.Add(temp);
+                        var temp = new BangGiaObject_Model();
+                        temp.BaseObject.IdObject = item.Id_BangGia;
+                        temp.IdLoaiSan = Convert.ToInt32(item.Id_LoaiSan);
+                        temp.BaseObject.TrangThaiObject = item.TrangThai_BangGia;
+                        temp.BaseObject.TenObject = item.Ten_LoaiSan;
+                        temp.ThoiGianBatDau = item.ThoiGianBatDau;
+                        temp.ThoiGianKetThuc = item.ThoiGianKetThuc;
+                        temp.GiaTienObject = Convert.ToDecimal(item.GiaTien);
+                        temp.NgayTao = item.NgayTao;
+                        objList.Add(temp);
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return objList;
+        }
+
+        public ObservableCollection<BangGiaObject_Model> GetWithCondition()
+        {
+            ObservableCollection<BangGiaObject_Model> objList = new ObservableCollection<BangGiaObject_Model>();
+            try
+            {
+                var objQuery = from KhachHang in Database.BangGia_Db
+                               select KhachHang;
+                foreach (var item in objQuery)
+                {
+                    if(item.TrangThai_BangGia == "Không hoạt động")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var temp = new BangGiaObject_Model();
+                        temp.BaseObject.IdObject = item.Id_BangGia;
+                        temp.IdLoaiSan = Convert.ToInt32(item.Id_LoaiSan);
+                        temp.BaseObject.TrangThaiObject = item.TrangThai_BangGia;
+                        temp.BaseObject.TenObject = item.Ten_LoaiSan;
+                        temp.ThoiGianBatDau = item.ThoiGianBatDau;
+                        temp.ThoiGianKetThuc = item.ThoiGianKetThuc;
+                        temp.GiaTienObject = Convert.ToDecimal(item.GiaTien);
+                        temp.NgayTao = item.NgayTao;
+                        objList.Add(temp);
+                    }
+
                 }
             }
             catch (Exception e)

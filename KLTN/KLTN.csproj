@@ -193,6 +193,8 @@
     <Compile Include="ViewModel\NuocUong_ViewModel.cs" />
     <Compile Include="ViewModel\San_ViewModel.cs" />
     <Compile Include="ViewModel\ThongTinAccount_ViewModel.cs" />
+    <Compile Include="ViewModel\Time\DataTime_ViewModels.cs" />
+    <Compile Include="Model\Time_Models.cs" />
     <Compile Include="ViewModel\Yard_ViewModel.cs" />
     <Compile Include="Views\AccountEmployee_View.xaml.cs">
       <DependentUpon>AccountEmployee_View.xaml</DependentUpon>

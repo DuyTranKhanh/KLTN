@@ -202,19 +202,19 @@ namespace KLTN.ViewModel
         }
         public ObservableCollection<KhachHangObject_Model> GetDatabase_KhachHang()
         {
-            var temp = Database_KhachHang.GetAll();
+            var temp = Database_KhachHang.GetWithCondition();
             return temp;
         }
 
         public ObservableCollection<BangGiaObject_Model> GetDatabase_BangGia()
         {
-            var temp = Database_BangGia.GetAll();
+            var temp = Database_BangGia.GetWithCondition();
             return temp;
         }
 
         public ObservableCollection<SanObject_Model> GetDatabase_San()
         {
-            var temp = Database_San.GetAll();
+            var temp = Database_San.GetWithCondition();
             return temp;
         }
 
@@ -232,7 +232,7 @@ namespace KLTN.ViewModel
 
         public ObservableCollection<NuocUongObject_Model> GetDatabase_NuocUong()
         {
-            var temp = Database_NuocUong.GetAll();
+            var temp = Database_NuocUong.GetWithCondition();
             return temp;
         }
 
@@ -636,6 +636,7 @@ namespace KLTN.ViewModel
             GhiChu = SelectedItem.HoatDongCuaSan.GhiChu;
             TinhTrang = SelectedItem.TrangThaiSan;
             DanhSachNuocUongItem = GetListNuocUongHienTai(SelectedItem.HoatDongCuaSan.San.BaseObject.IdObject);
+            TongTienNuoc = CalculateMoneyDrink().ToString();
             if (TinhTrang == DangDuocSuDungContent)
             {
                 DangDuocSuDung();
@@ -839,6 +840,7 @@ namespace KLTN.ViewModel
         private string _NuocUongSelectedItem;
         private string _GiaTienSelecteItem;
         private string _SoLuongSelectedItem;
+        private string _TongTienNuoc;
         #endregion
         #region Properties
         public string NuocUongSelectedItem
@@ -850,6 +852,7 @@ namespace KLTN.ViewModel
                 {
                     _NuocUongSelectedItem = value;
                     UpdateGiaTien();
+                    CheckItemIsExist();
                     OnPropertyChanged(nameof(NuocUongSelectedItem));
                 }
             }
@@ -868,6 +871,19 @@ namespace KLTN.ViewModel
             }
         }
 
+        public string TongTienNuoc
+        {
+            get => _TongTienNuoc;
+            set
+            {
+                if (_TongTienNuoc != value)
+                {
+                    _TongTienNuoc = value;
+                    OnPropertyChanged(nameof(TongTienNuoc));
+                }
+            }
+        }
+
         public string SoLuongSelectedItem
         {
             get => _SoLuongSelectedItem;
@@ -875,6 +891,10 @@ namespace KLTN.ViewModel
             {
                 if (_SoLuongSelectedItem != value)
                 {
+                    if(value == "0")
+                    {
+                        value = "1";
+                    }
                     _SoLuongSelectedItem = value;
                     OnPropertyChanged(nameof(SoLuongSelectedItem));
                 }
@@ -899,6 +919,11 @@ namespace KLTN.ViewModel
                 {
                     _SelectedNuocUongItem = value;
                     ActionWhenChangeSelectedNuocUongItem();
+                    if (value != null)
+                    {
+                        IsBtnDeleteEnable = true;
+                    }
+                    else IsBtnDeleteEnable = false;
                     OnPropertyChanged(nameof(SelectedNuocUongItem));
                 }
             }
@@ -909,25 +934,99 @@ namespace KLTN.ViewModel
         //Add item 
         public void ActionBtnAddClicked()
         {
+            var itemSelected = new HoatDongNuocUong_Model();
+            int idSan = SelectedItem.HoatDongCuaSan.San.BaseObject.IdObject;
+            var id_NuocUong = DanhSachNuocUong.Where( m => m.BaseObject.TenObject == NuocUongSelectedItem.ToString()).Single();
+            if (id_NuocUong != null)
+            {
+                itemSelected.IdNuocUong = id_NuocUong.BaseObject.IdObject;
+                itemSelected.TenNuocUong = NuocUongSelectedItem.ToString();
+                if(SoLuongSelectedItem == string.Empty)
+                {
+                    SoLuongSelectedItem = "1";
+                }
+                itemSelected.SoLuong = Convert.ToInt32(SoLuongSelectedItem);
+                itemSelected.GiaTien = Convert.ToDecimal(GiaTienSelecteItem);
+                itemSelected.IdSan = idSan;
 
+                // Add item into DanhSachNuocUongItem
+                ObservableCollection<HoatDongNuocUong_Model> tempItem = new ObservableCollection<HoatDongNuocUong_Model>();
+                foreach(var item in DanhSachNuocUongItem)
+                {
+                    tempItem.Add(item.Clone());
+                }
+                tempItem.Add(itemSelected);
+
+                DanhSachNuocUongItem = new ObservableCollection<HoatDongNuocUong_Model>();
+                foreach(var item in tempItem)
+                {
+                    DanhSachNuocUongItem.Add(item.Clone());
+                }
+                Database_NuocUongHienTai.Add(itemSelected);
+                DanhSachNuocUongHienTai = GetDatabase_NuocUongHienTai();
+                TongTienNuoc = CalculateMoneyDrink().ToString();
+                //SelectedNuocUongItem = null;
+            }
         }
 
         //Modify number of item base id san and Id Nuoc Uong
         public void ActionBtnModifyClicked()
         {
+            if (SoLuongSelectedItem == string.Empty)
+            {
+                SoLuongSelectedItem = "1";
+            }
+            SelectedNuocUongItem.SoLuong = Convert.ToInt32(SoLuongSelectedItem);
+            Database_NuocUongHienTai.UpdateItem(SelectedNuocUongItem);
 
+            ObservableCollection<HoatDongNuocUong_Model> tempItem = new ObservableCollection<HoatDongNuocUong_Model>();
+            foreach (var item in DanhSachNuocUongItem)
+            {
+                tempItem.Add(item.Clone());
+            }
+            DanhSachNuocUongItem = new ObservableCollection<HoatDongNuocUong_Model>();
+            foreach (var item in tempItem)
+            {
+                DanhSachNuocUongItem.Add(item.Clone());
+            }
+            DanhSachNuocUongHienTai = GetDatabase_NuocUongHienTai();
+            TongTienNuoc = CalculateMoneyDrink().ToString();
+            //SelectedNuocUongItem = null;
         }
 
         //Remove item
         public void ActionBtnDeleteClicked()
         {
+            if(SelectedNuocUongItem != null)
+            {
+                //Remove item
 
+                ObservableCollection<HoatDongNuocUong_Model> tempItem = new ObservableCollection<HoatDongNuocUong_Model>();
+                foreach (var item in DanhSachNuocUongItem)
+                {
+                    tempItem.Add(item.Clone());
+                }
+                Database_NuocUongHienTai.RemoveItem(SelectedNuocUongItem);
+                tempItem.Remove(tempItem.Where(x => x.IdNuocUong == SelectedNuocUongItem.IdNuocUong).Single());
+                DanhSachNuocUongItem = new ObservableCollection<HoatDongNuocUong_Model>();
+                if(tempItem.Count > 0)
+                {
+                    foreach (var item in tempItem)
+                    {
+                        DanhSachNuocUongItem.Add(item.Clone());
+                    }
+                }
+                //SelectedNuocUongItem = null;
+                IsBtnDeleteEnable = false;
+                DanhSachNuocUongHienTai = GetDatabase_NuocUongHienTai();
+                TongTienNuoc = CalculateMoneyDrink().ToString();
+            }
         }
 
         //Save into Db
         public void ActionBtnSaveClicked()
         {
-
+            
         }
 
         public void ActionWhenChangeSelectedNuocUongItem()
@@ -935,6 +1034,8 @@ namespace KLTN.ViewModel
             NuocUongSelectedItem = SelectedNuocUongItem.TenNuocUong;
             SoLuongSelectedItem = SelectedNuocUongItem.SoLuong.ToString();
             GiaTienSelecteItem = SelectedNuocUongItem.GiaTien.ToString();
+            
+
         }
         public void UpdateGiaTien()
         {
@@ -944,6 +1045,31 @@ namespace KLTN.ViewModel
                 {
                     GiaTienSelecteItem = item.GiaTienObject.ToString();
                 }
+            }
+        }
+        public void CheckItemIsExist()
+        {
+
+            bool result = false;
+            foreach(var item in DanhSachNuocUongItem)
+            {
+                if(item.TenNuocUong == NuocUongSelectedItem)
+                {
+                    result = true;
+                }
+            }
+            if (result)
+            {
+                IsBtnModifyEnable = true;
+                IsBtnAddEnable = false;
+                IsBtnSaveEnable = false;
+            }
+            else
+            {
+                SoLuongSelectedItem = "1";
+                IsBtnAddEnable = true;
+                IsBtnModifyEnable = false;
+                IsBtnSaveEnable = false;
             }
         }
         public ObservableCollection<HoatDongNuocUong_Model> GetListNuocUongHienTai(int idSan)
@@ -959,6 +1085,17 @@ namespace KLTN.ViewModel
             }
             return listDanhSach;
         }
+
+        public decimal CalculateMoneyDrink()
+        {
+            decimal _SumMoney = 0;
+            foreach(var item in DanhSachNuocUongItem)
+            {
+                _SumMoney = _SumMoney + item.GiaTien * item.SoLuong;
+            }
+            return _SumMoney;
+            
+        }
         #endregion
     }
 
@@ -969,10 +1106,10 @@ namespace KLTN.ViewModel
         #region Status
         #region Fields of Status
         private bool _IsInforFieldEnable;
-        private bool _IsBtnAddEnable;
-        private bool _IsBtnModifyEnable;
-        private bool _IsBtnSaveEnable;
-        private bool _IsBtnDeleteEnable;
+        private bool _IsBtnAddEnable = false;
+        private bool _IsBtnModifyEnable = false;
+        private bool _IsBtnSaveEnable = false;
+        private bool _IsBtnDeleteEnable = false;
         private bool _IsBtnBatDauSudungEnable;
         private bool _IsBtnTamDungSuDungEnable;
         private bool _IsBtnInphieuEnable;
@@ -1184,7 +1321,7 @@ namespace KLTN.ViewModel
             {
                 if (_BtnDeleteCommand == null)
                 {
-                    _BtnDeleteCommand = new RelayCommand(ActionWhenBtnModifyClicked, CanExecute);
+                    _BtnDeleteCommand = new RelayCommand(ActionBtnDeleteClicked, CanExecute);
                 }
                 return _BtnDeleteCommand;
             }
@@ -1288,7 +1425,8 @@ namespace KLTN.ViewModel
                     listDanhSach.Add(DanhSachSan5[i].Clone());
                 }
                 DanhSachSan5 = listDanhSach;
-                SelectedItem = DanhSachSan5[tempSelectedItem];
+                //SelectedItem = DanhSachSan5[tempSelectedItem];
+                SelectedItem = DanhSachSan5.Where(item => item.HoatDongCuaSan.San.BaseObject.IdObject == tempSelectedItem).Single();
             }
             else if (SelectedItem.HoatDongCuaSan.San.IdLoaiSan == 1)
             {
@@ -1297,7 +1435,7 @@ namespace KLTN.ViewModel
                     listDanhSach.Add(DanhSachSan7[i].Clone());
                 }
                 DanhSachSan7 = listDanhSach;
-                SelectedItem = DanhSachSan11[tempSelectedItem];
+                SelectedItem = DanhSachSan7.Where(item => item.HoatDongCuaSan.San.BaseObject.IdObject == tempSelectedItem).Single();
             }
             else if (SelectedItem.HoatDongCuaSan.San.IdLoaiSan == 2)
             {
@@ -1306,7 +1444,7 @@ namespace KLTN.ViewModel
                     listDanhSach.Add(DanhSachSan11[i].Clone());
                 }
                 DanhSachSan11 = listDanhSach;
-                SelectedItem = DanhSachSan11[tempSelectedItem];
+                SelectedItem = DanhSachSan11.Where(item => item.HoatDongCuaSan.San.BaseObject.IdObject == tempSelectedItem).Single();
             }
             else
             {
@@ -1315,7 +1453,7 @@ namespace KLTN.ViewModel
                     listDanhSach.Add(DanhSachSanOther[i].Clone());
                 }
                 DanhSachSanOther = listDanhSach;
-                SelectedItem = DanhSachSanOther[tempSelectedItem];
+                SelectedItem = DanhSachSanOther.Where(item => item.HoatDongCuaSan.San.BaseObject.IdObject == tempSelectedItem).Single();
             }
             Database_HoatDongHienTai.UpdateItem(SelectedItem);
         }

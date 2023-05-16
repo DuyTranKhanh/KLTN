@@ -60,6 +60,37 @@ namespace KLTN.Service
             return objList;
         }
 
+        public ObservableCollection<SanObject_Model> GetWithCondition()
+        {
+            ObservableCollection<SanObject_Model> objList = new ObservableCollection<SanObject_Model>();
+            try
+            {
+                var objQuery = from listSan in Database.San_Db
+                               select listSan;
+                foreach (var item in objQuery)
+                {
+                    if(item.TrangThai_San == "Hoạt động")
+                    {
+                        var temp = new SanObject_Model();
+                        temp.BaseObject.IdObject = item.Id_San;
+                        temp.BaseObject.TenObject = item.Ten_San;
+                        temp.TenLoaiSan = item.Ten_LoaiSan;
+                        temp.BaseObject.TrangThaiObject = item.TrangThai_San;
+                        objList.Add(temp);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return objList;
+        }
+
         public override bool UpdateItem(SanObject_Model parameter)
         {
             bool l_IsUpdate = false;

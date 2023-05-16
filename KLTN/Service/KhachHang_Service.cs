@@ -27,15 +27,46 @@ namespace KLTN.Service
                                select KhachHang;
                 foreach(var item in objQuery)
                 {
-                    var temp = new KhachHangObject_Model();
-                    temp.BaseObject.IdObject = item.Id_KhachHang;
-                    temp.SdtObject = item.Sdt_KhachHang;
-                    temp.BaseObject.TenObject = item.Ten_KhachHang;
-                    temp.BaseObject.TrangThaiObject = item.TrangThai_KhachHang;
-                    objList.Add(temp);
+                        var temp = new KhachHangObject_Model();
+                        temp.BaseObject.IdObject = item.Id_KhachHang;
+                        temp.SdtObject = item.Sdt_KhachHang;
+                        temp.BaseObject.TenObject = item.Ten_KhachHang;
+                        temp.BaseObject.TrangThaiObject = item.TrangThai_KhachHang;
+                        objList.Add(temp);
                 }
             }
             catch(Exception e)
+            {
+                throw e;
+            }
+            return objList;
+        }
+
+        public ObservableCollection<KhachHangObject_Model> GetWithCondition()
+        {
+            ObservableCollection<KhachHangObject_Model> objList = new ObservableCollection<KhachHangObject_Model>();
+            try
+            {
+                var objQuery = from KhachHang in Database.KhachHang_Db
+                               select KhachHang;
+                foreach (var item in objQuery)
+                {
+                    if(item.TrangThai_KhachHang == "Không hoạt động")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var temp = new KhachHangObject_Model();
+                        temp.BaseObject.IdObject = item.Id_KhachHang;
+                        temp.SdtObject = item.Sdt_KhachHang;
+                        temp.BaseObject.TenObject = item.Ten_KhachHang;
+                        temp.BaseObject.TrangThaiObject = item.TrangThai_KhachHang;
+                        objList.Add(temp);
+                    }
+                }
+            }
+            catch (Exception e)
             {
                 throw e;
             }
