@@ -105,9 +105,11 @@ namespace KLTN.ViewModel
         #endregion Properties of selected item
 
         NuocUong_Service Database;
+        DanhSachHienTai_NuocUong_Service Database_NuocUongHienTai;
         public NuocUong_ViewModel()
         {
             Database = new NuocUong_Service();
+            Database_NuocUongHienTai = new DanhSachHienTai_NuocUong_Service();
         }
         #region Method when Selected Item
         /// <summary>
@@ -119,14 +121,46 @@ namespace KLTN.ViewModel
             TenItem = SelectedItem.BaseObject.TenObject;
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             GiaTienItem = SelectedItem.GiaTienObject;
-            IsButtonModifyEnable = true;
+            IsButtonModifyEnable = false;
             IsButtonSaveEnable = false;
+
+            foreach(var item in DanhSachNuocUongHienTai)
+            {
+                if(item.IdNuocUong == SelectedItem.BaseObject.IdObject)
+                {
+                    IsButtonModifyEnable = true;
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
         #endregion Method when Selected Item
         #endregion
-
+        private ObservableCollection<HoatDongNuocUong_Model> _DanhSachNuocUongHienTai;
         private ObservableCollection<NuocUongObject_Model> _DanhSachNuocUong;
 
+        public ObservableCollection<HoatDongNuocUong_Model> DanhSachNuocUongHienTai
+        {
+            get
+            {
+                if (_DanhSachNuocUongHienTai == null)
+                {
+                    _DanhSachNuocUongHienTai = new ObservableCollection<HoatDongNuocUong_Model>();
+                    _DanhSachNuocUongHienTai = Database_NuocUongHienTai.GetAll();
+                }
+                return _DanhSachNuocUongHienTai;
+            }
+            set
+            {
+                if (_DanhSachNuocUongHienTai != value)
+                {
+                    _DanhSachNuocUongHienTai = value;
+                    OnPropertyChanged(nameof(DanhSachNuocUongHienTai));
+                }
+            }
+        }
         public ObservableCollection<NuocUongObject_Model> DanhSach_NuocUong
         {
             get

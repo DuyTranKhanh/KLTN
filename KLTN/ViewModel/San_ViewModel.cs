@@ -137,12 +137,53 @@ namespace KLTN.ViewModel
             TenItem = SelectedItem.BaseObject.TenObject;
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             TenLoaiSanItem = SelectedItem.TenLoaiSan;
-            IsButtonModifyEnable = true;
+            IsButtonModifyEnable = false;
             IsButtonSaveEnable = false;
+
+            foreach(var item in DanhSachHoatDongHienTai)
+            {
+                if(item.HoatDongCuaSan.San.BaseObject.IdObject == SelectedItem.BaseObject.IdObject)
+                {
+                    if(item.TrangThaiSan == "Sẵn sàng sử dụng")
+                    {
+                        IsButtonModifyEnable = true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
         }
         #endregion Method when Selected Item
         #endregion
 
+        private ObservableCollection<HoatDongHienTaiModel> _DanhSachHoatDongHienTai;
+        public ObservableCollection<HoatDongHienTaiModel> DanhSachHoatDongHienTai
+        {
+            get
+            {
+                if (_DanhSachHoatDongHienTai == null)
+                {
+                    _DanhSachHoatDongHienTai = new ObservableCollection<HoatDongHienTaiModel>();
+                    _DanhSachHoatDongHienTai = HoatDongHienTai_Database.GetAll();
+                }
+                return _DanhSachHoatDongHienTai;
+            }
+            set
+            {
+                if (_DanhSachHoatDongHienTai != value)
+                {
+                    _DanhSachHoatDongHienTai = value;
+                    OnPropertyChanged(nameof(DanhSachHoatDongHienTai));
+                }
+            }
+        }
         private ObservableCollection<SanObject_Model> _DanhSach_San;
 
         public ObservableCollection<SanObject_Model> DanhSach_San
@@ -170,6 +211,7 @@ namespace KLTN.ViewModel
         public override void GetDataFromDatabase()
         {
             DanhSach_San = Database.GetAll();
+
         }
 
         public override void ActionWhenBtnAddClicked()

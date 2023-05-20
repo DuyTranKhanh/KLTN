@@ -18,13 +18,10 @@ namespace KLTN.Models
         public string Ten_San { get; set; }
         public Nullable<int> Id_LoaiSan { get; set; }
         public string Ten_LoaiSan { get; set; }
-        public string GioVaoSan { get; set; }
-        public string GioRaSan { get; set; }
         public Nullable<decimal> TongTien { get; set; }
         public Nullable<decimal> TienKhachDua { get; set; }
         public Nullable<decimal> TienThua { get; set; }
         public Nullable<double> SoGioThue { get; set; }
-        public string NgayThucHien { get; set; }
         public string GhiChu { get; set; }
         public string Account_NhanVien { get; set; }
         public string HoVaTen_NhanVien { get; set; }

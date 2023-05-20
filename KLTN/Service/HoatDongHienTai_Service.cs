@@ -28,13 +28,13 @@ namespace KLTN.Service
                 temp.Ten_San = parameter.HoatDongCuaSan.San.BaseObject.TenObject;
                 temp.Id_LoaiSan = parameter.HoatDongCuaSan.San.IdLoaiSan;
                 temp.Ten_LoaiSan = parameter.HoatDongCuaSan.San.TenLoaiSan;
-                temp.GioVaoSan = parameter.HoatDongCuaSan.GioVaoSan;
-                temp.GioRaSan = parameter.HoatDongCuaSan.GioKetThuc;
+                //temp.GioVaoSan = parameter.HoatDongCuaSan.GioVaoSan;
+                //temp.GioRaSan = parameter.HoatDongCuaSan.GioKetThuc;
                 temp.TongTien = parameter.HoatDongCuaSan.TongTien;
                 temp.TienKhachDua = parameter.HoatDongCuaSan.TienKhachDua;
                 temp.TienThua = parameter.HoatDongCuaSan.TienThoi;
                 temp.SoGioThue = parameter.HoatDongCuaSan.SoGioThue;
-                temp.NgayThucHien = parameter.HoatDongCuaSan.Ngay;
+                //temp.NgayThucHien = parameter.HoatDongCuaSan.Ngay;
                 temp.GhiChu = parameter.HoatDongCuaSan.GhiChu;
                 temp.Account_NhanVien = parameter.HoatDongCuaSan.NhanVien.Account;
                 temp.HoVaTen_NhanVien = parameter.HoatDongCuaSan.NhanVien.HoVaTen;
@@ -42,7 +42,22 @@ namespace KLTN.Service
                 temp.Id_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.IdObject;
                 temp.Ten_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.TenObject;
                 temp.Sdt_KhachHang = parameter.HoatDongCuaSan.KhachHang.SdtObject;
+
+                var l_GioVaoSan = new HoatDongHienTai_GioVaoSan();
+                l_GioVaoSan.Id_HoatDongGioVaoSan = temp.Id_San;
+                l_GioVaoSan.Id_San = temp.Id_San;
+                l_GioVaoSan.Phut = parameter.HoatDongCuaSan.GioVaoSan.Minute;
+                l_GioVaoSan.Gio = parameter.HoatDongCuaSan.GioVaoSan.Hour;
+
+                var l_GioKetThuc = new HoatDongHienTai_GioKetThuc();
+                l_GioKetThuc.Id_HoatDongGioKetThuc = temp.Id_San;
+                l_GioKetThuc.Id_San = temp.Id_San;
+                l_GioKetThuc.Phut = parameter.HoatDongCuaSan.GioKetThuc.Minute;
+                l_GioKetThuc.Gio = parameter.HoatDongCuaSan.GioKetThuc.Hour;
+
                 Database.HoatDongHienTai_Db.Add(temp);
+                Database.HoatDongHienTai_GioVaoSan.Add(l_GioVaoSan);
+                Database.HoatDongHienTai_GioKetThuc.Add(l_GioKetThuc);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
             }
@@ -79,16 +94,30 @@ namespace KLTN.Service
                             temp.HoatDongCuaSan.DanhSachNuocUong.Add(itemNuocUong.Clone());
                         }
                     }
-                    temp.HoatDongCuaSan.GioVaoSan = item.GioVaoSan;
-                    temp.HoatDongCuaSan.GioKetThuc = item.GioRaSan;
+                    //temp.HoatDongCuaSan.GioVaoSan = item.GioVaoSan;
+                    //temp.HoatDongCuaSan.GioKetThuc = item.GioRaSan;
                     temp.HoatDongCuaSan.SoGioThue = (item.SoGioThue == null) ? 0 : (Convert.ToDouble(item.SoGioThue));
                     temp.HoatDongCuaSan.TongTien = (item.TongTien == null) ? 0 : (Decimal)item.TongTien;
                     temp.HoatDongCuaSan.TienKhachDua = (item.TienKhachDua == null) ? 0 : (Decimal)item.TienKhachDua;
                     temp.HoatDongCuaSan.TienThoi = (item.TienThua == null) ? 0 : (Decimal)item.TienThua;
-                    temp.HoatDongCuaSan.Ngay = item.NgayThucHien;
+                    //temp.HoatDongCuaSan.Ngay = item.NgayThucHien;
                     temp.HoatDongCuaSan.GhiChu = item.GhiChu;
                     temp.HoatDongCuaSan.NhanVien.Account = item.Account_NhanVien;
                     temp.HoatDongCuaSan.NhanVien.HoVaTen = item.HoVaTen_NhanVien;
+
+                    var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
+                                       where GioVaoSan.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                       select GioVaoSan).SingleOrDefault();
+
+                    var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
+                                        where GioKetThuc.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                        select GioKetThuc).SingleOrDefault();
+
+                    temp.HoatDongCuaSan.GioVaoSan.Minute = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Phut;
+                    temp.HoatDongCuaSan.GioVaoSan.Hour = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Gio;
+
+                    temp.HoatDongCuaSan.GioKetThuc.Minute = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Phut;
+                    temp.HoatDongCuaSan.GioKetThuc.Hour = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Gio;
                     objList.Add(temp);
                 }
             }
@@ -105,10 +134,18 @@ namespace KLTN.Service
             try
             {
                 var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
+                                   where GioVaoSan.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
+                                   select GioVaoSan).SingleOrDefault();
+
+                var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
+                                    where GioKetThuc.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
+                                    select GioKetThuc).SingleOrDefault();
+
                 if (item != null)
                 {
-                    item.GioVaoSan = parameter.HoatDongCuaSan.GioVaoSan;
-                    item.GioRaSan = parameter.HoatDongCuaSan.GioKetThuc;
+                    //item.GioVaoSan = parameter.HoatDongCuaSan.GioVaoSan;
+                    //item.GioRaSan = parameter.HoatDongCuaSan.GioKetThuc;
                     item.SoGioThue = parameter.HoatDongCuaSan.SoGioThue;
                     item.TongTien = parameter.HoatDongCuaSan.TongTien;
                     item.TienKhachDua = parameter.HoatDongCuaSan.TienKhachDua;
@@ -118,6 +155,12 @@ namespace KLTN.Service
                     item.Sdt_KhachHang = parameter.HoatDongCuaSan.KhachHang.SdtObject;
                     item.Ten_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.TenObject;
                     item.Id_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.IdObject;
+
+                    l_GioVaoSan.Gio = parameter.HoatDongCuaSan.GioVaoSan.Hour;
+                    l_GioVaoSan.Phut = parameter.HoatDongCuaSan.GioVaoSan.Minute;
+
+                    l_GioKetThuc.Gio = parameter.HoatDongCuaSan.GioKetThuc.Hour;
+                    l_GioKetThuc.Phut = parameter.HoatDongCuaSan.GioKetThuc.Minute;
                     //Neu chinh sua item Nuoc Uong thi da co Service rieng
                     var NoOfRowsAffected = Database.SaveChanges();
                     l_IsUpdate = NoOfRowsAffected > 0;

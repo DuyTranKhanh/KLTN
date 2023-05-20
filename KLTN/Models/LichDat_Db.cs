@@ -23,9 +23,6 @@ namespace KLTN.Models
         public Nullable<int> Id_KhachHang { get; set; }
         public string Ten_KhachHang { get; set; }
         public string Sdt_KhachHang { get; set; }
-        public string GioBatDau { get; set; }
-        public string GioKetThuc { get; set; }
         public string NgayDat { get; set; }
-        public string NgaySuDungSan { get; set; }
     }
 }

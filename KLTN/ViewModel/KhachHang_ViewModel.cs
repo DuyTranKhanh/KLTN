@@ -118,11 +118,43 @@ namespace KLTN.ViewModel
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             SdtItem = SelectedItem.SdtObject;
             IsButtonSaveEnable = false;
-            IsButtonModifyEnable = true;
+            IsButtonModifyEnable = false;
+
+            foreach(var item in DanhSachHoatDongHienTai)
+            {
+                if(item.HoatDongCuaSan.KhachHang.BaseObject.IdObject == SelectedItem.BaseObject.IdObject)
+                {
+                    IsButtonSaveEnable = true;
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
         #endregion Method when Selected Item
         #endregion
-
+        private ObservableCollection<HoatDongHienTaiModel> _DanhSachHoatDongHienTai;
+        public ObservableCollection<HoatDongHienTaiModel> DanhSachHoatDongHienTai
+        {
+            get
+            {
+                if (_DanhSachHoatDongHienTai == null)
+                {
+                    _DanhSachHoatDongHienTai = new ObservableCollection<HoatDongHienTaiModel>();
+                    _DanhSachHoatDongHienTai = HoatDongHienTai_Database.GetAll();
+                }
+                return _DanhSachHoatDongHienTai;
+            }
+            set
+            {
+                if (_DanhSachHoatDongHienTai != value)
+                {
+                    _DanhSachHoatDongHienTai = value;
+                    OnPropertyChanged(nameof(DanhSachHoatDongHienTai));
+                }
+            }
+        }
         private ObservableCollection<KhachHangObject_Model> _DanhSachKhachHang;
 
         public ObservableCollection<KhachHangObject_Model> DanhSach_KhachHang
@@ -147,9 +179,11 @@ namespace KLTN.ViewModel
         }
 
         KhachHang_Service TheDatabase_KhachHang;
+        HoatDongHienTai_Service HoatDongHienTai_Database;
         public KhachHang_ViewModel()
         {
             TheDatabase_KhachHang = new KhachHang_Service();
+            HoatDongHienTai_Database = new HoatDongHienTai_Service();
 
         }
         #region Method

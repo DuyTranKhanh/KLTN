@@ -433,8 +433,8 @@ namespace KLTN.ViewModel
         #region Selected Item
         private HoatDongHienTaiModel _SelectedItem;
         private string _TenKhachHang;
-        private string _GioVaoSan;
-        private string _GioKetThuc;
+        private DateTime_Model _GioVaoSan;
+        private DateTime_Model _GioKetThuc;
         private double _TongGio;
         private string _TenSan;
         private decimal _TongTien;
@@ -457,9 +457,16 @@ namespace KLTN.ViewModel
                 }
             }
         }
-        public string GioVaoSan
+        public DateTime_Model GioVaoSan
         {
-            get => _GioVaoSan;
+            get
+            {
+                if(_GioVaoSan == null)
+                {
+                    _GioVaoSan = new DateTime_Model();
+                }
+                return _GioVaoSan;
+            }
             set
             {
                 if (_GioVaoSan != value)
@@ -471,9 +478,16 @@ namespace KLTN.ViewModel
                 }
             }
         }
-        public string GioKetThuc
+        public DateTime_Model GioKetThuc
         {
-            get => _GioKetThuc;
+            get
+            {
+                if (_GioKetThuc == null)
+                {
+                    _GioKetThuc = new DateTime_Model();
+                }
+                return _GioKetThuc;
+            }
             set
             {
                 if (_GioKetThuc != value)

@@ -4,20 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2ff351011d4c46478415469dff11944c" Name="Diagram1">
+      <Diagram DiagramId="526153791a10474086af8ae0845c2774" Name="Diagram1">
         <EntityTypeShape EntityType="KLTN_DatabaseModel.Account_Db" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.BangGia_Db" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.CurrentUser_Db" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.DanhSachHienTai_NuocUong_Db" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.DanhSachHoaDon_NuocUong_Db" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.HoaDon_Db" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_Db" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.KhachHang_Db" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_Db" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.LoaiSan_Db" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.NuocUong_Db" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.San_Db" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.PhieuThu_Db" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoaDon_GioKetThuc" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoaDon_GioVaoSan" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_Db" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_GioKetThuc" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_GioTamDung" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_GioVaoSan" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.KhachHang_Db" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_Db" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_GioKetThuc" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_GioVaoSan" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_NgaySuDung" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LoaiSan_Db" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.NuocUong_Db" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.San_Db" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.PhieuThu_Db" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

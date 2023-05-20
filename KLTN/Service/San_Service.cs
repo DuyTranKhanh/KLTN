@@ -25,6 +25,7 @@ namespace KLTN.Service
                 temp.Ten_LoaiSan = parameter.TenLoaiSan;
                 temp.Ten_San = parameter.BaseObject.TenObject;
                 temp.TrangThai_San = parameter.BaseObject.TrangThaiObject;
+
                 Database.San_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;

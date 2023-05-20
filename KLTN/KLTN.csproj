@@ -124,7 +124,22 @@
     <Compile Include="Models\HoaDon_Db.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HoaDon_GioKetThuc.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HoaDon_GioVaoSan.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HoatDongHienTai_Db.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HoatDongHienTai_GioKetThuc.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HoatDongHienTai_GioTamDung.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HoatDongHienTai_GioVaoSan.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KhachHang_Db.cs">
@@ -146,6 +161,15 @@
       <DependentUpon>KLTN_Models.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\LichDat_Db.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LichDat_GioKetThuc.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LichDat_GioVaoSan.cs">
+      <DependentUpon>KLTN_Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LichDat_NgaySuDung.cs">
       <DependentUpon>KLTN_Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoaiSan_Db.cs">

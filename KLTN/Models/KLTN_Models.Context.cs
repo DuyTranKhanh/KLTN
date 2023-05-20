@@ -31,9 +31,17 @@ namespace KLTN.Models
         public virtual DbSet<DanhSachHienTai_NuocUong_Db> DanhSachHienTai_NuocUong_Db { get; set; }
         public virtual DbSet<DanhSachHoaDon_NuocUong_Db> DanhSachHoaDon_NuocUong_Db { get; set; }
         public virtual DbSet<HoaDon_Db> HoaDon_Db { get; set; }
+        public virtual DbSet<HoaDon_GioKetThuc> HoaDon_GioKetThuc { get; set; }
+        public virtual DbSet<HoaDon_GioVaoSan> HoaDon_GioVaoSan { get; set; }
         public virtual DbSet<HoatDongHienTai_Db> HoatDongHienTai_Db { get; set; }
+        public virtual DbSet<HoatDongHienTai_GioKetThuc> HoatDongHienTai_GioKetThuc { get; set; }
+        public virtual DbSet<HoatDongHienTai_GioTamDung> HoatDongHienTai_GioTamDung { get; set; }
+        public virtual DbSet<HoatDongHienTai_GioVaoSan> HoatDongHienTai_GioVaoSan { get; set; }
         public virtual DbSet<KhachHang_Db> KhachHang_Db { get; set; }
         public virtual DbSet<LichDat_Db> LichDat_Db { get; set; }
+        public virtual DbSet<LichDat_GioKetThuc> LichDat_GioKetThuc { get; set; }
+        public virtual DbSet<LichDat_GioVaoSan> LichDat_GioVaoSan { get; set; }
+        public virtual DbSet<LichDat_NgaySuDung> LichDat_NgaySuDung { get; set; }
         public virtual DbSet<LoaiSan_Db> LoaiSan_Db { get; set; }
         public virtual DbSet<NuocUong_Db> NuocUong_Db { get; set; }
         public virtual DbSet<San_Db> San_Db { get; set; }

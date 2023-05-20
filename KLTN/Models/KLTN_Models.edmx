@@ -74,8 +74,6 @@
           <Property Name="Ten_San" Type="nvarchar" MaxLength="50" />
           <Property Name="Id_LoaiSan" Type="int" />
           <Property Name="Ten_LoaiSan" Type="nvarchar" MaxLength="50" />
-          <Property Name="GioVaoSan" Type="nvarchar" MaxLength="50" />
-          <Property Name="GioRaSan" Type="nvarchar" MaxLength="50" />
           <Property Name="TongTien" Type="money" />
           <Property Name="TienKhachDua" Type="money" />
           <Property Name="TienThua" Type="money" />
@@ -89,6 +87,30 @@
           <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt_KhachHang" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="HoaDon_GioKetThuc">
+          <Key>
+            <PropertyRef Name="Id_HoaDon" />
+          </Key>
+          <Property Name="Id_HoaDon" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="HoaDon_GioVaoSan">
+          <Key>
+            <PropertyRef Name="Id_HoaDon" />
+          </Key>
+          <Property Name="Id_HoaDon" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="HoatDongHienTai_Db">
           <Key>
             <PropertyRef Name="Id_San" />
@@ -97,13 +119,10 @@
           <Property Name="Ten_San" Type="nvarchar" MaxLength="50" />
           <Property Name="Id_LoaiSan" Type="int" />
           <Property Name="Ten_LoaiSan" Type="nvarchar" MaxLength="50" />
-          <Property Name="GioVaoSan" Type="nvarchar" MaxLength="50" />
-          <Property Name="GioRaSan" Type="nvarchar" MaxLength="50" />
           <Property Name="TongTien" Type="money" />
           <Property Name="TienKhachDua" Type="money" />
           <Property Name="TienThua" Type="money" />
           <Property Name="SoGioThue" Type="float" />
-          <Property Name="NgayThucHien" Type="nvarchar(max)" />
           <Property Name="GhiChu" Type="nvarchar(max)" />
           <Property Name="Account_NhanVien" Type="nvarchar" MaxLength="50" />
           <Property Name="HoVaTen_NhanVien" Type="nvarchar" MaxLength="50" />
@@ -111,6 +130,42 @@
           <Property Name="Id_KhachHang" Type="int" />
           <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt_KhachHang" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai_GioKetThuc">
+          <Key>
+            <PropertyRef Name="Id_HoatDongGioKetThuc" />
+          </Key>
+          <Property Name="Id_HoatDongGioKetThuc" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai_GioTamDung">
+          <Key>
+            <PropertyRef Name="Id_HoatDongGioTamDung" />
+          </Key>
+          <Property Name="Id_HoatDongGioTamDung" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai_GioVaoSan">
+          <Key>
+            <PropertyRef Name="Id_HoatDongGioVaoSan" />
+          </Key>
+          <Property Name="Id_HoatDongGioVaoSan" Type="int" Nullable="false" />
+          <Property Name="Id_San" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="KhachHang_Db">
           <Key>
@@ -134,10 +189,41 @@
           <Property Name="Id_KhachHang" Type="int" />
           <Property Name="Ten_KhachHang" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt_KhachHang" Type="nvarchar" MaxLength="50" />
-          <Property Name="GioBatDau" Type="nvarchar" MaxLength="50" />
-          <Property Name="GioKetThuc" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayDat" Type="nvarchar" MaxLength="50" />
-          <Property Name="NgaySuDungSan" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LichDat_GioKetThuc">
+          <Key>
+            <PropertyRef Name="Id_LichDatGioKetThuc" />
+          </Key>
+          <Property Name="Id_LichDatGioKetThuc" Type="int" Nullable="false" />
+          <Property Name="Id_LichDat" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LichDat_GioVaoSan">
+          <Key>
+            <PropertyRef Name="Id_LichDatGioVaoSan" />
+          </Key>
+          <Property Name="Id_LichDatGioVaoSan" Type="int" Nullable="false" />
+          <Property Name="Id_LichDat" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
+          <Property Name="Gio" Type="nchar" MaxLength="10" />
+          <Property Name="Phut" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LichDat_NgaySuDung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id_LichDat" Type="int" />
+          <Property Name="Nam" Type="nchar" MaxLength="10" />
+          <Property Name="Thang" Type="nchar" MaxLength="10" />
+          <Property Name="Ngay" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="LoaiSan_Db">
           <Key>
@@ -200,9 +286,17 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <EntitySet Name="DanhSachHienTai_NuocUong_Db" EntityType="Self.DanhSachHienTai_NuocUong_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhSachHoaDon_NuocUong_Db" EntityType="Self.DanhSachHoaDon_NuocUong_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon_Db" EntityType="Self.HoaDon_Db" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon_GioKetThuc" EntityType="Self.HoaDon_GioKetThuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon_GioVaoSan" EntityType="Self.HoaDon_GioVaoSan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoatDongHienTai_Db" EntityType="Self.HoatDongHienTai_Db" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoatDongHienTai_GioKetThuc" EntityType="Self.HoatDongHienTai_GioKetThuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoatDongHienTai_GioTamDung" EntityType="Self.HoatDongHienTai_GioTamDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoatDongHienTai_GioVaoSan" EntityType="Self.HoatDongHienTai_GioVaoSan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang_Db" EntityType="Self.KhachHang_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LichDat_Db" EntityType="Self.LichDat_Db" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichDat_GioKetThuc" EntityType="Self.LichDat_GioKetThuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichDat_GioVaoSan" EntityType="Self.LichDat_GioVaoSan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichDat_NgaySuDung" EntityType="Self.LichDat_NgaySuDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiSan_Db" EntityType="Self.LoaiSan_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NuocUong_Db" EntityType="Self.NuocUong_Db" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="San_Db" EntityType="Self.San_Db" Schema="dbo" store:Type="Tables" />
@@ -304,8 +398,6 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="Ten_San" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Id_LoaiSan" Type="Int32" />
           <Property Name="Ten_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GioVaoSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GioRaSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TienKhachDua" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TienThua" Type="Decimal" Precision="19" Scale="4" />
@@ -319,6 +411,30 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="HoaDon_GioKetThuc">
+          <Key>
+            <PropertyRef Name="Id_HoaDon" />
+          </Key>
+          <Property Name="Id_HoaDon" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HoaDon_GioVaoSan">
+          <Key>
+            <PropertyRef Name="Id_HoaDon" />
+          </Key>
+          <Property Name="Id_HoaDon" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
         <EntityType Name="HoatDongHienTai_Db">
           <Key>
             <PropertyRef Name="Id_San" />
@@ -327,13 +443,10 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="Ten_San" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Id_LoaiSan" Type="Int32" />
           <Property Name="Ten_LoaiSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GioVaoSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GioRaSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TienKhachDua" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TienThua" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="SoGioThue" Type="Double" />
-          <Property Name="NgayThucHien" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Account_NhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HoVaTen_NhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -341,6 +454,42 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="Id_KhachHang" Type="Int32" />
           <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai_GioKetThuc">
+          <Key>
+            <PropertyRef Name="Id_HoatDongGioKetThuc" />
+          </Key>
+          <Property Name="Id_HoatDongGioKetThuc" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai_GioTamDung">
+          <Key>
+            <PropertyRef Name="Id_HoatDongGioTamDung" />
+          </Key>
+          <Property Name="Id_HoatDongGioTamDung" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HoatDongHienTai_GioVaoSan">
+          <Key>
+            <PropertyRef Name="Id_HoatDongGioVaoSan" />
+          </Key>
+          <Property Name="Id_HoatDongGioVaoSan" Type="Int32" Nullable="false" />
+          <Property Name="Id_San" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="KhachHang_Db">
           <Key>
@@ -364,10 +513,41 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <Property Name="Id_KhachHang" Type="Int32" />
           <Property Name="Ten_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt_KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GioBatDau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GioKetThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgayDat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySuDungSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LichDat_GioKetThuc">
+          <Key>
+            <PropertyRef Name="Id_LichDatGioKetThuc" />
+          </Key>
+          <Property Name="Id_LichDatGioKetThuc" Type="Int32" Nullable="false" />
+          <Property Name="Id_LichDat" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LichDat_GioVaoSan">
+          <Key>
+            <PropertyRef Name="Id_LichDatGioVaoSan" />
+          </Key>
+          <Property Name="Id_LichDatGioVaoSan" Type="Int32" Nullable="false" />
+          <Property Name="Id_LichDat" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Gio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phut" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LichDat_NgaySuDung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id_LichDat" Type="Int32" />
+          <Property Name="Nam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thang" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ngay" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="LoaiSan_Db">
           <Key>
@@ -428,9 +608,17 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
           <EntitySet Name="DanhSachHienTai_NuocUong_Db" EntityType="Self.DanhSachHienTai_NuocUong_Db" />
           <EntitySet Name="DanhSachHoaDon_NuocUong_Db" EntityType="Self.DanhSachHoaDon_NuocUong_Db" />
           <EntitySet Name="HoaDon_Db" EntityType="Self.HoaDon_Db" />
+          <EntitySet Name="HoaDon_GioKetThuc" EntityType="Self.HoaDon_GioKetThuc" />
+          <EntitySet Name="HoaDon_GioVaoSan" EntityType="Self.HoaDon_GioVaoSan" />
           <EntitySet Name="HoatDongHienTai_Db" EntityType="Self.HoatDongHienTai_Db" />
+          <EntitySet Name="HoatDongHienTai_GioKetThuc" EntityType="Self.HoatDongHienTai_GioKetThuc" />
+          <EntitySet Name="HoatDongHienTai_GioTamDung" EntityType="Self.HoatDongHienTai_GioTamDung" />
+          <EntitySet Name="HoatDongHienTai_GioVaoSan" EntityType="Self.HoatDongHienTai_GioVaoSan" />
           <EntitySet Name="KhachHang_Db" EntityType="Self.KhachHang_Db" />
           <EntitySet Name="LichDat_Db" EntityType="Self.LichDat_Db" />
+          <EntitySet Name="LichDat_GioKetThuc" EntityType="Self.LichDat_GioKetThuc" />
+          <EntitySet Name="LichDat_GioVaoSan" EntityType="Self.LichDat_GioVaoSan" />
+          <EntitySet Name="LichDat_NgaySuDung" EntityType="Self.LichDat_NgaySuDung" />
           <EntitySet Name="LoaiSan_Db" EntityType="Self.LoaiSan_Db" />
           <EntitySet Name="NuocUong_Db" EntityType="Self.NuocUong_Db" />
           <EntitySet Name="San_Db" EntityType="Self.San_Db" />
@@ -515,8 +703,6 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
                 <ScalarProperty Name="Ten_San" ColumnName="Ten_San" />
                 <ScalarProperty Name="Id_LoaiSan" ColumnName="Id_LoaiSan" />
                 <ScalarProperty Name="Ten_LoaiSan" ColumnName="Ten_LoaiSan" />
-                <ScalarProperty Name="GioVaoSan" ColumnName="GioVaoSan" />
-                <ScalarProperty Name="GioRaSan" ColumnName="GioRaSan" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
                 <ScalarProperty Name="TienKhachDua" ColumnName="TienKhachDua" />
                 <ScalarProperty Name="TienThua" ColumnName="TienThua" />
@@ -532,6 +718,32 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HoaDon_GioKetThuc">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoaDon_GioKetThuc">
+              <MappingFragment StoreEntitySet="HoaDon_GioKetThuc">
+                <ScalarProperty Name="Id_HoaDon" ColumnName="Id_HoaDon" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDon_GioVaoSan">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoaDon_GioVaoSan">
+              <MappingFragment StoreEntitySet="HoaDon_GioVaoSan">
+                <ScalarProperty Name="Id_HoaDon" ColumnName="Id_HoaDon" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HoatDongHienTai_Db">
             <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoatDongHienTai_Db">
               <MappingFragment StoreEntitySet="HoatDongHienTai_Db">
@@ -539,13 +751,10 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
                 <ScalarProperty Name="Ten_San" ColumnName="Ten_San" />
                 <ScalarProperty Name="Id_LoaiSan" ColumnName="Id_LoaiSan" />
                 <ScalarProperty Name="Ten_LoaiSan" ColumnName="Ten_LoaiSan" />
-                <ScalarProperty Name="GioVaoSan" ColumnName="GioVaoSan" />
-                <ScalarProperty Name="GioRaSan" ColumnName="GioRaSan" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
                 <ScalarProperty Name="TienKhachDua" ColumnName="TienKhachDua" />
                 <ScalarProperty Name="TienThua" ColumnName="TienThua" />
                 <ScalarProperty Name="SoGioThue" ColumnName="SoGioThue" />
-                <ScalarProperty Name="NgayThucHien" ColumnName="NgayThucHien" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="Account_NhanVien" ColumnName="Account_NhanVien" />
                 <ScalarProperty Name="HoVaTen_NhanVien" ColumnName="HoVaTen_NhanVien" />
@@ -553,6 +762,45 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
                 <ScalarProperty Name="Id_KhachHang" ColumnName="Id_KhachHang" />
                 <ScalarProperty Name="Ten_KhachHang" ColumnName="Ten_KhachHang" />
                 <ScalarProperty Name="Sdt_KhachHang" ColumnName="Sdt_KhachHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoatDongHienTai_GioKetThuc">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoatDongHienTai_GioKetThuc">
+              <MappingFragment StoreEntitySet="HoatDongHienTai_GioKetThuc">
+                <ScalarProperty Name="Id_HoatDongGioKetThuc" ColumnName="Id_HoatDongGioKetThuc" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoatDongHienTai_GioTamDung">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoatDongHienTai_GioTamDung">
+              <MappingFragment StoreEntitySet="HoatDongHienTai_GioTamDung">
+                <ScalarProperty Name="Id_HoatDongGioTamDung" ColumnName="Id_HoatDongGioTamDung" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoatDongHienTai_GioVaoSan">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.HoatDongHienTai_GioVaoSan">
+              <MappingFragment StoreEntitySet="HoatDongHienTai_GioVaoSan">
+                <ScalarProperty Name="Id_HoatDongGioVaoSan" ColumnName="Id_HoatDongGioVaoSan" />
+                <ScalarProperty Name="Id_San" ColumnName="Id_San" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -578,10 +826,44 @@ warning 6002: The table/view 'KLTN_Database.dbo.PhieuThu_Db' does not have a pri
                 <ScalarProperty Name="Id_KhachHang" ColumnName="Id_KhachHang" />
                 <ScalarProperty Name="Ten_KhachHang" ColumnName="Ten_KhachHang" />
                 <ScalarProperty Name="Sdt_KhachHang" ColumnName="Sdt_KhachHang" />
-                <ScalarProperty Name="GioBatDau" ColumnName="GioBatDau" />
-                <ScalarProperty Name="GioKetThuc" ColumnName="GioKetThuc" />
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="NgaySuDungSan" ColumnName="NgaySuDungSan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichDat_GioKetThuc">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.LichDat_GioKetThuc">
+              <MappingFragment StoreEntitySet="LichDat_GioKetThuc">
+                <ScalarProperty Name="Id_LichDatGioKetThuc" ColumnName="Id_LichDatGioKetThuc" />
+                <ScalarProperty Name="Id_LichDat" ColumnName="Id_LichDat" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichDat_GioVaoSan">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.LichDat_GioVaoSan">
+              <MappingFragment StoreEntitySet="LichDat_GioVaoSan">
+                <ScalarProperty Name="Id_LichDatGioVaoSan" ColumnName="Id_LichDatGioVaoSan" />
+                <ScalarProperty Name="Id_LichDat" ColumnName="Id_LichDat" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Gio" ColumnName="Gio" />
+                <ScalarProperty Name="Phut" ColumnName="Phut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichDat_NgaySuDung">
+            <EntityTypeMapping TypeName="KLTN_DatabaseModel.LichDat_NgaySuDung">
+              <MappingFragment StoreEntitySet="LichDat_NgaySuDung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_LichDat" ColumnName="Id_LichDat" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

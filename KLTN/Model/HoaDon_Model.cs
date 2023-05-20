@@ -7,14 +7,14 @@ namespace KLTN.Model
         private int _IdHoaDon;
         private SanObject_Model _San;
         private KhachHangObject_Model _KhachHang;
-        private string _GioVaoSan;
-        private string _GioKetThuc;
+        private DateTime_Model _GioVaoSan;
+        private DateTime_Model _GioKetThuc;
         private double _SoGiothue;
         private ObservableCollection<HoatDongNuocUong_Model> _DanhSachNuocUong;
         private decimal _TongTien;
         private decimal _TienKhachDua;
         private decimal _TienThoi;
-        private string _Ngay;
+        private DateTime_Model _Ngay;
         private string _GhiChu;
         private AccountObject_Model _NhanVien;
         #region properties
@@ -75,22 +75,61 @@ namespace KLTN.Model
             }
         }
 
-        public string GioVaoSan
+        public DateTime_Model GioVaoSan
         {
-            get => _GioVaoSan;
-            set { _GioVaoSan = value; }
+            get
+            {
+                if(_GioVaoSan == null)
+                {
+                    _GioVaoSan = new DateTime_Model();
+                }
+                return _GioVaoSan;
+            }
+            set
+            {
+                if(_GioVaoSan != value)
+                {
+                    _GioVaoSan = value;
+                }
+            }
         }
 
-        public string GioKetThuc
+        public DateTime_Model GioKetThuc
         {
-            get => _GioKetThuc;
-            set { _GioKetThuc = value; }
+            get
+            {
+                if (_GioKetThuc == null)
+                {
+                    _GioKetThuc = new DateTime_Model();
+                }
+                return _GioKetThuc;
+            }
+            set
+            {
+                if (_GioKetThuc != value)
+                {
+                    _GioKetThuc = value;
+                }
+            }
         }
 
-        public string Ngay
+        public DateTime_Model Ngay
         {
-            get => _Ngay;
-            set { _Ngay = value; }
+            get
+            {
+                if (_Ngay == null)
+                {
+                    _Ngay = new DateTime_Model();
+                }
+                return _Ngay;
+            }
+            set
+            {
+                if (_Ngay != value)
+                {
+                    _Ngay = value;
+                }
+            }
         }
 
         public double SoGioThue
@@ -143,10 +182,10 @@ namespace KLTN.Model
         public HoaDon_Model Clone()
         {
             HoaDon_Model temp = new HoaDon_Model();
-            temp.GioKetThuc = GioKetThuc;
-            temp.GioVaoSan = GioVaoSan;
+            temp.GioKetThuc = GioKetThuc.Clone();
+            temp.GioVaoSan = GioVaoSan.Clone();
             temp.KhachHang = KhachHang.Clone();
-            temp.Ngay = Ngay;
+            temp.Ngay = Ngay.Clone();
             temp.San = San.Clone();
             temp.SoGioThue = SoGioThue;
             temp.TienKhachDua = TienKhachDua;

@@ -27,20 +27,33 @@ namespace KLTN.Service
                 temp.Ten_San = parameter.San.BaseObject.TenObject;
                 temp.Id_LoaiSan = parameter.San.IdLoaiSan;
                 temp.Ten_LoaiSan = parameter.San.TenLoaiSan;
-                temp.GioVaoSan = parameter.GioVaoSan;
-                temp.GioRaSan = parameter.GioKetThuc;
                 temp.TongTien = parameter.TongTien;
                 temp.TienKhachDua = parameter.TienKhachDua;
                 temp.TienThua = parameter.TienThoi;
                 temp.SoGioThue = parameter.SoGioThue;
-                temp.NgayThucHien = parameter.Ngay;
+                temp.NgayThucHien = DateTime.Today.ToShortDateString();
                 temp.GhiChu = parameter.GhiChu;
                 temp.Account_NhanVien = parameter.NhanVien.Account;
                 temp.HoVaTen_NhanVien = parameter.NhanVien.HoVaTen;
                 temp.Id_KhachHang = parameter.KhachHang.BaseObject.IdObject;
                 temp.Ten_KhachHang = parameter.KhachHang.BaseObject.TenObject;
                 temp.Sdt_KhachHang = parameter.KhachHang.SdtObject;
+
+                var l_GioVaoSan = new HoaDon_GioVaoSan();
+                l_GioVaoSan.Id_HoaDon = temp.Id_HoaDon;
+                l_GioVaoSan.Id_San = temp.Id_San;
+                l_GioVaoSan.Phut = parameter.GioVaoSan.Minute;
+                l_GioVaoSan.Gio = parameter.GioVaoSan.Hour;
+
+                var l_GioKetThuc = new HoaDon_GioKetThuc();
+                l_GioKetThuc.Id_HoaDon = temp.Id_HoaDon;
+                l_GioKetThuc.Id_San = temp.Id_San;
+                l_GioKetThuc.Phut = parameter.GioKetThuc.Minute;
+                l_GioKetThuc.Gio = parameter.GioKetThuc.Hour;
+
                 Database.HoaDon_Db.Add(temp);
+                Database.HoaDon_GioKetThuc.Add(l_GioKetThuc);
+                Database.HoaDon_GioVaoSan.Add(l_GioVaoSan);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
             }
@@ -77,16 +90,30 @@ namespace KLTN.Service
                             temp.DanhSachNuocUong.Add(itemNuocUong.Clone());
                         }
                     }
-                    temp.GioVaoSan = item.GioVaoSan;
-                    temp.GioKetThuc = item.GioRaSan;
                     temp.SoGioThue = Convert.ToDouble(item.SoGioThue);
                     temp.TongTien = (Decimal)item.TongTien;
                     temp.TienKhachDua = (Decimal)item.TienKhachDua;
                     temp.TienThoi = (Decimal)item.TienThua;
-                    temp.Ngay = item.NgayThucHien;
+                    temp.Ngay.Day = item.NgayThucHien;
                     temp.GhiChu = item.GhiChu;
                     temp.NhanVien.Account = item.Account_NhanVien;
                     temp.NhanVien.HoVaTen = item.HoVaTen_NhanVien;
+
+
+                    var l_GioVaoSan = (from GioVaoSan in Database.HoaDon_GioVaoSan
+                                      where GioVaoSan.Id_HoaDon == temp.IdHoaDon
+                                      select GioVaoSan).SingleOrDefault();
+
+                    var l_GioKetThuc = (from GioKetThuc in Database.HoaDon_GioKetThuc
+                                       where GioKetThuc.Id_HoaDon == temp.IdHoaDon
+                                       select GioKetThuc).SingleOrDefault();
+
+                    temp.GioVaoSan.Minute = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Phut;
+                    temp.GioVaoSan.Hour = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Gio;
+
+                    temp.GioKetThuc.Minute = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Phut;
+                    temp.GioKetThuc.Hour = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Gio;
+
                     objList.Add(temp);
                 }
             }

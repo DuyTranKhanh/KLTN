@@ -11,11 +11,11 @@ namespace KLTN.Model
         private int _IdLichDat;
         private KhachHangObject_Model _KhachHang;
         private SanObject_Model _San;
-        private string _GioBatDau;
-        private string _GioKetThuc;
+        private DateTime_Model _GioBatDau;
+        private DateTime_Model _GioKetThuc;
         private string _TrangThai; // Disable, Dat 1 lan duy nhat, hang tuan => se lien tiep 1 thang. 
         private string _NgayDat;
-        private string _NgaySuDung;
+        private DateTime_Model _NgaySuDung;
 
         public string NgayDatSan
         {
@@ -29,9 +29,16 @@ namespace KLTN.Model
             }
         }
 
-        public string NgaySuDung
+        public DateTime_Model NgaySuDung
         {
-            get => _NgaySuDung;
+            get
+            {
+                if(_NgaySuDung == null)
+                {
+                    _NgaySuDung = new DateTime_Model();
+                }
+                return _NgaySuDung;
+            }
             set
             {
                 if (_NgaySuDung != value)
@@ -89,9 +96,16 @@ namespace KLTN.Model
                 }
             }
         }
-        public string GioBatDau
+        public DateTime_Model GioBatDau
         {
-            get => _GioBatDau;
+            get
+            {
+                if(_GioBatDau == null)
+                {
+                    _GioBatDau = new DateTime_Model();
+                }
+                return _GioBatDau;
+            }
             set
             {
                 if (_GioBatDau != value)
@@ -112,9 +126,16 @@ namespace KLTN.Model
                 }
             }
         }
-        public string GioKetThuc
+        public DateTime_Model GioKetThuc
         {
-            get => _GioKetThuc;
+            get
+            {
+                if (_GioKetThuc == null)
+                {
+                    _GioKetThuc = new DateTime_Model();
+                }
+                return _GioKetThuc;
+            }
             set
             {
                 if (_GioKetThuc != value)
@@ -129,10 +150,10 @@ namespace KLTN.Model
             LichDatObject_Model item = new LichDatObject_Model();
             item._IdLichDat = _IdLichDat;
             item.KhachHang = KhachHang.Clone();
-            item.GioBatDau = GioBatDau;
-            item.GioKetThuc = GioKetThuc;
+            item.GioBatDau = GioBatDau.Clone();
+            item.GioKetThuc = GioKetThuc.Clone();
             item.NgayDatSan = NgayDatSan;
-            item.NgaySuDung = NgaySuDung;
+            item.NgaySuDung = NgaySuDung.Clone() ;
             item.San = San.Clone();
             return item;
         }

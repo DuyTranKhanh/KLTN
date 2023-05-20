@@ -28,13 +28,13 @@ namespace KLTN.Service
                 temp.Ten_San = parameter.San.BaseObject.TenObject;
                 temp.Id_LoaiSan = parameter.San.IdLoaiSan;
                 temp.Ten_LoaiSan = parameter.San.TenLoaiSan;
-                temp.GioVaoSan = parameter.GioVaoSan;
-                temp.GioRaSan = parameter.GioKetThuc;
+                //temp.GioVaoSan = parameter.GioVaoSan;
+                //temp.GioRaSan = parameter.GioKetThuc;
                 temp.TongTien = parameter.TongTien;
                 temp.TienKhachDua = parameter.TienKhachDua;
                 temp.TienThua = parameter.TienThoi;
                 temp.SoGioThue = parameter.SoGioThue;
-                temp.NgayThucHien = parameter.Ngay;
+                //temp.NgayThucHien = parameter.Ngay;
                 temp.GhiChu = parameter.GhiChu;
                 temp.Account_NhanVien = parameter.NhanVien.Account;
                 temp.HoVaTen_NhanVien = parameter.NhanVien.HoVaTen;
@@ -78,13 +78,13 @@ namespace KLTN.Service
                             temp.DanhSachNuocUong.Add(itemNuocUong.Clone());
                         }
                     }
-                    temp.GioVaoSan = item.GioVaoSan;
-                    temp.GioKetThuc = item.GioRaSan;
+                    //temp.GioVaoSan = item.GioVaoSan;
+                    //temp.GioKetThuc = item.GioRaSan;
                     temp.SoGioThue = Convert.ToDouble(item.SoGioThue);
                     temp.TongTien = (Decimal)item.TongTien;
                     temp.TienKhachDua = (Decimal)item.TienKhachDua;
                     temp.TienThoi = (Decimal)item.TienThua;
-                    temp.Ngay = item.NgayThucHien;
+                    //temp.Ngay = item.NgayThucHien;
                     temp.GhiChu = item.GhiChu;
                     temp.NhanVien.Account = item.Account_NhanVien;
                     temp.NhanVien.HoVaTen = item.HoVaTen_NhanVien;
