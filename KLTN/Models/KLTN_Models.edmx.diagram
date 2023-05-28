@@ -19,7 +19,7 @@
         <EntityTypeShape EntityType="KLTN_DatabaseModel.HoatDongHienTai_GioVaoSan" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.KhachHang_Db" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_Db" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_GioKetThuc" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_GioKetThuc" Width="1.5" PointX="15.125" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_GioVaoSan" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.LichDat_NgaySuDung" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KLTN_DatabaseModel.LoaiSan_Db" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />

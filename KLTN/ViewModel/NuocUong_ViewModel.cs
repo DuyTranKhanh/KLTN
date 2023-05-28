@@ -121,14 +121,14 @@ namespace KLTN.ViewModel
             TenItem = SelectedItem.BaseObject.TenObject;
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             GiaTienItem = SelectedItem.GiaTienObject;
-            IsButtonModifyEnable = false;
+            IsButtonModifyEnable = true;
             IsButtonSaveEnable = false;
 
             foreach(var item in DanhSachNuocUongHienTai)
             {
                 if(item.IdNuocUong == SelectedItem.BaseObject.IdObject)
                 {
-                    IsButtonModifyEnable = true;
+                    IsButtonModifyEnable = false;
                 }
                 else
                 {
@@ -145,11 +145,9 @@ namespace KLTN.ViewModel
         {
             get
             {
-                if (_DanhSachNuocUongHienTai == null)
-                {
+
                     _DanhSachNuocUongHienTai = new ObservableCollection<HoatDongNuocUong_Model>();
                     _DanhSachNuocUongHienTai = Database_NuocUongHienTai.GetAll();
-                }
                 return _DanhSachNuocUongHienTai;
             }
             set

@@ -448,7 +448,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Text="{Binding GioVaoSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding GioVaoSan_string, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Label
                             Grid.Row="3"
                             Grid.Column="0"
@@ -476,7 +476,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Text="{Binding GioKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding GioKetThuc_string, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Grid
                             Grid.Row="1"
@@ -489,7 +489,7 @@
                             <Button
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
-                                Command="{Binding BatDauSuDung}"
+                                Command="{Binding BtnBatDauTinhGioCommand}"
                                 Style="{DynamicResource MaterialDesignIconButton}"
                                 ToolTip="{Binding BatDauSuDungLabel, FallbackValue='Lang-err'}">
                                 <materialDesign:PackIcon
@@ -513,6 +513,7 @@
                             </Grid.ColumnDefinitions>
                             <Button
                                 HorizontalAlignment="Center"
+                                Command="{Binding BtnKetThucTinhGioCommand}"
                                 IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{DynamicResource MaterialDesignIconButton}"
                                 ToolTip="{Binding KetThucSuDungLabel, FallbackValue='Lang-err'}">
@@ -652,7 +653,7 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <ListView Height="135"
+                            <ListView Height="300"
                                 ItemsSource="{Binding DanhSachNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ScrollViewer.CanContentScroll="False"
                                 ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -743,6 +744,7 @@
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
                                     Content="Đặt sân"
+                                    Click="DanhSach_DatSan_Click"
                                     Foreground="Black"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
@@ -791,6 +793,7 @@
                                     Background="Transparent"
                                     Content="Đổi sân"
                                     Foreground="Black"
+                                    Click="DoiSan_Click"
                                     IsEnabled="{Binding IsBtnDoiSanEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
@@ -814,6 +817,7 @@
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Blue"
                                     Content="Thống kê"
+                                    Click="DanhSach_HoaDon_Click"
                                     Foreground="Yellow"
                                     Style="{DynamicResource MaterialDesignRaisedDarkButton}"
                                     ToolTip="Thống kê" />

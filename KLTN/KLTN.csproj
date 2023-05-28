@@ -210,11 +210,14 @@
     <Compile Include="ViewModel\AccountOfNhanVien_ViewModel.cs" />
     <Compile Include="ViewModel\BangGia_ViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DatSan_ViewModel.cs" />
+    <Compile Include="ViewModel\Invoice_ViewModel.cs" />
     <Compile Include="ViewModel\KhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Model\LoaiSan_Model.cs" />
     <Compile Include="ViewModel\LoaiSan_ViewModel.cs" />
     <Compile Include="ViewModel\NuocUong_ViewModel.cs" />
+    <Compile Include="ViewModel\Replace_Field_ViewModel.cs" />
     <Compile Include="ViewModel\San_ViewModel.cs" />
     <Compile Include="ViewModel\ThongTinAccount_ViewModel.cs" />
     <Compile Include="ViewModel\Time\DataTime_ViewModels.cs" />
@@ -226,8 +229,14 @@
     <Compile Include="Views\BangGia_View.xaml.cs">
       <DependentUpon>BangGia_View.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DatLich_View.xaml.cs">
+      <DependentUpon>DatLich_View.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DoiSan_View.xaml.cs">
       <DependentUpon>DoiSan_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Invoice_View.xaml.cs">
+      <DependentUpon>Invoice_View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KhachHang_View.xaml.cs">
       <DependentUpon>KhachHang_View.xaml</DependentUpon>
@@ -243,9 +252,6 @@
     </Compile>
     <Compile Include="Views\Login_View.xaml.cs">
       <DependentUpon>Login_View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ThongKe_View.xaml.cs">
-      <DependentUpon>ThongKe_View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ThongTinAccount_View.xaml.cs">
       <DependentUpon>ThongTinAccount_View.xaml</DependentUpon>
@@ -280,7 +286,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DatLich_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DoiSan_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Invoice_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -301,10 +315,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login_View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ThongKe_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

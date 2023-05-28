@@ -99,5 +99,23 @@ namespace KLTN.Views
             
         }
 
+        private void DanhSach_DatSan_Click(object sender, RoutedEventArgs e)
+        {
+            DatLich_View temp = new DatLich_View();
+            temp.ShowDialog();
+        }
+
+        private void DanhSach_HoaDon_Click(object sender, RoutedEventArgs e)
+        {
+            Invoice_View temp = new Invoice_View();
+            temp.Show();
+            this.Close();
+        }
+        private void DoiSan_Click(object sender, RoutedEventArgs e)
+        {
+            DoiSan_View temp = new DoiSan_View();
+            temp.ShowDialog();
+        }
+
     }
 }

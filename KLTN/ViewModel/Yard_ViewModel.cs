@@ -435,6 +435,8 @@ namespace KLTN.ViewModel
         private string _TenKhachHang;
         private DateTime_Model _GioVaoSan;
         private DateTime_Model _GioKetThuc;
+        private string _GioKetThuc_string;
+        private string _GioVaoSan_string;
         private double _TongGio;
         private string _TenSan;
         private decimal _TongTien;
@@ -457,6 +459,40 @@ namespace KLTN.ViewModel
                 }
             }
         }
+
+        public string GioVaoSan_string
+        {
+            get
+            {
+                _GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
+                return _GioVaoSan_string;
+            }
+            set
+            {
+                if(_GioVaoSan_string != value)
+                {
+                    _GioVaoSan_string = value;
+                    OnPropertyChanged(nameof(GioVaoSan_string));
+                }
+            }
+        }
+
+        public string GioKetThuc_string
+        {
+            get
+            {
+                _GioKetThuc_string = GioKetThuc.Hour + " : " + GioKetThuc.Minute;
+                return _GioKetThuc_string;
+            }
+            set
+            {
+                if (_GioKetThuc_string != value)
+                {
+                    _GioKetThuc_string = value;
+                    OnPropertyChanged(nameof(GioKetThuc_string));
+                }
+            }
+        }
         public DateTime_Model GioVaoSan
         {
             get
@@ -473,6 +509,7 @@ namespace KLTN.ViewModel
                 {
                     _GioVaoSan = value;
                     SelectedItem.HoatDongCuaSan.GioVaoSan = value;
+                    GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
                     OnPropertyChanged(nameof(GioVaoSan));
                     Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
@@ -494,6 +531,7 @@ namespace KLTN.ViewModel
                 {
                     _GioKetThuc = value;
                     SelectedItem.HoatDongCuaSan.GioKetThuc = value;
+                    GioKetThuc_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
                     OnPropertyChanged(nameof(GioKetThuc));
                     Database_HoatDongHienTai.UpdateItem(SelectedItem);
                 }
@@ -642,6 +680,8 @@ namespace KLTN.ViewModel
             TenKhachHang = SelectedItem.HoatDongCuaSan.KhachHang.BaseObject.TenObject;
             GioVaoSan = SelectedItem.HoatDongCuaSan.GioVaoSan;
             GioKetThuc = SelectedItem.HoatDongCuaSan.GioKetThuc;
+            GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
+            GioKetThuc_string = GioKetThuc.Hour + " : " + GioKetThuc.Minute;
             TongGio = SelectedItem.HoatDongCuaSan.SoGioThue;
             TenSan = SelectedItem.HoatDongCuaSan.San.BaseObject.TenObject;
             TongTien = SelectedItem.HoatDongCuaSan.TongTien;
@@ -1294,6 +1334,8 @@ namespace KLTN.ViewModel
         private ICommand _BtnHuyInPhieuCommand;
         private ICommand _BtnThuTienCommand;
         private ICommand _BtnHuySanCommand;
+        private ICommand _BtnBatDauTinhGioCommand;
+        private ICommand _BtnKetThucTinhGioCommand;
         #endregion Fields of Command
         #region Property of Command
         public ICommand BtnAddCommand
@@ -1408,9 +1450,57 @@ namespace KLTN.ViewModel
             }
         }
 
+        public ICommand BtnBatDauTinhGioCommand
+        {
+            get
+            {
+                if(_BtnBatDauTinhGioCommand == null)
+                {
+                    _BtnBatDauTinhGioCommand = new RelayCommand(ActionWhenClickBatDauTinhGio, CanExecute);
+                }
+                return _BtnBatDauTinhGioCommand;
+            }
+        }
+
+        public ICommand BtnKetThucTinhGioCommand
+        {
+            get
+            {
+                if (_BtnKetThucTinhGioCommand == null)
+                {
+                    _BtnKetThucTinhGioCommand = new RelayCommand(ActionWhenClickKetThucTinhGio, CanExecute);
+                }
+                return _BtnKetThucTinhGioCommand;
+            }
+        }
+
         #endregion Property of Command
 
         #region Method of Command
+
+        public void ActionWhenClickBatDauTinhGio()
+        {
+            //SelectedItem.HoatDongCuaSan.GioVaoSan = value;
+            //OnPropertyChanged(nameof(GioVaoSan));
+            //Database_HoatDongHienTai.UpdateItem(SelectedItem);
+
+            DateTime_Model temp = new DateTime_Model();
+            temp.Minute = DateTime.Now.ToString("mm").Trim();
+            temp.Hour = DateTime.Now.ToString("HH").Trim();
+
+            GioVaoSan = temp.Clone();
+
+
+        }
+
+        public void ActionWhenClickKetThucTinhGio()
+        {
+            DateTime_Model temp = new DateTime_Model();
+            temp.Minute = DateTime.Now.ToString("mm").Trim();
+            temp.Hour = DateTime.Now.ToString("HH").Trim();
+
+            GioKetThuc = temp.Clone();
+        }
         //Update trang thai va update status cua Info_Of_Field
         public void ActionWhenBtnBatDauSuDungClicked()
         {

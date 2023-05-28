@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using KLTN.ViewModel;
 
 namespace KLTN.Views
 {
@@ -22,6 +23,8 @@ namespace KLTN.Views
         public DoiSan_View()
         {
             InitializeComponent();
+            Replace_Field_ViewModel vm = new Replace_Field_ViewModel();
+            DataContext = vm;
         }
     }
 }
