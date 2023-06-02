@@ -448,6 +448,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True"
                             Text="{Binding GioVaoSan_string, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Label
                             Grid.Row="3"
@@ -462,6 +463,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True"
                             Text="{Binding TongGio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label
@@ -476,6 +478,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True"
                             Text="{Binding GioKetThuc_string, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Grid
@@ -596,6 +599,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsReadOnly="True"
                                 Text="{Binding GiaTienSelecteItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Grid
@@ -623,7 +627,6 @@
                                 </Button>
                                 <Button
                                     Grid.Column="1"
-                                    
                                     HorizontalAlignment="Center"
                                     Command="{Binding BtnModifyCommand}"
                                     IsEnabled="{Binding IsBtnModifyEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -653,7 +656,8 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <ListView Height="300"
+                            <ListView
+                                Height="300"
                                 ItemsSource="{Binding DanhSachNuocUongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ScrollViewer.CanContentScroll="False"
                                 ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -743,8 +747,8 @@
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
-                                    Content="Đặt sân"
                                     Click="DanhSach_DatSan_Click"
+                                    Content="Đặt sân"
                                     Foreground="Black"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
@@ -791,9 +795,9 @@
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Transparent"
+                                    Click="DoiSan_Click"
                                     Content="Đổi sân"
                                     Foreground="Black"
-                                    Click="DoiSan_Click"
                                     IsEnabled="{Binding IsBtnDoiSanEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                                 <Button
@@ -816,8 +820,8 @@
                                     HorizontalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="Blue"
-                                    Content="Thống kê"
                                     Click="DanhSach_HoaDon_Click"
+                                    Content="Thống kê"
                                     Foreground="Yellow"
                                     Style="{DynamicResource MaterialDesignRaisedDarkButton}"
                                     ToolTip="Thống kê" />
@@ -845,7 +849,10 @@
                                 Content="Tiền Giờ"
                                 FontSize="15"
                                 Style="{DynamicResource MaterialDesignLabel}" />
-                            <TextBox Grid.Row="0" Grid.Column="1" />
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsReadOnly="True" />
 
                             <Label
                                 Grid.Row="1"
@@ -853,10 +860,11 @@
                                 Content="Tiền nước"
                                 FontSize="15"
                                 Style="{DynamicResource MaterialDesignLabel}" />
-              
+
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="1"
+                                IsReadOnly="True"
                                 Text="{Binding TongTienNuoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
@@ -865,7 +873,11 @@
                                 Content="Tổng:"
                                 FontSize="15"
                                 Style="{DynamicResource MaterialDesignLabel}" />
-                            <TextBox Grid.Row="3" Grid.Column="1" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                Text="" />
 
                             <Label
                                 Grid.Row="4"
@@ -887,6 +899,7 @@
                             <TextBox
                                 Grid.Row="5"
                                 Grid.Column="1"
+                                IsReadOnly="True"
                                 Text="{Binding TienThoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label

@@ -26,5 +26,12 @@ namespace KLTN.Views
             Invoice_ViewModel vm = new Invoice_ViewModel();
             DataContext = vm;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            YardView temp = new YardView();
+            temp.Show();
+            this.Close();
+        }
     }
 }

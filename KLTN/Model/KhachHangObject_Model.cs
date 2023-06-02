@@ -34,6 +34,12 @@ namespace KLTN.Model
                 }
             }
         }
+
+        public KhachHangObject_Model()
+        {
+            BaseObject = new BaseObject_Model();
+            SdtObject = "";
+        }
         public KhachHangObject_Model Clone()
         {
             KhachHangObject_Model item = new KhachHangObject_Model();

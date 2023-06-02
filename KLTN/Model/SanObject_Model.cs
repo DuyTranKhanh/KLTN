@@ -47,6 +47,13 @@ namespace KLTN.Model
                 }
             }
         }
+
+        public SanObject_Model ()
+        {
+            BaseObject = new BaseObject_Model();
+            IdLoaiSan = 0;
+            TenLoaiSan = "";
+        }
         public SanObject_Model Clone()
         {
             var item = new SanObject_Model();

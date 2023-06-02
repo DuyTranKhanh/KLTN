@@ -74,6 +74,14 @@ namespace KLTN.Model
             }
         }
 
+        public DateTime_Model()
+        {
+            Minute = string.Empty;
+            Year = string.Empty;
+            Month = string.Empty;
+            Hour = string.Empty;
+            Day = string.Empty;
+        }
         public DateTime_Model Clone()
         {
             var item = new DateTime_Model();

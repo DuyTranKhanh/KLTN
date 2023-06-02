@@ -135,5 +135,31 @@ namespace KLTN.Service
             catch (Exception ex) { throw ex; }
             return l_IsUpdate;
         }
+
+        //Clear Infor
+        public bool RemoveByIdSan(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+
+                //var item = Database.DanhSachHienTai_NuocUong_Db.Find(parameter.IdSan);
+                //var objQuery = from KhachHang in Database.DanhSachHienTai_NuocUong_Db
+                //               where KhachHang.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
+                //               select KhachHang;
+                var objQuery = Database.DanhSachHienTai_NuocUong_Db.Where(x => x.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject).ToArray();
+                if (objQuery != null)
+                {
+                    foreach(var item in objQuery)
+                    {
+                        Database.DanhSachHienTai_NuocUong_Db.Remove(item);
+                        Database.SaveChanges();
+                        l_IsUpdate = true;
+                    }
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
     }
 }

@@ -232,6 +232,21 @@ namespace KLTN.Model
                 }
             }
         }
+
+        public HoatDongHienTaiModel()
+        {
+            HoatDongCuaSan.San = new SanObject_Model();
+            HoatDongCuaSan.KhachHang = new KhachHangObject_Model();
+            HoatDongCuaSan.GioVaoSan = new DateTime_Model();
+            HoatDongCuaSan.GioKetThuc = new DateTime_Model();
+            HoatDongCuaSan.GhiChu = string.Empty;
+            HoatDongCuaSan.SoGioThue = 0;
+            HoatDongCuaSan.TongTien = 0;
+            HoatDongCuaSan.TienKhachDua = 0;
+            HoatDongCuaSan.TienThoi = 0;
+
+            TrangThaiSan = string.Empty;
+        }
         public HoatDongHienTaiModel Clone()
         {
             HoatDongHienTaiModel temp = new HoatDongHienTaiModel();

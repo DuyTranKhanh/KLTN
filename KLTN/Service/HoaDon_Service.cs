@@ -22,7 +22,16 @@ namespace KLTN.Service
             try
             {
                 var temp = new HoaDon_Db();
-                temp.Id_HoaDon = parameter.IdHoaDon;
+                //temp.Id_HoaDon = parameter.IdHoaDon;
+                temp.Id_HoaDon = 0;
+
+                //Get Id for Id_Hoa Don
+                var objQuery = from HoaDon in Database.HoaDon_Db
+                               select HoaDon;
+                if (objQuery.Count() > 0)
+                {
+                    temp.Id_HoaDon = objQuery.Count() + 1;
+                }
                 temp.Id_San = parameter.San.BaseObject.IdObject;
                 temp.Ten_San = parameter.San.BaseObject.TenObject;
                 temp.Id_LoaiSan = parameter.San.IdLoaiSan;
@@ -33,11 +42,6 @@ namespace KLTN.Service
                 temp.SoGioThue = parameter.SoGioThue;
                 temp.NgayThucHien = DateTime.Today.ToShortDateString();
                 temp.GhiChu = parameter.GhiChu;
-                temp.Account_NhanVien = parameter.NhanVien.Account;
-                temp.HoVaTen_NhanVien = parameter.NhanVien.HoVaTen;
-                temp.Id_KhachHang = parameter.KhachHang.BaseObject.IdObject;
-                temp.Ten_KhachHang = parameter.KhachHang.BaseObject.TenObject;
-                temp.Sdt_KhachHang = parameter.KhachHang.SdtObject;
 
                 var l_GioVaoSan = new HoaDon_GioVaoSan();
                 l_GioVaoSan.Id_HoaDon = temp.Id_HoaDon;
@@ -50,6 +54,34 @@ namespace KLTN.Service
                 l_GioKetThuc.Id_San = temp.Id_San;
                 l_GioKetThuc.Phut = parameter.GioKetThuc.Minute;
                 l_GioKetThuc.Gio = parameter.GioKetThuc.Hour;
+
+                //Nhan Vien phu trach
+
+                AccountObject_Model objSingle = new AccountObject_Model();
+                var objectUser = Database.CurrentUser_Db.Find(0);
+                temp.Account_NhanVien = objectUser.Account;
+                temp.HoVaTen_NhanVien = objectUser.HoVaTen;
+
+                //Khach hang using
+                //var itemKhachHang = Database.KhachHang_Db.Find(parameter.KhachHang.BaseObject.TenObject);
+                var itemKhachHang = from KhachHang in Database.KhachHang_Db
+                                    where KhachHang.Ten_KhachHang == parameter.KhachHang.BaseObject.TenObject
+                                    select KhachHang;
+                if(itemKhachHang.Count() > 0)
+                {
+                    foreach(var item in itemKhachHang)
+                    {
+                        temp.Id_KhachHang = item.Id_KhachHang;
+                        temp.Ten_KhachHang = item.Ten_KhachHang;
+                        temp.Sdt_KhachHang = item.Sdt_KhachHang;
+                    }
+                }
+                else
+                {
+                    temp.Id_KhachHang = 0;
+                    temp.Ten_KhachHang = "Khách vãng lai";
+                    temp.Sdt_KhachHang = string.Empty;
+                }
 
                 Database.HoaDon_Db.Add(temp);
                 Database.HoaDon_GioKetThuc.Add(l_GioKetThuc);

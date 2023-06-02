@@ -128,20 +128,95 @@ namespace KLTN.Service
             return objList;
         }
 
+        public ObservableCollection<HoatDongHienTaiModel> GetWithCondition()
+        {
+            ObservableCollection<HoatDongHienTaiModel> objList = new ObservableCollection<HoatDongHienTaiModel>();
+            try
+            {
+                var objQuery = from KhachHang in Database.HoatDongHienTai_Db
+                               select KhachHang;
+                foreach (var item in objQuery)
+                {
+                    var objTrangThaiSan = from DanhSachSan in Database.San_Db
+                                          select DanhSachSan;
+                    foreach (var itemSan in objTrangThaiSan)
+                    {
+                        if (itemSan.Id_San == item.Id_San && itemSan.TrangThai_San == "Hoạt động")
+                        {
+                            var temp = new HoatDongHienTaiModel();
+                            temp.TrangThaiSan = item.TrangThai_San_HienTai;
+                            temp.HoatDongCuaSan.San.IdLoaiSan = Convert.ToInt32(item.Id_LoaiSan);
+                            temp.HoatDongCuaSan.San.BaseObject.IdObject = Convert.ToInt32(item.Id_San);
+                            temp.HoatDongCuaSan.San.BaseObject.TenObject = item.Ten_San;
+                            temp.HoatDongCuaSan.San.TenLoaiSan = item.Ten_LoaiSan;
+                            temp.HoatDongCuaSan.KhachHang.BaseObject.IdObject = (item.Id_KhachHang == null) ? -1 : (int)item.Id_KhachHang;
+                            temp.HoatDongCuaSan.KhachHang.BaseObject.TenObject = item.Ten_KhachHang;
+                            temp.HoatDongCuaSan.KhachHang.SdtObject = item.Sdt_KhachHang;
+                            temp.HoatDongCuaSan.DanhSachNuocUong = new ObservableCollection<HoatDongNuocUong_Model>();
+                            if (DanhSachNuocUong.GetByIdSan(item.Id_San).Count > 0)
+                            {
+                                foreach (var itemNuocUong in DanhSachNuocUong.GetByIdSan(item.Id_San))
+                                {
+                                    temp.HoatDongCuaSan.DanhSachNuocUong.Add(itemNuocUong.Clone());
+                                }
+                            }
+                            //temp.HoatDongCuaSan.GioVaoSan = item.GioVaoSan;
+                            //temp.HoatDongCuaSan.GioKetThuc = item.GioRaSan;
+                            temp.HoatDongCuaSan.SoGioThue = (item.SoGioThue == null) ? 0 : (Convert.ToDouble(item.SoGioThue));
+                            temp.HoatDongCuaSan.TongTien = (item.TongTien == null) ? 0 : (Decimal)item.TongTien;
+                            temp.HoatDongCuaSan.TienKhachDua = (item.TienKhachDua == null) ? 0 : (Decimal)item.TienKhachDua;
+                            temp.HoatDongCuaSan.TienThoi = (item.TienThua == null) ? 0 : (Decimal)item.TienThua;
+                            //temp.HoatDongCuaSan.Ngay = item.NgayThucHien;
+                            temp.HoatDongCuaSan.GhiChu = item.GhiChu;
+                            temp.HoatDongCuaSan.NhanVien.Account = item.Account_NhanVien;
+                            temp.HoatDongCuaSan.NhanVien.HoVaTen = item.HoVaTen_NhanVien;
+
+                            var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
+                                               where GioVaoSan.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                               select GioVaoSan).SingleOrDefault();
+
+                            var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
+                                                where GioKetThuc.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                                select GioKetThuc).SingleOrDefault();
+
+                            temp.HoatDongCuaSan.GioVaoSan.Minute = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Phut;
+                            temp.HoatDongCuaSan.GioVaoSan.Hour = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Gio;
+
+                            temp.HoatDongCuaSan.GioKetThuc.Minute = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Phut;
+                            temp.HoatDongCuaSan.GioKetThuc.Hour = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Gio;
+                            objList.Add(temp);
+                        }
+
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return objList;
+        }
+
         public override bool UpdateItem(HoatDongHienTaiModel parameter)
         {
             bool l_IsUpdate = false;
             try
             {
                 var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
-                var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
-                                   where GioVaoSan.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
-                                   select GioVaoSan).SingleOrDefault();
+                //var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
+                //                   where GioVaoSan.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
+                //                   select GioVaoSan).SingleOrDefault();
 
-                var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
-                                    where GioKetThuc.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
-                                    select GioKetThuc).SingleOrDefault();
+                //var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
+                //                    where GioKetThuc.Id_San == parameter.HoatDongCuaSan.San.BaseObject.IdObject
+                //                    select GioKetThuc).SingleOrDefault();
 
+                var l_GioVaoSan = Database.HoatDongHienTai_GioVaoSan.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                var l_GioKetThuc = Database.HoatDongHienTai_GioKetThuc.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
                 if (item != null)
                 {
                     //item.GioVaoSan = parameter.HoatDongCuaSan.GioVaoSan;

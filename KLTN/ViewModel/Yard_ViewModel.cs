@@ -182,7 +182,9 @@ namespace KLTN.ViewModel
             Database_NuocUong = new NuocUong_Service();
             Database_LichDat = new DatLich_Service();
             Database_Account = new CurrentUser_Service();
-            DanhSachHoatDongHienTai = Database_HoatDongHienTai.GetAll();
+            DanhSachHoatDongHienTai = Database_HoatDongHienTai.GetWithCondition();
+            Database_HoaDon = new HoaDon_Service();
+            Database_NuocUongHoaDon = new DanhSachHoaDon_NuocUong_Service();
         }
         KhachHang_Service Database_KhachHang;
         BangGia_Service Database_BangGia;
@@ -192,6 +194,8 @@ namespace KLTN.ViewModel
         NuocUong_Service Database_NuocUong;
         HoatDongHienTai_Service Database_HoatDongHienTai;
         CurrentUser_Service Database_Account;
+        HoaDon_Service Database_HoaDon;
+        DanhSachHoaDon_NuocUong_Service Database_NuocUongHoaDon;
 
         #region Method Get data from Database
 
@@ -238,7 +242,7 @@ namespace KLTN.ViewModel
 
         public ObservableCollection<HoatDongHienTaiModel> GetDatabase_HoatDongHienTai()
         {
-            var temp = Database_HoatDongHienTai.GetAll();
+            var temp = Database_HoatDongHienTai.GetWithCondition();
             return temp;
         }
         #endregion
@@ -335,6 +339,8 @@ namespace KLTN.ViewModel
                 }
             }
         }
+
+        //Items for combobox NuocUong in Menu
         public ObservableCollection<NuocUongObject_Model> DanhSachNuocUong
         {
             get
@@ -355,6 +361,10 @@ namespace KLTN.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// Danh sach nhung loai nuoc uong dang duoc san su dung
+        /// </summary>
         public ObservableCollection<HoatDongNuocUong_Model> DanhSachNuocUongHienTai
         {
             get
@@ -1518,6 +1528,9 @@ namespace KLTN.ViewModel
             UpdateCollection();
         }
 
+        /// <summary>
+        /// Update Information of LoaiSan and SelectedItem
+        /// </summary>
         public void UpdateCollection()
         {
             int tempSelectedItem = SelectedItem.HoatDongCuaSan.San.BaseObject.IdObject;
@@ -1649,6 +1662,34 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = SanSangSuDungContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
+
+            // Add Record to HoaDon
+            var tempItemHoaDon = SelectedItem.HoatDongCuaSan.Clone();
+            Database_HoaDon.Add(tempItemHoaDon);
+
+            // Add danh sach nuoc uong to HoaDon
+            //San co Add nuoc uong
+            if(DanhSachNuocUongItem.Count() >= 1)
+            {
+                foreach(var item in DanhSachNuocUongItem)
+                {
+                    Database_NuocUongHoaDon.Add(item);
+                }
+            }
+
+            //Clear Information of SelectedItem and update Item
+            HoatDongHienTaiModel tempSelectedItem = new HoatDongHienTaiModel();
+            tempSelectedItem.HoatDongCuaSan.San = SelectedItem.HoatDongCuaSan.San.Clone();
+            tempSelectedItem.TrangThaiSan = SanSangSuDungContent;
+            Database_HoatDongHienTai.UpdateItem(tempSelectedItem);
+
+            // Update danh sach Nuoc uong HienTai
+            Database_NuocUongHienTai.RemoveByIdSan(tempSelectedItem);
+
+            //Get to update info
+            DanhSachHoatDongHienTai = Database_HoatDongHienTai.GetWithCondition();
+            DanhSachNuocUongHienTai = GetDatabase_NuocUongHienTai();
+
             UpdateCollection();
         }
 
@@ -1664,7 +1705,19 @@ namespace KLTN.ViewModel
             IsBtnThuTienEnable = false;
             IsBtnDoiSanEnable = false;
             IsBtnHuySanEnable = false;
+
+            Database_NuocUongHienTai.RemoveByIdSan(SelectedItem);
+            DanhSachNuocUongHienTai = GetDatabase_NuocUongHienTai();
+
             SelectedItem.TrangThaiSan = SanSangSuDungContent;
+            SelectedItem.HoatDongCuaSan.GioVaoSan = new DateTime_Model();
+            SelectedItem.HoatDongCuaSan.GioKetThuc = new DateTime_Model();
+            SelectedItem.HoatDongCuaSan.KhachHang = new KhachHangObject_Model();
+            SelectedItem.HoatDongCuaSan.GhiChu = string.Empty;
+            SelectedItem.HoatDongCuaSan.SoGioThue = 0;
+            SelectedItem.HoatDongCuaSan.TongTien = 0;
+            SelectedItem.HoatDongCuaSan.TienKhachDua = 0;
+            SelectedItem.HoatDongCuaSan.TienThoi = 0;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
             UpdateCollection();

@@ -48,6 +48,12 @@ namespace KLTN.Model
             }
         }
 
+        public BaseObject_Model()
+        {
+            IdObject = 0;
+            TenObject = "";
+            TrangThaiObject = "";
+        }
         public BaseObject_Model Clone()
         {
             var item = new BaseObject_Model();

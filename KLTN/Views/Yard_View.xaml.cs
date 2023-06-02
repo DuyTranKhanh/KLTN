@@ -114,7 +114,8 @@ namespace KLTN.Views
         private void DoiSan_Click(object sender, RoutedEventArgs e)
         {
             DoiSan_View temp = new DoiSan_View();
-            temp.ShowDialog();
+            temp.Show();
+            this.Close();
         }
 
     }

@@ -27,12 +27,12 @@ namespace KLTN.Service
                                select KhachHang;
                 foreach(var item in objQuery)
                 {
-                        var temp = new KhachHangObject_Model();
-                        temp.BaseObject.IdObject = item.Id_KhachHang;
-                        temp.SdtObject = item.Sdt_KhachHang;
-                        temp.BaseObject.TenObject = item.Ten_KhachHang;
-                        temp.BaseObject.TrangThaiObject = item.TrangThai_KhachHang;
-                        objList.Add(temp);
+                    var temp = new KhachHangObject_Model();
+                    temp.BaseObject.IdObject = item.Id_KhachHang;
+                    temp.SdtObject = item.Sdt_KhachHang;
+                    temp.BaseObject.TenObject = item.Ten_KhachHang;
+                    temp.BaseObject.TrangThaiObject = item.TrangThai_KhachHang;
+                    objList.Add(temp);
                 }
             }
             catch(Exception e)

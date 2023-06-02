@@ -6,9 +6,8 @@
     xmlns:local="clr-namespace:KLTN.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="DatLich_View"
     Width="800"
-    Height="450"
+    Height="600"
     WindowStartupLocation="CenterScreen"
     WindowState="Normal"
     WindowStyle="None"
@@ -24,15 +23,196 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
+
             <!--  Thông tin Item  -->
-            <GroupBox Grid.Row="0" />
+            <GroupBox
+                Grid.Row="0"
+                Background="AliceBlue"
+                FontFamily="Arial"
+                FontSize="16"
+                Header="Thông tin đặt lịch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Khách hàng  -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="Khách hàng"
+                            FontSize="15" />
+
+                        <ComboBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            DisplayMemberPath="Value"
+                            ItemsSource="{Binding DanhSach_KhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValue="{Binding KhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Value"
+                            Style="{StaticResource MaterialDesignComboBox}" />
+                    </Grid>
+
+                    <!--  Chọn loại sân  -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="Loại sân:"
+                            FontSize="15" />
+
+                        <ComboBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            DisplayMemberPath="Value"
+                            ItemsSource="{Binding DanhSach_KhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValue="{Binding KhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Value"
+                            Style="{StaticResource MaterialDesignComboBox}" />
+                    </Grid>
+
+                    <!--  Giờ bắt đầu  -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="Giờ bắt đầu"
+                            FontSize="15" />
+                        <materialDesign:TimePicker
+                            Grid.Column="1"
+                            materialDesign:HintAssist.FloatingOffset="0,-23"
+                            materialDesign:HintAssist.Hint="Pick Time"
+                            materialDesign:TimePickerAssist.OutlinedBorderActiveThickness="1"
+                            materialDesign:TimePickerAssist.OutlinedBorderInactiveThickness="1"
+                            Is24Hours="True"
+                            SelectedTime="{Binding TimeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
+
+                    </Grid>
+
+                    <!--  Giờ kết thúc  -->
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="Thời lượng"
+                            FontSize="15" />
+                        <ComboBox
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            DisplayMemberPath="Value"
+                            ItemsSource="{Binding DanhSach_ThoiGianSuDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValue="{Binding ThoiGianSuDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Value"
+                            Style="{StaticResource MaterialDesignComboBox}" />
+
+                    </Grid>
+
+                    <!--  Trạng thái lịch đặt: Còn hợp lệ, không sử dụng nữa  -->
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="Trạng thái"
+                            FontSize="15" />
+                        <ComboBox
+                            Grid.Row="8"
+                            Grid.Column="1"
+                            Width="190"
+                            Height="25"
+                            HorizontalAlignment="Left"
+                            materialDesign:HintAssist.Hint="Trạng thái hoạt động"
+                            DisplayMemberPath="Value"
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ItemsSource="{Binding TrangThaiCbb, FallbackValue='Err'}"
+                            SelectedValue="{Binding TrangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Value" />
+                    </Grid>
+
+                    <!--  Ngày tạo  -->
+                    <Grid Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="Ngày tạo lịch"
+                            FontSize="15" />
+
+                        <TextBox
+                            Grid.Column="1"
+                            Width="190"
+                            Height="25"
+                            HorizontalAlignment="Left"
+                            IsEnabled="False"
+                            Text="{Binding StartDay}" />
+                    </Grid>
+
+                    <!--  Ngày sử dụng  -->
+                    <Grid Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Content="Ngày sử dụng"
+                            FontSize="15" />
+                        <DatePicker
+                            Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Pick Date"
+                            DisplayDateEnd="{Binding RangeDay}"
+                            DisplayDateStart="{Binding StartDay}"
+                            SelectedDate="{Binding UsingDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+
+                </Grid>
+            </GroupBox>
 
             <!--  Button CRUD  -->
             <Grid
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Margin="0,5,0,0">
+                Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -91,10 +271,11 @@
         <GroupBox
             Grid.Row="1"
             Grid.Column="0"
+            Margin="0,10,0,0"
             Background="AliceBlue"
             FontFamily="Arial"
             FontSize="16"
-            Header="{Binding DanhSachLabel, FallbackValue='Lang-err'}">
+            Header="Danh sách đặt lịch">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -111,27 +292,27 @@
                             <GridViewColumn
                                 Width="100"
                                 DisplayMemberBinding="{Binding BaseObject.IdObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="{Binding IdLabel, FallbackValue='Lang-err'}" />
+                                Header="Khách hàng" />
                             <GridViewColumn
-                                Width="120"
+                                Width="70"
                                 DisplayMemberBinding="{Binding BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="{Binding CotTenLabel, FallbackValue='Lang-err'}" />
+                                Header="Sđt" />
                             <GridViewColumn
                                 Width="160"
                                 DisplayMemberBinding="{Binding BaseObject.TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="{Binding TrangThaiLabel, FallbackValue='Lang-err'}" />
+                                Header="Loại sân" />
                             <GridViewColumn
                                 Width="150"
                                 DisplayMemberBinding="{Binding GiaTienObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="{Binding DonGiaItemLabel, FallbackValue='Lang-err'}" />
+                                Header="Ngày tạo" />
                             <GridViewColumn
                                 Width="150"
                                 DisplayMemberBinding="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="{Binding ThoiGianBatDauItemLabel, FallbackValue='Lang-err'}" />
+                                Header="Ngày sử dụng" />
                             <GridViewColumn
                                 Width="150"
                                 DisplayMemberBinding="{Binding ThoiGianKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="{Binding ThoiGianKetThucItemLabel, FallbackValue='Lang-err'}" />
+                                Header="Thời gian sử dụng" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
                                     <Setter Property="Background" Value="LightBlue" />

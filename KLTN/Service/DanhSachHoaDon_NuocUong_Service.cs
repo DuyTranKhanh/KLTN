@@ -22,10 +22,23 @@ namespace KLTN.Service
             {
                 var temp = new DanhSachHoaDon_NuocUong_Db();
                 temp.Id_NuocUong = parameter.IdNuocUong;
-                temp.Id_HoaDon = parameter.IdHoaDon;
+                temp.Id_HoaDon = 0;
                 temp.Ten_NuocUong = parameter.TenNuocUong;
                 temp.SoLuong = parameter.SoLuong;
                 temp.GiaTien = parameter.GiaTien;
+
+                //Get Id HoaDon
+                var objQuery = from HoaDon in Database.HoaDon_Db
+                               select HoaDon;
+                temp.Id_HoaDon = objQuery.Count() - 1;
+
+                var id = from IdNuocUong in Database.DanhSachHoaDon_NuocUong_Db
+                               select IdNuocUong;
+                if(id.Count() > 0)
+                {
+                    temp.Id_DanhSachHoaDon = id.Count();
+                }
+
                 Database.DanhSachHoaDon_NuocUong_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;
