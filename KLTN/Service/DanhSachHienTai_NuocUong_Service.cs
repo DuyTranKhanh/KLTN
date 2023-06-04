@@ -118,6 +118,26 @@ namespace KLTN.Service
             return l_IsUpdate;
         }
 
+        public bool UpdateIdSan(SanObject_Model startItem, SanObject_Model destItem)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var objQuery = Database.DanhSachHienTai_NuocUong_Db.Where(m => m.Id_San == startItem.BaseObject.IdObject).ToArray();
+                if (objQuery != null && objQuery.Count() > 0)
+                {
+                    foreach (var item in objQuery)
+                    {
+                        item.Id_San = destItem.BaseObject.IdObject;
+                    }
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
         public bool RemoveItem(HoatDongNuocUong_Model parameter)
         {
             bool l_IsUpdate = false;

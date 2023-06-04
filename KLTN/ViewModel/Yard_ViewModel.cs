@@ -474,7 +474,7 @@ namespace KLTN.ViewModel
         {
             get
             {
-                _GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
+                _GioVaoSan_string = GioVaoSan.Hour.Trim() + " : " + GioVaoSan.Minute.Trim();
                 return _GioVaoSan_string;
             }
             set
@@ -491,7 +491,7 @@ namespace KLTN.ViewModel
         {
             get
             {
-                _GioKetThuc_string = GioKetThuc.Hour + " : " + GioKetThuc.Minute;
+                _GioKetThuc_string = GioKetThuc.Hour.Trim() + " : " + GioKetThuc.Minute.Trim();
                 return _GioKetThuc_string;
             }
             set
@@ -690,8 +690,9 @@ namespace KLTN.ViewModel
             TenKhachHang = SelectedItem.HoatDongCuaSan.KhachHang.BaseObject.TenObject;
             GioVaoSan = SelectedItem.HoatDongCuaSan.GioVaoSan;
             GioKetThuc = SelectedItem.HoatDongCuaSan.GioKetThuc;
-            GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
-            GioKetThuc_string = GioKetThuc.Hour + " : " + GioKetThuc.Minute;
+            //GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
+            GioVaoSan_string = SelectedItem.HoatDongCuaSan.GioVaoSan.Hour.Trim() +" : "+ SelectedItem.HoatDongCuaSan.GioVaoSan.Minute.Trim();
+            GioKetThuc_string = SelectedItem.HoatDongCuaSan.GioKetThuc.Hour.Trim() + " : " + SelectedItem.HoatDongCuaSan.GioKetThuc.Minute.Trim();
             TongGio = SelectedItem.HoatDongCuaSan.SoGioThue;
             TenSan = SelectedItem.HoatDongCuaSan.San.BaseObject.TenObject;
             TongTien = SelectedItem.HoatDongCuaSan.TongTien;
@@ -1490,16 +1491,13 @@ namespace KLTN.ViewModel
 
         public void ActionWhenClickBatDauTinhGio()
         {
-            //SelectedItem.HoatDongCuaSan.GioVaoSan = value;
-            //OnPropertyChanged(nameof(GioVaoSan));
-            //Database_HoatDongHienTai.UpdateItem(SelectedItem);
-
             DateTime_Model temp = new DateTime_Model();
             temp.Minute = DateTime.Now.ToString("mm").Trim();
             temp.Hour = DateTime.Now.ToString("HH").Trim();
 
             GioVaoSan = temp.Clone();
 
+            Database_HoatDongHienTai.UpdateGioVaoSan(SelectedItem);
 
         }
 
@@ -1510,6 +1508,7 @@ namespace KLTN.ViewModel
             temp.Hour = DateTime.Now.ToString("HH").Trim();
 
             GioKetThuc = temp.Clone();
+            Database_HoatDongHienTai.UpdateGioKetThuc(SelectedItem);
         }
         //Update trang thai va update status cua Info_Of_Field
         public void ActionWhenBtnBatDauSuDungClicked()
@@ -1573,6 +1572,8 @@ namespace KLTN.ViewModel
                 SelectedItem = DanhSachSanOther.Where(item => item.HoatDongCuaSan.San.BaseObject.IdObject == tempSelectedItem).Single();
             }
             Database_HoatDongHienTai.UpdateItem(SelectedItem);
+            Database_HoatDongHienTai.UpdateGioKetThuc(SelectedItem);
+            Database_HoatDongHienTai.UpdateGioVaoSan(SelectedItem);
         }
         //Update trang thai va Update status cua nhung btn sau
         //Status cua Info_Of_Field
@@ -1682,13 +1683,26 @@ namespace KLTN.ViewModel
             tempSelectedItem.HoatDongCuaSan.San = SelectedItem.HoatDongCuaSan.San.Clone();
             tempSelectedItem.TrangThaiSan = SanSangSuDungContent;
             Database_HoatDongHienTai.UpdateItem(tempSelectedItem);
-
+            Database_HoatDongHienTai.UpdateGioKetThuc(SelectedItem);
+            Database_HoatDongHienTai.UpdateGioVaoSan(SelectedItem);
             // Update danh sach Nuoc uong HienTai
             Database_NuocUongHienTai.RemoveByIdSan(tempSelectedItem);
 
             //Get to update info
             DanhSachHoatDongHienTai = Database_HoatDongHienTai.GetWithCondition();
             DanhSachNuocUongHienTai = GetDatabase_NuocUongHienTai();
+
+            SelectedItem.TrangThaiSan = SanSangSuDungContent;
+            SelectedItem.HoatDongCuaSan.GioVaoSan = new DateTime_Model();
+            SelectedItem.HoatDongCuaSan.GioKetThuc = new DateTime_Model();
+            SelectedItem.HoatDongCuaSan.KhachHang = new KhachHangObject_Model();
+            SelectedItem.HoatDongCuaSan.GhiChu = string.Empty;
+            SelectedItem.HoatDongCuaSan.SoGioThue = 0;
+            SelectedItem.HoatDongCuaSan.TongTien = 0;
+            SelectedItem.HoatDongCuaSan.TienKhachDua = 0;
+            SelectedItem.HoatDongCuaSan.TienThoi = 0;
+            TinhTrang = SelectedItem.TrangThaiSan;
+            ContentOfBtnPause = "";
 
             UpdateCollection();
         }

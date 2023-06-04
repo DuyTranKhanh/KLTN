@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLTN.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,22 +13,22 @@ namespace KLTN.ViewModel
 
         public DateTime RangeDay = DateTime.Today.AddDays(3);
 
-        private DateTime _UsingDay = DateTime.Today;
-        public DateTime UsingDay
-        {
-            get
-            {
-                return _UsingDay;
-            }
 
-            set
-            {
-                if(_UsingDay != value)
-                {
-                    _UsingDay = value;
-                    OnPropertyChanged(nameof(UsingDay));
-                }
-            }
-        }
+    }
+
+    public partial class DatSan_ViewModel : BaseViewModel
+    {
+        private string _TenKhachHang;
+        private string _Sdt;
+        private int _LoaiSan; // Su dung enum de define
+        private DateTime _GioBatDau_HienThi;
+        private DateTime_Model _GioBatDau;
+        private DateTime _GioKetThuc_HienThi;
+        private DateTime_Model _GioKetThuc;
+        private string _TrangThai;
+        private string _NgayTao;
+        private DateTime_Model _NgaySuDung;
+
+        private LichDatObject_Model _SelectedItem;
     }
 }

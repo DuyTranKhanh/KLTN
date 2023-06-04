@@ -40,7 +40,7 @@ namespace KLTN.Service
                 temp.TienKhachDua = parameter.TienKhachDua;
                 temp.TienThua = parameter.TienThoi;
                 temp.SoGioThue = parameter.SoGioThue;
-                temp.NgayThucHien = DateTime.Today.ToShortDateString();
+                temp.NgayThucHien = DateTime.Today.ToShortDateString().Trim();
                 temp.GhiChu = parameter.GhiChu;
 
                 var l_GioVaoSan = new HoaDon_GioVaoSan();

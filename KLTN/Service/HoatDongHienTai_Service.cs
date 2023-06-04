@@ -106,11 +106,11 @@ namespace KLTN.Service
                     temp.HoatDongCuaSan.NhanVien.HoVaTen = item.HoVaTen_NhanVien;
 
                     var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
-                                       where GioVaoSan.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                       where GioVaoSan.Id_San == temp.HoatDongCuaSan.San.BaseObject.IdObject
                                        select GioVaoSan).SingleOrDefault();
 
                     var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
-                                        where GioKetThuc.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                        where GioKetThuc.Id_San == temp.HoatDongCuaSan.San.BaseObject.IdObject
                                         select GioKetThuc).SingleOrDefault();
 
                     temp.HoatDongCuaSan.GioVaoSan.Minute = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Phut;
@@ -144,7 +144,7 @@ namespace KLTN.Service
                         if (itemSan.Id_San == item.Id_San && itemSan.TrangThai_San == "Hoạt động")
                         {
                             var temp = new HoatDongHienTaiModel();
-                            temp.TrangThaiSan = item.TrangThai_San_HienTai;
+                            temp.TrangThaiSan = (item.TrangThai_San_HienTai.Length > 1) ? item.TrangThai_San_HienTai : "Sẵn sàng sử dụng";
                             temp.HoatDongCuaSan.San.IdLoaiSan = Convert.ToInt32(item.Id_LoaiSan);
                             temp.HoatDongCuaSan.San.BaseObject.IdObject = Convert.ToInt32(item.Id_San);
                             temp.HoatDongCuaSan.San.BaseObject.TenObject = item.Ten_San;
@@ -172,11 +172,11 @@ namespace KLTN.Service
                             temp.HoatDongCuaSan.NhanVien.HoVaTen = item.HoVaTen_NhanVien;
 
                             var l_GioVaoSan = (from GioVaoSan in Database.HoatDongHienTai_GioVaoSan
-                                               where GioVaoSan.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                               where GioVaoSan.Id_San == temp.HoatDongCuaSan.San.BaseObject.IdObject
                                                select GioVaoSan).SingleOrDefault();
 
                             var l_GioKetThuc = (from GioKetThuc in Database.HoatDongHienTai_GioKetThuc
-                                                where GioKetThuc.Id_San == temp.HoatDongCuaSan.San.IdLoaiSan
+                                                where GioKetThuc.Id_San == temp.HoatDongCuaSan.San.BaseObject.IdObject
                                                 select GioKetThuc).SingleOrDefault();
 
                             temp.HoatDongCuaSan.GioVaoSan.Minute = (l_GioVaoSan == null) ? "0" : l_GioVaoSan.Phut;
@@ -224,18 +224,205 @@ namespace KLTN.Service
                     item.SoGioThue = parameter.HoatDongCuaSan.SoGioThue;
                     item.TongTien = parameter.HoatDongCuaSan.TongTien;
                     item.TienKhachDua = parameter.HoatDongCuaSan.TienKhachDua;
-                    item.TienKhachDua = parameter.HoatDongCuaSan.TienThoi;
+                    item.TienThua = parameter.HoatDongCuaSan.TienThoi;
                     item.GhiChu = parameter.HoatDongCuaSan.GhiChu;
                     item.TrangThai_San_HienTai = parameter.TrangThaiSan;
                     item.Sdt_KhachHang = parameter.HoatDongCuaSan.KhachHang.SdtObject;
                     item.Ten_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.TenObject;
                     item.Id_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.IdObject;
 
-                    l_GioVaoSan.Gio = parameter.HoatDongCuaSan.GioVaoSan.Hour;
-                    l_GioVaoSan.Phut = parameter.HoatDongCuaSan.GioVaoSan.Minute;
+                    //l_GioVaoSan.Gio = parameter.HoatDongCuaSan.GioVaoSan.Hour;
+                    //l_GioVaoSan.Phut = parameter.HoatDongCuaSan.GioVaoSan.Minute;
 
-                    l_GioKetThuc.Gio = parameter.HoatDongCuaSan.GioKetThuc.Hour;
-                    l_GioKetThuc.Phut = parameter.HoatDongCuaSan.GioKetThuc.Minute;
+                    //l_GioKetThuc.Gio = parameter.HoatDongCuaSan.GioKetThuc.Hour;
+                    //l_GioKetThuc.Phut = parameter.HoatDongCuaSan.GioKetThuc.Minute;
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateTenKhachHang(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.Sdt_KhachHang = parameter.HoatDongCuaSan.KhachHang.SdtObject;
+                    item.Ten_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.TenObject;
+                    item.Id_KhachHang = parameter.HoatDongCuaSan.KhachHang.BaseObject.IdObject;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateSoGioThue(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.SoGioThue = parameter.HoatDongCuaSan.SoGioThue;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateTongTien(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.TongTien = parameter.HoatDongCuaSan.TongTien;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateTienKhachDua(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.TienKhachDua = parameter.HoatDongCuaSan.TienKhachDua;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateTienThua(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.TienThua = parameter.HoatDongCuaSan.TienThoi;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateGhiChu(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.GhiChu = parameter.HoatDongCuaSan.GhiChu;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+        public bool UpdateTrangThai(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    item.TrangThai_San_HienTai = parameter.TrangThaiSan;
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateGioVaoSan(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                var l_GioVaoSan = Database.HoatDongHienTai_GioVaoSan.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                var l_GioKetThuc = Database.HoatDongHienTai_GioKetThuc.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    l_GioVaoSan.Gio = parameter.HoatDongCuaSan.GioVaoSan.Hour.Trim();
+                    l_GioVaoSan.Phut = parameter.HoatDongCuaSan.GioVaoSan.Minute.Trim();
+
+                    //Neu chinh sua item Nuoc Uong thi da co Service rieng
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public bool UpdateGioKetThuc(HoatDongHienTaiModel parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.HoatDongHienTai_Db.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                var l_GioVaoSan = Database.HoatDongHienTai_GioVaoSan.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                var l_GioKetThuc = Database.HoatDongHienTai_GioKetThuc.Find(parameter.HoatDongCuaSan.San.BaseObject.IdObject);
+                if (item != null)
+                {
+
+                    l_GioKetThuc.Gio = parameter.HoatDongCuaSan.GioKetThuc.Hour.Trim();
+                    l_GioKetThuc.Phut = parameter.HoatDongCuaSan.GioKetThuc.Minute.Trim();
+
                     //Neu chinh sua item Nuoc Uong thi da co Service rieng
                     var NoOfRowsAffected = Database.SaveChanges();
                     l_IsUpdate = NoOfRowsAffected > 0;
