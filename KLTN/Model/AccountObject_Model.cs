@@ -4,12 +4,12 @@ namespace KLTN.Model
 {
     public class AccountObject_Model
     {
-        private string _Sdt;
-        private string _Cmnd;
-        private string _Account;
-        private string _Password;
-        private string _HoVaTen;
-        private string _Status;
+        private string _Sdt = string.Empty;
+        private string _Cmnd = string.Empty;
+        private string _Account = string.Empty;
+        private string _Password = string.Empty;
+        private string _HoVaTen = string.Empty;
+        private string _Status = string.Empty;
         private bool _IsAdmin;
 
         public bool IsAdmin

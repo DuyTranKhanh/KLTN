@@ -147,7 +147,7 @@ namespace KLTN.ViewModel
                 if (_DanhSachAccount == null)
                 {
                     _DanhSachAccount = new ObservableCollection<AccountObject_Model>();
-                    GetDataFromDatabase();
+                    _DanhSachAccount = LoadDatabase();
                 }
                 return _DanhSachAccount;
             }
@@ -192,7 +192,6 @@ namespace KLTN.ViewModel
             MatKhau = "";
             TenTaiKhoan = "";
             IsAdmin = false;
-            HoVaTen = "";
 
             _FlagSave = true;
             IsButtonAddEnable = false;
@@ -231,24 +230,25 @@ namespace KLTN.ViewModel
             temp.Account = TenTaiKhoan;
             temp.HoVaTen = HoVaTen;
 
+            SelectedItem = new AccountObject_Model();
             //Add item
             if (_FlagSave)
             {
-                DanhSachAccount.Add(temp);
-                //Save to database
                 TheDatabase.Add(temp);
+                DanhSachAccount = LoadDatabase();
             }
             //Modify Item
             else
             {
-                string idSelected = SelectedItem.Account;
-                var tempList = new ObservableCollection<AccountObject_Model>();
-                for(int i = 0; i < DanhSachAccount.Count;i++)
-                {
-                    tempList.Add(DanhSachAccount[i].Clone());
-                }
-                DanhSachAccount = tempList;
+                //string idSelected = SelectedItem.Account;
+                //var tempList = new ObservableCollection<AccountObject_Model>();
+                //for(int i = 0; i < DanhSachAccount.Count;i++)
+                //{
+                //    tempList.Add(DanhSachAccount[i].Clone());
+                //}
+                //DanhSachAccount = tempList;
                 TheDatabase.UpdateItem(temp);
+                DanhSachAccount = LoadDatabase();
             }
             SelectedItem = DanhSachAccount[0];
             IsButtonAddEnable = true;
@@ -258,9 +258,11 @@ namespace KLTN.ViewModel
 
         }
 
-        public override void GetDataFromDatabase()
+        public ObservableCollection<AccountObject_Model> LoadDatabase()
         {
-            DanhSachAccount = TheDatabase.GetAll();
+            ObservableCollection<AccountObject_Model> temp = new ObservableCollection<AccountObject_Model>();
+            temp = TheDatabase.GetAll();
+            return temp;
         }
         #endregion Method
     }

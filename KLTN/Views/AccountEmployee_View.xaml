@@ -146,7 +146,7 @@
                         HorizontalAlignment="Left"
                         materialDesign:TransitionAssist.DisableTransitions="True"
                         IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        MaxLength="12"
+                        MaxLength="10"
                         Text="{Binding Cmnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label
