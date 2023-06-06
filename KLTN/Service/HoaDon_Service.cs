@@ -30,7 +30,7 @@ namespace KLTN.Service
                                select HoaDon;
                 if (objQuery.Count() > 0)
                 {
-                    temp.Id_HoaDon = objQuery.Count() + 1;
+                    temp.Id_HoaDon = objQuery.Count();
                 }
                 temp.Id_San = parameter.San.BaseObject.IdObject;
                 temp.Ten_San = parameter.San.BaseObject.TenObject;

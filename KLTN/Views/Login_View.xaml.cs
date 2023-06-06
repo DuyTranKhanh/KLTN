@@ -63,11 +63,11 @@ namespace KLTN.Views
                 //Login success
                 else if (result == 1)
                 {
+                    var currentUser = Database.GetSingleItem(this.txtAccount.Text.ToString(), this.txtPassword.ToString());
+                    _CurrentUser.UpdateItem(currentUser);
                     YardView temp = new YardView();
                     temp.Show();
                     MessageBox.Show("Đăng nhập thành công.");
-                    var currentUser = Database.GetSingleItem(this.txtAccount.Text.ToString(), this.txtPassword.ToString());
-                    _CurrentUser.UpdateItem(currentUser);
                     this.Close();
                 }
             }
@@ -112,11 +112,11 @@ namespace KLTN.Views
                     //Login success
                     else if (result == 1)
                     {
+                        var currentUser = Database.GetSingleItem(this.txtAccount.Text.ToString(), this.txtPassword.ToString());
+                        _CurrentUser.UpdateItem(currentUser);
                         YardView temp = new YardView();
                         temp.Show();
                         MessageBox.Show("Đăng nhập thành công.");
-                        var currentUser = Database.GetSingleItem(this.txtAccount.Text.ToString(), this.txtPassword.ToString());
-                        _CurrentUser.UpdateItem(currentUser);
                         this.Close();
                     }
                 }

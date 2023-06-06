@@ -100,8 +100,8 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn
-                                Width="70"
-                                DisplayMemberBinding="{Binding GiaTienObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Width="80"
+                                DisplayMemberBinding="{Binding GhiChu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Ghi chú">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -111,7 +111,7 @@
                             </GridViewColumn>
                             <GridViewColumn
                                 Width="80"
-                                DisplayMemberBinding="{Binding GhiChu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding NhanVien.HoVaTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Nhân viên">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>

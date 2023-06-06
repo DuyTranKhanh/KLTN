@@ -27,7 +27,7 @@ namespace KLTN.Service
                 temp.ThoiGianKetThuc = parameter.ThoiGianKetThuc.ToString();
                 temp.GiaTien = parameter.GiaTienObject;
                 temp.TrangThai_BangGia = parameter.BaseObject.TrangThaiObject;
-                temp.NgayTao = parameter.NgayTao;
+                temp.NgayTao = DateTime.Today.ToShortDateString().ToString().Trim();
                 Database.BangGia_Db.Add(temp);
                 var NoOfRowsAffected = Database.SaveChanges();
                 _IsAdd = NoOfRowsAffected > 0;

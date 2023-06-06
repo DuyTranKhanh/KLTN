@@ -221,7 +221,7 @@ namespace KLTN.Service
                 {
                     //item.GioVaoSan = parameter.HoatDongCuaSan.GioVaoSan;
                     //item.GioRaSan = parameter.HoatDongCuaSan.GioKetThuc;
-                    item.SoGioThue = parameter.HoatDongCuaSan.SoGioThue;
+                    //item.SoGioThue = parameter.HoatDongCuaSan.SoGioThue;
                     item.TongTien = parameter.HoatDongCuaSan.TongTien;
                     item.TienKhachDua = parameter.HoatDongCuaSan.TienKhachDua;
                     item.TienThua = parameter.HoatDongCuaSan.TienThoi;

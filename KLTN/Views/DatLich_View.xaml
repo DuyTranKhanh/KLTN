@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="800"
-    Height="600"
+    Height="800"
     WindowStartupLocation="CenterScreen"
     WindowState="Normal"
     WindowStyle="None"
@@ -69,10 +69,13 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             DisplayMemberPath="Value"
+                            IsEditable="True"
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding DanhSach_KhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValue="{Binding TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValuePath="Value"
-                            Style="{StaticResource MaterialDesignComboBox}" />
+                            Style="{StaticResource MaterialDesignComboBox}"
+                            Text="{Binding TenKhachHang, UpdateSourceTrigger=LostFocus}" />
                     </Grid>
                     <!--  SDT Khach hang  -->
                     <Grid Grid.Row="1">
@@ -82,17 +85,17 @@
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Column="0"
-                            Content="Trạng thái"
+                            Content="Số điện thoại"
                             FontSize="15" />
                         <TextBox
                             Grid.Column="1"
                             Width="190"
                             Height="25"
                             HorizontalAlignment="Left"
-                            IsEnabled="False"
-                            Text="{Binding TrangThai,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding Sdt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
-                    
+
                     <!--  Chọn loại sân  -->
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -113,23 +116,36 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             DisplayMemberPath="Value"
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding DanhSach_LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedValue="{Binding LoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedValuePath="Value"
+                            SelectedValue="{Binding LoaiSanSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Key"
                             Style="{StaticResource MaterialDesignComboBox}" />
                     </Grid>
 
-                    <Grid Grid.Row="3" Height="20"/>
+                    <Grid Grid.Row="3" Height="20" />
                     <!--  Giờ bắt đầu  -->
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="Giờ bắt đầu"
-                            FontSize="15" />
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Content="Giờ bắt đầu"
+                                FontSize="15" />
+                            <TextBox
+                                Grid.Row="1"
+                                Width="150"
+                                Height="25"
+                                HorizontalAlignment="Left"
+                                Text="{Binding GioBatDau_String, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
                         <materialDesign:TimePicker
                             Grid.Column="1"
                             materialDesign:HintAssist.FloatingOffset="0,-23"
@@ -137,21 +153,35 @@
                             materialDesign:TimePickerAssist.OutlinedBorderActiveThickness="1"
                             materialDesign:TimePickerAssist.OutlinedBorderInactiveThickness="1"
                             Is24Hours="True"
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedTime="{Binding GioBatDau_HienThi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
 
                     </Grid>
-                    <Grid Grid.Row="5" Height="20"/>
+                    <Grid Grid.Row="5" Height="20" />
                     <!--  Giờ kết thúc  -->
                     <Grid Grid.Row="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="Giờ kết thúc"
-                            FontSize="15" />
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Content="Giờ kết thúc"
+                                FontSize="15" />
+                            <TextBox
+                                Grid.Row="1"
+                                Width="150"
+                                Height="25"
+                                HorizontalAlignment="Left"
+                                Text="{Binding GioKetThuc_String, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
                         <materialDesign:TimePicker
                             Grid.Column="1"
                             materialDesign:HintAssist.FloatingOffset="0,-23"
@@ -159,6 +189,7 @@
                             materialDesign:TimePickerAssist.OutlinedBorderActiveThickness="1"
                             materialDesign:TimePickerAssist.OutlinedBorderInactiveThickness="1"
                             Is24Hours="True"
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedTime="{Binding GioKetThuc_HienThi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
 
@@ -180,7 +211,7 @@
                             Height="25"
                             HorizontalAlignment="Left"
                             IsEnabled="False"
-                            Text="{Binding TrangThai,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <!--  Ngày tạo  -->
@@ -200,25 +231,43 @@
                             Height="25"
                             HorizontalAlignment="Left"
                             IsEnabled="False"
-                            Text="{Binding NgayTao,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding NgayTao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <!--  Ngày sử dụng  -->
+                    <Border
+                        Grid.Row="9"
+                        BorderBrush="Black"
+                        BorderThickness="1" />
                     <Grid Grid.Row="9">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            Content="Ngày sử dụng"
-                            FontSize="15" />
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Content="Ngày sử dụng"
+                                FontSize="15" />
+                            <TextBox
+                                Grid.Row="1"
+                                Width="150"
+                                Height="25"
+                                HorizontalAlignment="Left"
+                                Text="{Binding NgaySuDung_String, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
                         <DatePicker
                             Grid.Column="1"
                             materialDesign:HintAssist.Hint="Pick Date"
                             DisplayDateEnd="{Binding RangeDay}"
                             DisplayDateStart="{Binding StartDay}"
-                            SelectedDate="{Binding NgaySuDung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding IsTextboxEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedDate="{Binding NgaySuDung_HienThi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                 </Grid>
@@ -246,7 +295,8 @@
                     Content="{Binding AddLabel, FallbackValue='Lang-err'}"
                     FontFamily="Arial"
                     FontSize="15"
-                    Foreground="GhostWhite" />
+                    Foreground="GhostWhite"
+                    IsEnabled="{Binding IsButtonAddEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     Grid.Column="1"
@@ -302,34 +352,28 @@
                     Grid.Row="1"
                     MaxHeight="350"
                     FontSize="15"
-                    ItemsSource="{Binding DanhSach_BangGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding DanhSach_DatLich, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ScrollViewer.CanContentScroll="False"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
                                 Width="100"
-                                DisplayMemberBinding="{Binding BaseObject.IdObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding KhachHang.BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Khách hàng" />
                             <GridViewColumn
                                 Width="70"
-                                DisplayMemberBinding="{Binding BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding KhachHang.SdtObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Sđt" />
                             <GridViewColumn
                                 Width="160"
-                                DisplayMemberBinding="{Binding BaseObject.TrangThaiObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Loại sân" />
                             <GridViewColumn
                                 Width="150"
-                                DisplayMemberBinding="{Binding GiaTienObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding NgayDatSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Ngày tạo" />
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding ThoiGianBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Ngày sử dụng" />
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding ThoiGianKetThuc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Thời gian sử dụng" />
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
                                     <Setter Property="Background" Value="LightBlue" />

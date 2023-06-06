@@ -118,13 +118,12 @@ namespace KLTN.ViewModel
             TrangThaiItem = SelectedItem.BaseObject.TrangThaiObject;
             SdtItem = SelectedItem.SdtObject;
             IsButtonSaveEnable = false;
-            IsButtonModifyEnable = false;
 
             foreach(var item in DanhSachHoatDongHienTai)
             {
                 if(item.HoatDongCuaSan.KhachHang.BaseObject.IdObject == SelectedItem.BaseObject.IdObject)
                 {
-                    IsButtonSaveEnable = true;
+                    IsButtonModifyEnable = true;
                 }
                 else
                 {

@@ -26,6 +26,27 @@ namespace KLTN.ViewModel
         TamDungSuDung = 4,
     }
 
+    public enum BangGia_GioBatDau
+    {
+        GioDauTien = 6,
+        GioThuHai = 16,
+        GioThuBa = 18,
+        GioThuTu = 22,
+    }
+
+    public enum BangGia_GioKetThuc
+    {
+        GioDauTien = 16,
+        GioThuHai = 18,
+        GioThuBa = 22,
+        GioThuTu = 24,
+    }
+
+    public enum ThoiGianThue
+    {
+        PhanDauTien = 30,
+        PhanCuoiCung = 60,
+    }
     //Visibility
     public partial class Yard_ViewModel : BaseViewModel
     {
@@ -151,7 +172,7 @@ namespace KLTN.ViewModel
         public string DanhSachCameraLabel => "Danh sách camera";
         public string BatDauSuDungLabel => "Bắt đầu sử dụng";
         public string KetThucSuDungLabel => "Kết thúc sử dụng";
-        public string ThoiGianSuDungLabel => "Thời gian sử dụng";
+        public string ThoiGianSuDungLabel => "Thời gian sử dụng (Phút)";
         #endregion
 
         private string _ContentOfPause;
@@ -185,6 +206,8 @@ namespace KLTN.ViewModel
             DanhSachHoatDongHienTai = Database_HoatDongHienTai.GetWithCondition();
             Database_HoaDon = new HoaDon_Service();
             Database_NuocUongHoaDon = new DanhSachHoaDon_NuocUong_Service();
+
+            CheckAccountIsAdmin();
         }
         KhachHang_Service Database_KhachHang;
         BangGia_Service Database_BangGia;
@@ -224,7 +247,7 @@ namespace KLTN.ViewModel
 
         public ObservableCollection<LichDatObject_Model> GetDatabase_LichDat()
         {
-            var temp = Database_LichDat.GetAll();
+            var temp = Database_LichDat.GetToday();
             return temp;
         }
 
@@ -421,16 +444,29 @@ namespace KLTN.ViewModel
             }
         }
 
+        private Dictionary<int, string> _Dictionary_KhachHang;
         public Dictionary<int, string> Dictionary_KhachHang
         {
             get
             {
-                Dictionary<int, string> temp = new Dictionary<int, string>();
-                for (int i = 0; i < DanhSachKhachHang.Count; i++)
+                if (_Dictionary_KhachHang == null)
                 {
-                    temp.Add(i, DanhSachKhachHang[i].BaseObject.TenObject);
+                    _Dictionary_KhachHang = new Dictionary<int, string>();
+                    for (int i = 0; i < DanhSachKhachHang.Count; i++)
+                    {
+                        _Dictionary_KhachHang.Add(i, DanhSachKhachHang[i].BaseObject.TenObject);
+                    }
                 }
-                return temp;
+
+                return _Dictionary_KhachHang;
+            }
+            set
+            {
+                if (_Dictionary_KhachHang != value)
+                {
+                    _Dictionary_KhachHang = value;
+                    OnPropertyChanged(nameof(Dictionary_KhachHang));
+                }
             }
         }
 
@@ -447,10 +483,10 @@ namespace KLTN.ViewModel
         private DateTime_Model _GioKetThuc;
         private string _GioKetThuc_string;
         private string _GioVaoSan_string;
-        private double _TongGio;
+        private string _TongGio;
         private string _TenSan;
         private decimal _TongTien;
-        private decimal _TienKhachDua;
+        private string _TongTienGio;
         private decimal _TienThoi;
         private string _GhiChu;
         private string _TinhTrang;
@@ -547,7 +583,7 @@ namespace KLTN.ViewModel
                 }
             }
         }
-        public double TongGio
+        public string TongGio
         {
             get => _TongGio;
             set
@@ -555,7 +591,7 @@ namespace KLTN.ViewModel
                 if (_TongGio != value)
                 {
                     _TongGio = value;
-                    SelectedItem.HoatDongCuaSan.SoGioThue = value;
+                    SelectedItem.HoatDongCuaSan.SoGioThue = Convert.ToDouble(value.Trim());
                     OnPropertyChanged(nameof(TongGio));
                 }
             }
@@ -580,21 +616,21 @@ namespace KLTN.ViewModel
                 if (_TongTien != value)
                 {
                     _TongTien = value;
+                    SelectedItem.HoatDongCuaSan.TongTien = value;
                     OnPropertyChanged(nameof(TongTien));
+                    
                 }
             }
         }
-        public decimal TienKhachDua
+        public string TongTienGio
         {
-            get => _TienKhachDua;
+            get => _TongTienGio;
             set
             {
-                if (_TienKhachDua != value)
+                if (_TongTienGio != value)
                 {
-                    _TienKhachDua = value;
-                    SelectedItem.HoatDongCuaSan.TienKhachDua = value;
-                    OnPropertyChanged(nameof(TienKhachDua));
-                    Database_HoatDongHienTai.UpdateItem(SelectedItem);
+                    _TongTienGio = value;
+                    OnPropertyChanged(nameof(TongTienGio));
                 }
             }
         }
@@ -693,11 +729,12 @@ namespace KLTN.ViewModel
             //GioVaoSan_string = GioVaoSan.Hour + " : " + GioVaoSan.Minute;
             GioVaoSan_string = SelectedItem.HoatDongCuaSan.GioVaoSan.Hour.Trim() +" : "+ SelectedItem.HoatDongCuaSan.GioVaoSan.Minute.Trim();
             GioKetThuc_string = SelectedItem.HoatDongCuaSan.GioKetThuc.Hour.Trim() + " : " + SelectedItem.HoatDongCuaSan.GioKetThuc.Minute.Trim();
-            TongGio = SelectedItem.HoatDongCuaSan.SoGioThue;
+            TongGio = SelectedItem.HoatDongCuaSan.SoGioThue.ToString().Trim();
             TenSan = SelectedItem.HoatDongCuaSan.San.BaseObject.TenObject;
             TongTien = SelectedItem.HoatDongCuaSan.TongTien;
-            TienKhachDua = SelectedItem.HoatDongCuaSan.TienKhachDua;
-            TienThoi = SelectedItem.HoatDongCuaSan.TienThoi;
+            TongTienGio = "";
+            //TienKhachDua = SelectedItem.HoatDongCuaSan.TienKhachDua;
+            //TienThoi = SelectedItem.HoatDongCuaSan.TienThoi;
             GhiChu = SelectedItem.HoatDongCuaSan.GhiChu;
             TinhTrang = SelectedItem.TrangThaiSan;
             DanhSachNuocUongItem = GetListNuocUongHienTai(SelectedItem.HoatDongCuaSan.San.BaseObject.IdObject);
@@ -1509,6 +1546,94 @@ namespace KLTN.ViewModel
 
             GioKetThuc = temp.Clone();
             Database_HoatDongHienTai.UpdateGioKetThuc(SelectedItem);
+
+            TongGio = temp.SoGioThue(GioVaoSan, GioKetThuc);
+            Database_HoatDongHienTai.UpdateSoGioThue(SelectedItem);
+
+
+            //Tinh Toan thuoc khung gio nao!
+
+            //EX: 16:00 17:00 LoaiSan 5
+            //Case chung 1 khung gio
+
+            //EX: 15:00 17:00
+
+            int l_GioBatDau, l_PhutBatDau, l_GioKetThuc, l_PhutKetThuc;
+            decimal l_TongSoPhut = Convert.ToDecimal(TongGio.Trim());
+            l_GioBatDau = Convert.ToInt32(GioVaoSan.Hour.Trim());
+            l_PhutBatDau = Convert.ToInt32(GioVaoSan.Minute.Trim());
+            l_GioKetThuc = Convert.ToInt32(GioKetThuc.Hour.Trim());
+            l_PhutKetThuc = Convert.ToInt32(GioKetThuc.Minute.Trim());
+
+            int l_GioSuDung = l_GioKetThuc - l_GioBatDau;
+            int l_PhutSuDung = l_PhutKetThuc - l_PhutBatDau;
+
+            //Lay theo Id LoaiSan
+            ObservableCollection<BangGiaObject_Model> listGiaThue = new ObservableCollection<BangGiaObject_Model>();
+            foreach (var item in DanhSachBangGia)
+            {
+                if(item.IdLoaiSan == SelectedItem.HoatDongCuaSan.San.IdLoaiSan)
+                {
+                    listGiaThue.Add(item.Clone());
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            if (l_GioBatDau >= (int)BangGia_GioBatDau.GioDauTien && l_GioKetThuc <= (int)BangGia_GioKetThuc.GioDauTien)
+            {
+
+                if(l_PhutSuDung >= 10 && l_PhutSuDung <= (int)ThoiGianThue.PhanDauTien)
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[0].GiaTienObject + listGiaThue[0].GiaTienObject / 2).ToString().Trim();
+                }
+                else
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[0].GiaTienObject).ToString();
+                }
+            }
+
+            //16 => 18
+            else if (l_GioBatDau >= (int)BangGia_GioBatDau.GioThuHai && l_GioKetThuc <= (int)BangGia_GioKetThuc.GioThuHai)
+            {
+                if (l_PhutSuDung >= 10 && l_PhutSuDung <= (int)ThoiGianThue.PhanDauTien)
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[1].GiaTienObject + listGiaThue[0].GiaTienObject / 2).ToString().Trim();
+                }
+                else
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[1].GiaTienObject).ToString();
+                }
+            }
+
+            //18 => 22
+            else if (l_GioBatDau >= (int)BangGia_GioBatDau.GioThuBa && l_GioKetThuc <= (int)BangGia_GioKetThuc.GioThuBa)
+            {
+                if (l_PhutSuDung >= 10 && l_PhutSuDung <= (int)ThoiGianThue.PhanDauTien)
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[2].GiaTienObject + listGiaThue[0].GiaTienObject / 2).ToString().Trim();
+                }
+                else
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[2].GiaTienObject).ToString();
+                }
+            }
+
+            //22 => 24
+            else if (l_GioBatDau >= (int)BangGia_GioBatDau.GioThuTu && l_GioKetThuc <= (int)BangGia_GioKetThuc.GioThuTu)
+            {
+                if (l_PhutSuDung >= 10 && l_PhutSuDung <= (int)ThoiGianThue.PhanDauTien)
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[3].GiaTienObject + listGiaThue[0].GiaTienObject / 2).ToString().Trim();
+                }
+                else
+                {
+                    TongTienGio = (l_GioSuDung * listGiaThue[3].GiaTienObject).ToString();
+                }
+            }
+
         }
         //Update trang thai va update status cua Info_Of_Field
         public void ActionWhenBtnBatDauSuDungClicked()
@@ -1626,6 +1751,17 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = DaXuatHoaDonContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
+            if(TongTienGio.Length > 1)
+            {
+                TongTien = Convert.ToDecimal(TongTienGio.Trim()) + Convert.ToDecimal(TongTienNuoc.Trim());
+
+            }
+            else
+            {
+                //HardCode
+                TongTien = 100000 + Convert.ToDecimal(TongTienNuoc.Trim());
+            }
+            Database_HoatDongHienTai.UpdateTongTien(SelectedItem);
             UpdateCollection();
         }
 
@@ -1644,6 +1780,8 @@ namespace KLTN.ViewModel
             SelectedItem.TrangThaiSan = DangDuocSuDungContent;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = TamDungSuDungContent;
+            TongTien = 0;
+            Database_HoatDongHienTai.UpdateTongTien(SelectedItem);
             UpdateCollection();
         }
 
@@ -1664,8 +1802,10 @@ namespace KLTN.ViewModel
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
 
+
             // Add Record to HoaDon
             var tempItemHoaDon = SelectedItem.HoatDongCuaSan.Clone();
+            tempItemHoaDon.NhanVien = AccountInfo.Clone();
             Database_HoaDon.Add(tempItemHoaDon);
 
             // Add danh sach nuoc uong to HoaDon
@@ -1734,10 +1874,252 @@ namespace KLTN.ViewModel
             SelectedItem.HoatDongCuaSan.TienThoi = 0;
             TinhTrang = SelectedItem.TrangThaiSan;
             ContentOfBtnPause = "";
+            TongTienGio = "";
             UpdateCollection();
         }
         #endregion Method of Command
         #endregion Command
 
+    }
+
+
+    /// <summary>
+    /// Lich Dat San Region
+    /// </summary>
+    public partial class Yard_ViewModel : BaseViewModel
+    {
+        public string LichDatSanHomNay
+        {
+            get => "Lịch đặt sân hôm nay - " + DateTime.Today.Day.ToString().Trim() + "/" + DateTime.Today.Month.ToString().Trim() + "/" + DateTime.Today.Year.ToString().Trim();
+        }
+
+        private string _LichDatSan_TenKhachHang;
+        private string _LichDatSan_Sdt;
+        private string _LichDatSan_TenLoaiSan;
+        private string _LichDatSan_GioBatDau_String;
+        private string _LichDatSan_GioKetThuc_String;
+        private string _LichDatSan_NgayTao;
+        private LichDatObject_Model _LichDatSan_SelectedItem;
+
+        private ICommand _ReloadCmd;
+
+        public string LichDatSan_TenKhachHang
+        {
+            get => _LichDatSan_TenKhachHang;
+            set
+            {
+                if(_LichDatSan_TenKhachHang != value)
+                {
+                    _LichDatSan_TenKhachHang = value;
+                    OnPropertyChanged(nameof(LichDatSan_TenKhachHang));
+                }
+            }
+        }
+
+        public string LichDatSan_Sdt
+        {
+            get => _LichDatSan_Sdt;
+            set
+            {
+                if (_LichDatSan_Sdt != value)
+                {
+                    _LichDatSan_Sdt = value;
+                    OnPropertyChanged(nameof(LichDatSan_Sdt));
+                }
+            }
+        }
+
+        public string LichDatSan_TenLoaiSan
+        {
+            get => _LichDatSan_TenLoaiSan;
+            set
+            {
+                if (_LichDatSan_TenLoaiSan != value)
+                {
+                    _LichDatSan_TenLoaiSan = value;
+                    OnPropertyChanged(nameof(LichDatSan_TenLoaiSan));
+                }
+            }
+        }
+
+        public string LichDatSan_GioBatDau_String
+        {
+            get => _LichDatSan_GioBatDau_String;
+            set
+            {
+                if (_LichDatSan_GioBatDau_String != value)
+                {
+                    _LichDatSan_GioBatDau_String = value;
+                    OnPropertyChanged(nameof(LichDatSan_GioBatDau_String));
+                }
+            }
+        }
+
+        public string LichDatSan_GioKetThuc_String
+        {
+            get => _LichDatSan_GioKetThuc_String;
+            set
+            {
+                if (_LichDatSan_GioKetThuc_String != value)
+                {
+                    _LichDatSan_GioKetThuc_String = value;
+                    OnPropertyChanged(nameof(LichDatSan_GioKetThuc_String));
+                }
+            }
+        }
+
+        public string LichDatSan_NgayTao
+        {
+            get => _LichDatSan_NgayTao;
+            set
+            {
+                if (_LichDatSan_NgayTao != value)
+                {
+                    _LichDatSan_NgayTao = value;
+                    OnPropertyChanged(nameof(LichDatSan_NgayTao));
+                }
+            }
+        }
+
+        public LichDatObject_Model LichDatSan_SelectedItem
+        {
+            get
+            {
+                if (_LichDatSan_SelectedItem == null)
+                {
+                    _LichDatSan_SelectedItem = new LichDatObject_Model();
+                }
+                return _LichDatSan_SelectedItem;
+            }
+            set
+            {
+                if (_LichDatSan_SelectedItem != value)
+                {
+                    _LichDatSan_SelectedItem = value;
+                    LichDatSan_ActionWhenChange_SelectedItem();
+                    OnPropertyChanged(nameof(SelectedItem));
+                }
+            }
+        }
+
+        public ICommand ReloadCmd
+        {
+            get
+            {
+                if(_ReloadCmd == null)
+                {
+                    _ReloadCmd = new RelayCommand(ReloadAction, CanExecute);
+                }
+                return _ReloadCmd;
+            }
+        }
+
+        public void LichDatSan_ActionWhenChange_SelectedItem()
+        {
+            LichDatSan_TenKhachHang = LichDatSan_SelectedItem.KhachHang.BaseObject.TenObject;
+            LichDatSan_Sdt = LichDatSan_SelectedItem.KhachHang.SdtObject;
+            LichDatSan_TenLoaiSan = LichDatSan_SelectedItem.San.TenLoaiSan;
+
+            LichDatSan_NgayTao = (LichDatSan_SelectedItem.NgayDatSan != null) ? LichDatSan_SelectedItem.NgayDatSan.Trim() : "";
+            LichDatSan_GioBatDau_String = LichDatSan_SelectedItem.GioBatDau.Hour.Trim() + " : " + LichDatSan_SelectedItem.GioBatDau.Minute.Trim();
+            LichDatSan_GioKetThuc_String = LichDatSan_SelectedItem.GioKetThuc.Hour.Trim() + " : " + LichDatSan_SelectedItem.GioKetThuc.Minute.Trim();
+
+            IsButtonModifyEnable = true;
+            if(LichDatSan_SelectedItem.NgaySuDung.Year.Length > 1 && LichDatSan_SelectedItem.TrangThai == "Vô hiệu")
+            {
+                IsButtonModifyEnable = false;
+            }
+        }
+
+        public override void ActionWhenBtnModifyClicked()
+        {
+            if (LichDatSan_SelectedItem.TrangThai == "Vô hiệu")
+            {
+                LichDatSan_SelectedItem.TrangThai = "Sử dụng";
+            }
+            else
+            {
+                LichDatSan_SelectedItem.TrangThai = "Vô hiệu";
+            }
+
+            Database_LichDat.UpdateTrangThai(LichDatSan_SelectedItem);
+            DanhSachLichDat = Database_LichDat.GetToday();
+            IsButtonModifyEnable = false;
+        }
+
+        public void ReloadAction()
+        {
+            DanhSachLichDat = Database_LichDat.GetToday();
+        }
+    }
+
+    //Current Account
+    public partial class Yard_ViewModel : BaseViewModel
+    {
+        private AccountObject_Model _AccountInfo;
+        public AccountObject_Model AccountInfo
+        {
+            get
+            {
+                if(_AccountInfo == null)
+                {
+                    _AccountInfo = new AccountObject_Model();
+                    _AccountInfo = GetDatabase_CurrentAccount();
+                }
+                return _AccountInfo;
+            }
+        }
+
+        private Visibility _IsAdmin = Visibility.Collapsed;
+        public Visibility IsAccountAdmin
+        {
+            get => _IsAdmin;
+            set
+            {
+                if(_IsAdmin != value)
+                {
+                    _IsAdmin = value;
+                    OnPropertyChanged(nameof(IsAccountAdmin));
+                }
+            }
+        }
+
+        public void CheckAccountIsAdmin()
+        {
+            IsAccountAdmin = Visibility.Collapsed;
+            if (AccountInfo.IsAdmin)
+            {
+                IsAccountAdmin = Visibility.Visible;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Command for Reload Button
+    /// </summary>
+    public partial class Yard_ViewModel : BaseViewModel
+    {
+        private ICommand _ReloadKhachHang;
+        public ICommand ReloadKhachHang
+        {
+            get
+            {
+                if(_ReloadKhachHang == null)
+                {
+                    _ReloadKhachHang = new RelayCommand(ActionReloadKhachHang, CanExecute);
+                }
+                return _ReloadKhachHang;
+            }
+        }
+
+        public void ActionReloadKhachHang()
+        {
+            DanhSachKhachHang = GetDatabase_KhachHang();
+            Dictionary_KhachHang = new Dictionary<int, string>();
+            for (int i = 0; i < DanhSachKhachHang.Count; i++)
+            {
+                Dictionary_KhachHang.Add(i, DanhSachKhachHang[i].BaseObject.TenObject);
+            }
+        }
     }
 }

@@ -21,7 +21,12 @@ namespace KLTN.Service
             bool _IsAdd = false;
             try
             {
+                //Get current DanhSachHienTai_Id
+                var objQuery = from KhachHang in Database.LichDat_Db
+                               select KhachHang;
+                int Id_LichDat = objQuery.Count();
                 var temp = new LichDat_Db();
+                temp.Id_LichDat = Id_LichDat;
                 temp.Id_KhachHang = parameter.KhachHang.BaseObject.IdObject;
                 temp.Ten_KhachHang = parameter.KhachHang.BaseObject.TenObject;
                 temp.Sdt_KhachHang = parameter.KhachHang.SdtObject;
@@ -32,7 +37,7 @@ namespace KLTN.Service
                 temp.NgayDat = DateTime.Today.ToShortDateString();
                 //temp.GioBatDau = parameter.GioBatDau;
                 //temp.GioKetThuc = parameter.GioKetThuc;
-                temp.TrangThai_LichDat = parameter.TrangThai;
+                temp.TrangThai_LichDat = "Sử dụng";
 
 
                 var l_GioVaoSan = new LichDat_GioVaoSan();
@@ -50,9 +55,9 @@ namespace KLTN.Service
                 var l_NgaySuDung = new LichDat_NgaySuDung();
                 l_NgaySuDung.Id = temp.Id_LichDat;
                 l_NgaySuDung.Id_LichDat = temp.Id_LichDat;
-                l_NgaySuDung.Nam = parameter.GioKetThuc.Year;
-                l_NgaySuDung.Thang = parameter.GioKetThuc.Month;
-                l_NgaySuDung.Ngay = parameter.GioKetThuc.Day;
+                l_NgaySuDung.Nam = parameter.NgaySuDung.Year;
+                l_NgaySuDung.Thang = parameter.NgaySuDung.Month;
+                l_NgaySuDung.Ngay = parameter.NgaySuDung.Day;
 
                 Database.LichDat_Db.Add(temp);
                 Database.LichDat_GioKetThuc.Add(l_GioKetThuc);
@@ -120,6 +125,72 @@ namespace KLTN.Service
             return objList;
         }
 
+        public ObservableCollection<LichDatObject_Model> GetToday()
+        {
+            ObservableCollection<LichDatObject_Model> objList = new ObservableCollection<LichDatObject_Model>();
+            try
+            {
+                var objQuery = from KhachHang in Database.LichDat_Db
+                               select KhachHang;
+                foreach (var item in objQuery)
+                {
+                    var temp = new LichDatObject_Model();
+                    temp.IdLichDat = item.Id_LichDat;
+
+                    var l_NgaySuDung = (from NgaySuDung in Database.LichDat_NgaySuDung
+                                        where NgaySuDung.Id_LichDat == temp.IdLichDat
+                                        select NgaySuDung).SingleOrDefault();
+
+                    temp.NgaySuDung.Day = (l_NgaySuDung == null) ? "UnKnown" : l_NgaySuDung.Ngay;
+                    temp.NgaySuDung.Month = (l_NgaySuDung == null) ? "UnKnown" : l_NgaySuDung.Thang;
+                    temp.NgaySuDung.Year = (l_NgaySuDung == null) ? "Unknown" : l_NgaySuDung.Nam;
+                    temp.TrangThai = item.TrangThai_LichDat;
+
+                    //Condition with Status, Today
+                    if (temp.NgaySuDung.Year != "UnKnown" && temp.NgaySuDung.CompareDay(DateTime.Today))
+                    {
+                        temp.KhachHang.BaseObject.IdObject = (int)item.Id_KhachHang;
+                        temp.KhachHang.BaseObject.TenObject = item.Ten_KhachHang;
+                        temp.KhachHang.SdtObject = item.Sdt_KhachHang;
+                        temp.San.IdLoaiSan = (int)item.Id_LoaiSan;
+                        temp.San.BaseObject.IdObject = (int)item.Id_San;
+                        temp.San.BaseObject.TenObject = item.Ten_San;
+                        temp.San.TenLoaiSan = item.Ten_LoaiSan;
+
+                        temp.NgayDatSan = item.NgayDat;
+
+                        var l_GioBatDau = (from GioVaoSan in Database.LichDat_GioVaoSan
+                                           where GioVaoSan.Id_LichDat == temp.IdLichDat
+                                           select GioVaoSan).SingleOrDefault();
+
+                        var l_GioKetThuc = (from GioKetThuc in Database.LichDat_GioKetThuc
+                                            where GioKetThuc.Id_LichDat == temp.IdLichDat
+                                            select GioKetThuc).SingleOrDefault();
+
+
+
+                        temp.GioKetThuc.Minute = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Phut;
+                        temp.GioKetThuc.Hour = (l_GioKetThuc == null) ? "0" : l_GioKetThuc.Gio;
+
+                        temp.GioBatDau.Minute = (l_GioBatDau == null) ? "0" : l_GioBatDau.Phut;
+                        temp.GioBatDau.Hour = (l_GioBatDau == null) ? "0" : l_GioBatDau.Gio;
+
+
+                        objList.Add(temp);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return objList;
+        }
+
         public override bool UpdateItem(LichDatObject_Model parameter)
         {
             bool l_IsUpdate = false;
@@ -150,6 +221,24 @@ namespace KLTN.Service
                     l_NgaySuDung.Ngay = parameter.NgaySuDung.Day;
                     l_NgaySuDung.Thang = parameter.NgaySuDung.Month;
                     l_NgaySuDung.Nam = parameter.NgaySuDung.Year;
+                    var NoOfRowsAffected = Database.SaveChanges();
+                    l_IsUpdate = NoOfRowsAffected > 0;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            return l_IsUpdate;
+        }
+
+        public  bool UpdateTrangThai(LichDatObject_Model parameter)
+        {
+            bool l_IsUpdate = false;
+            try
+            {
+                var item = Database.LichDat_Db.SingleOrDefault(m => m.Id_LichDat == parameter.IdLichDat);
+                if (item != null)
+                {
+                    item.TrangThai_LichDat = parameter.TrangThai;
+
                     var NoOfRowsAffected = Database.SaveChanges();
                     l_IsUpdate = NoOfRowsAffected > 0;
                 }

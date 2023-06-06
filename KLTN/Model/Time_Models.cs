@@ -111,15 +111,15 @@ namespace KLTN.Model
         {
             DateTime_Model temp = new DateTime_Model(item);
 
-            if(temp.Day != Day)
+            if(temp.Day != Day.Trim())
             {
                 return false;
             }
-            else if(temp.Month != Month)
+            else if(temp.Month != Month.Trim())
             {
                 return false;
             }
-            else if (temp.Year != Year)
+            else if (temp.Year != Year.Trim())
             {
                 return false;
             }
@@ -209,6 +209,34 @@ namespace KLTN.Model
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Calculate
+        /// </summary>
+        /// <param name="gioBatDau"></param>
+        /// <param name="gioKetThuc"></param>
+        /// <returns></returns>
+        public string SoGioThue(DateTime_Model gioBatDau, DateTime_Model gioKetThuc)
+        {
+            int l_GioBatDau, l_PhutBatDau, l_GioKetThuc, l_PhutKetThuc, result = 0;
+            l_GioBatDau = Convert.ToInt32(gioBatDau.Hour.Trim());
+            l_PhutBatDau = Convert.ToInt32(gioBatDau.Minute.Trim());
+            l_GioKetThuc = Convert.ToInt32(gioKetThuc.Hour.Trim());
+            l_PhutKetThuc = Convert.ToInt32(gioKetThuc.Minute.Trim());
+            //ex: 16: 00 17:00 
+            if(l_PhutKetThuc > l_PhutBatDau)
+            {
+                result = (l_GioKetThuc - l_GioBatDau) * 60 + l_PhutKetThuc - l_PhutBatDau;
+            }
+
+            //ex: 16:30 17:20
+            else
+            {
+                result = (l_GioKetThuc * 60 + l_PhutKetThuc) - (l_GioBatDau * 60 + l_PhutBatDau);
+            }
+
+            return result.ToString().Trim();
         }
     }
 

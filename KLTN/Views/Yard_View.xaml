@@ -311,21 +311,198 @@
                         </ListView.View>
                     </ListView>
                 </Grid>
+
+                <!--  Lịch đặt sân hôm nay  -->
                 <GroupBox
                     Grid.Row="3"
                     Background="AliceBlue"
                     FontSize="16"
                     Foreground="OrangeRed"
-                    Header="Lịch đặt sân hôm nay">
+                    Header="{Binding LichDatSanHomNay, FallbackValue='Lịch đặt sân hôm nay'}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            BorderBrush="Black"
+                            BorderThickness="1" />
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Khách:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="{Binding LichDatSan_TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="SĐT:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding LichDatSan_Sdt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Ngày đặt:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Text="{Binding LichDatSan_NgayTao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Giờ bắt đầu:"
+                                    FontSize="15" />
+                                <TextBlock Grid.Column="1" Text="{Binding LichDatSan_GioBatDau_String, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Giờ kết thúc:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding LichDatSan_GioKetThuc_String, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Loại sân:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Text="{Binding LichDatSan_TenLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <ListView
+                                Grid.Row="1"
+                                MaxHeight="350"
+                                FontSize="15"
+                                ItemsSource="{Binding DanhSachLichDat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding LichDatSan_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding KhachHang.BaseObject.TenObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="Khách hàng" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding KhachHang.SdtObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="Sđt" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding San.TenLoaiSan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="Loại sân" />
+
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding TrangThai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Header="Trạng thái" />
+                                        <GridView.ColumnHeaderContainerStyle>
+                                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                <Setter Property="Background" Value="LightBlue" />
+                                                <Setter Property="Foreground" Value="Black" />
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </Style>
+                                        </GridView.ColumnHeaderContainerStyle>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Button
+                                    Grid.Column="1"
+                                    Height="28"
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Command="{Binding ModifyCommand}"
+                                    Content="Hủy lịch"
+                                    FontFamily="Arial"
+                                    FontSize="15"
+                                    Foreground="Red"
+                                    IsEnabled="{Binding IsButtonModifyEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Button
+                                    Grid.Column="1"
+                                    Height="28"
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Command="{Binding ReloadCmd}"
+                                    Content="Reload"
+                                    FontFamily="Arial"
+                                    FontSize="15"
+                                    Foreground="Red" />
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </GroupBox>
             </Grid>
+
+            <!--  Thong tin Trang Chu  -->
             <GroupBox Grid.Column="1">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -381,7 +558,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Khách hàng"
-                            FontSize="12" />
+                            FontSize="15" />
                         <ComboBox
                             Grid.Row="0"
                             Grid.Column="1"
@@ -389,7 +566,7 @@
                             VerticalAlignment="Center"
                             DisplayMemberPath="Value"
                             IsEnabled="{Binding IsInforFieldEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            ItemsSource="{Binding Dictionary_KhachHang}"
+                            ItemsSource="{Binding Dictionary_KhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValue="{Binding TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedValuePath="Value"
                             Style="{StaticResource MaterialDesignComboBox}" />
@@ -424,6 +601,7 @@
                                 VerticalAlignment="Center"
                                 materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesignCardBackground}"
                                 materialDesign:ColorZoneAssist.Mode="Custom"
+                                Command="{Binding ReloadKhachHang}"
                                 FontSize="10"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon
@@ -442,7 +620,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Giờ vào sân"
-                            FontSize="12" />
+                            FontSize="15" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
@@ -455,7 +633,7 @@
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontSize="12">
+                            FontSize="15">
                             <TextBlock Text="{Binding ThoiGianSuDungLabel, FallbackValue='Lang-err'}" TextWrapping="Wrap" />
                         </Label>
                         <TextBox
@@ -472,7 +650,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="Giờ ra"
-                            FontSize="12" />
+                            FontSize="15" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
@@ -852,7 +1030,8 @@
                             <TextBox
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                IsReadOnly="True" />
+                                IsReadOnly="True"
+                                Text="{Binding TongTienGio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
                                 Grid.Row="1"
@@ -877,30 +1056,7 @@
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 IsReadOnly="True"
-                                Text="" />
-
-                            <Label
-                                Grid.Row="4"
-                                Grid.Column="0"
-                                Content="Khách đưa"
-                                FontSize="15"
-                                Style="{DynamicResource MaterialDesignLabel}" />
-                            <TextBox
-                                Grid.Row="4"
-                                Grid.Column="1"
-                                Text="{Binding TienKhachDua, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                            <Label
-                                Grid.Row="5"
-                                Grid.Column="0"
-                                Content="Tiền thối"
-                                FontSize="15"
-                                Style="{DynamicResource MaterialDesignLabel}" />
-                            <TextBox
-                                Grid.Row="5"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                Text="{Binding TienThoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding TongTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Label
                                 Grid.Row="6"
